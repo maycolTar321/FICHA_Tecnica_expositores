@@ -6,10 +6,10 @@
     <title>Ficha Técnica - Retiro Jóvenes de la Confirmación 2026</title>
     <style>
         :root {
-            --primary: #4c0519;       /* Borgoña eclesial profundo de lujo */
+            --primary: #4c0519;
             --primary-light: #881337;
-            --accent: #b45309;        /* Dorado pastoral elegante */
-            --bg-page: #fdfbf7;       /* Fondo marfil suave */
+            --accent: #b45309;
+            --bg-page: #fdfbf7;
             --card-bg: #ffffff;
             --text-main: #1c1917;
             --text-muted: #57534e;
@@ -36,7 +36,6 @@
             position: relative;
         }
 
-        /* Acceso de administrador oculto y discreto en la esquina superior derecha */
         .admin-trigger {
             position: absolute;
             top: 20px;
@@ -95,7 +94,6 @@
             font-size: 25px;
             color: var(--primary);
             font-weight: 900;
-            letter-spacing: -0.5px;
         }
 
         .header p.iglesia {
@@ -150,9 +148,6 @@
             margin: 0 0 12px 0;
             color: var(--primary);
             font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-weight: 800;
         }
 
@@ -176,12 +171,6 @@
             margin-top: 14px;
             margin-bottom: 16px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            transition: transform 0.2s;
-        }
-
-        .tema-detalle:hover {
-            border-color: var(--primary-light);
-            transform: translateY(-2px);
         }
 
         .form-group {
@@ -198,7 +187,7 @@
             letter-spacing: 0.8px;
         }
 
-        select, input[type="text"], input[type="tel"], input[type="file"], textarea {
+        select, input[type="text"], input[type="tel"], textarea {
             width: 100%;
             padding: 16px 20px;
             border: 2px solid var(--border-color);
@@ -206,14 +195,7 @@
             font-size: 15px;
             box-sizing: border-box;
             background-color: #fafaf9;
-            transition: all 0.25s ease;
             color: var(--text-main);
-        }
-
-        input[type="file"] {
-            background-color: #ffffff;
-            cursor: pointer;
-            padding: 12px;
         }
 
         select:focus, input:focus, textarea:focus {
@@ -241,12 +223,6 @@
             padding: 26px;
             border-radius: 16px;
             margin-bottom: 26px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .btn-submit {
@@ -259,20 +235,21 @@
             border-radius: 14px;
             cursor: pointer;
             width: 100%;
-            transition: all 0.25s ease;
-            margin-top: 15px;
             box-shadow: 0 10px 30px rgba(76, 5, 25, 0.25);
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
 
-        .btn-submit:hover {
-            opacity: 0.95;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(76, 5, 25, 0.35);
+        #mensaje-exito {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            border-radius: 20px;
+            margin-top: 20px;
         }
 
-        /* Panel Admin Flotante Oculto */
         #admin-panel {
             display: none;
             position: fixed;
@@ -309,28 +286,15 @@
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
         }
-
-        @media (max-width: 650px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .body-content {
-                padding: 30px 20px;
-            }
-            body {
-                padding: 10px 5px;
-            }
-        }
     </style>
     <script>
+        // URL de tu Apps Script ya integrada
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwcyAxqR6dnUyRgdqXlPVUCg65ahhJbvAMuXF4qNl47uxFwNQF7bjCKh0Zld39Z-q7zng/exec";
+
         function controlarSeccionTema() {
             var selectEstado = document.getElementById("preparado_tema").value;
             var seccionExtra = document.getElementById("seccion-preparado");
-            if (selectEstado === "Si") {
-                seccionExtra.style.display = "block";
-            } else {
-                seccionExtra.style.display = "none";
-            }
+            seccionExtra.style.display = (selectEstado === "Si") ? "block" : "none";
         }
 
         function abrirAdmin() {
@@ -365,75 +329,77 @@
             alert("¡Expositores actualizados con éxito!");
             cerrarAdmin();
         }
+
+        function enviarFormulario(event) {
+            event.preventDefault();
+            var form = document.getElementById("form-ficha");
+            var formData = new FormData(form);
+
+            // Mostrar estado de carga opcional en el botón
+            var btn = document.querySelector(".btn-submit");
+            btn.innerText = "Enviando registro...";
+            btn.disabled = true;
+
+            fetch(URL_APPS_SCRIPT, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                form.style.display = "none";
+                document.getElementById("mensaje-exito").style.display = "block";
+            })
+            .catch(error => {
+                alert("Hubo un error al registrar. Por favor intente de nuevo.");
+                btn.innerText = "Enviar Ficha Completada";
+                btn.disabled = false;
+            });
+        }
     </script>
 </head>
 <body>
 
-    <!-- Botón discreto en la esquina superior derecha para el administrador -->
-    <div class="admin-trigger" onclick="abrirAdmin()">
-        ⚙️ Admin
-    </div>
+    <div class="admin-trigger" onclick="abrirAdmin()">⚙️ Admin</div>
 
     <div class="container">
-        <!-- Encabezado con Estilo de Lujo -->
         <div class="header">
             <img src="logo.jpg" alt="Logo Parroquia" class="logo-img">
             <h3>Comisión Organizadora • Parroquia San Martín de Porres</h3>
-            <h1 id="main-title">RETIRO ESPIRITUAL JÓVENES DE LA CONFIRMACIÓN 2026</h1>
+            <h1>RETIRO ESPIRITUAL JÓVENES DE LA CONFIRMACIÓN 2026</h1>
             <p class="iglesia">Comunidad Parroquial San Martín de Porres</p>
-            <div class="lema-badge">
-                ✨ Lema: Soy Amado — Llamado — Enviado ✨
-            </div>
+            <div class="lema-badge">✨ Lema: Soy Amado — Llamado — Enviado ✨</div>
         </div>
 
-        <!-- Formulario Principal -->
         <div class="body-content">
-            <form action="https://formsubmit.co/avilamichael0@gmail.com" method="POST" enctype="multipart/form-data">
+            <form id="form-ficha" onsubmit="enviarFormulario(event)">
                 
-                <input type="hidden" name="_subject" value="📋 Ficha Técnica Oficial - Retiro Confirmación 2026">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="false">
-                <!-- Redirección corregida para que vuelva exacto a tu página de GitHub Pages -->
-                <input type="hidden" name="_next" value="https://maycoltar321.github.io/FICHA_Tecnica_expositores/">
-
-                <!-- 1. LINEAMIENTOS Y OBJETIVOS -->
                 <div class="section-title">🎯 1. Lineamientos y Objetivos Pastorales de la Parroquia</div>
                 
                 <div class="info-card">
                     <h4>👥 Visión Pastoral del Público Objetivo</h4>
-                    <p>Nos dirigimos a adolescentes y jóvenes de <strong>15 a 17 años</strong> que se encuentran en el tramo final de su preparación para recibir el Sacramento de la Confirmación. Como Iglesia, entendemos que esta etapa está marcada por profundas preguntas existenciales, la búsqueda de aceptación, la presión del grupo de pares y la fuerte influencia del mundo digital. La Iglesia desea acogerlos sin juicios, ofreciéndoles un espacio cálido, de escucha activa y de auténtico encuentro con la misericordia de Dios.</p>
-                    <input type="hidden" name="1. Publico_Objetivo" value="Jovenes de 15 a 17 años - Confirmacion">
+                    <p>Adolescentes y jóvenes de <strong>15 a 17 años</strong> en preparación para el Sacramento de la Confirmación. Un espacio cálido, de escucha activa y sin juicios ante sus retos existenciales y digitales.</p>
                 </div>
 
                 <div class="info-card">
                     <h4>📖 Eje Temático Central y Profundización de Ponencias</h4>
                     <p><strong>Tema Central del Retiro:</strong> ¿Quién soy y cuál es mi propósito?</p>
                     
-                    <!-- Tema 1 -->
                     <div class="tema-detalle">
-                        <strong id="t1-nombre" style="color: var(--primary); font-size: 15px;">Pbro. Gustavo Ibarra Valencia</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 1)</span><br>
-                        <em>Título: ¿Quién soy yo? (Когда nadie me está mirando)</em><br>
-                        <p><strong>Lo que la Iglesia busca lograr:</strong> Ayudar al joven a despojarse de las máscaras sociales, los complejos físicos y la necesidad constante de aprobación en redes sociales. Se busca que descubra su verdad más íntima ante los ojos de Dios: comprender que son amados incondicionalmente no por lo que hacen o aparentan ante los demás, sino por quienes son en su recámara, en su interior y en su vida secreta u online, donde solo Dios los ve.</p>
+                        <strong id="t1-nombre" style="color: var(--primary); font-size: 15px;">Pbro. Gustavo Ibarra Valencia</strong> (Tema 1)<br>
+                        <em>¿Quién soy yo? (Когда nadie me está mirando)</em>
                     </div>
 
-                    <!-- Tema 2 -->
                     <div class="tema-detalle">
-                        <strong id="t2-nombre" style="color: var(--primary); font-size: 15px;">Cristian Cadena Moreno</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 2)</span><br>
-                        <em>Título: Señor, ¿Qué quieres de mí?</em><br>
-                        <p><strong>Lo que la Iglesia busca lograr:</strong> Conectar con el discernimiento vocacional y existencial del adolescente. En un mundo lleno de ruidos, distracciones y decisiones de futuro (estudios, amistades, valores), este tema busca enseñarles a hacer silencio interior para sintonizar con la voz de Dios, descubriendo que el Señor tiene un proyecto de felicidad y plenitud trazado específicamente para cada uno de ellos.</p>
+                        <strong id="t2-nombre" style="color: var(--primary); font-size: 15px;">Cristian Cadena Moreno</strong> (Tema 2)<br>
+                        <em>Señor, ¿Qué quieres de mí?</em>
                     </div>
 
-                    <!-- Tema 3 -->
                     <div class="tema-detalle">
-                        <strong id="t3-nombre" style="color: var(--primary); font-size: 15px;">Miguel Sanches</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 3)</span><br>
-                        <em>Título: Dios tiene un propósito para mí</em><br>
-                        <p><strong>Lo que la Iglesia busca lograr:</strong> Consolidar el sentido de pertenencia a la comunidad eclesial y motivar el envío misionero. Al finalizar el retiro, el joven no debe sentirse solo, sino llamado a ser sal y luz en su colegio, su familia y su grupo de amigos. Se busca encender el compromiso de poner sus talentos al servicio de los demás como respuesta viva a su Confirmación.</p>
+                        <strong id="t3-nombre" style="color: var(--primary); font-size: 15px;">Miguel Sanches</strong> (Tema 3)<br>
+                        <em>Dios tiene un propósito para mí</em>
                     </div>
-
-                    <input type="hidden" name="2. Tematica_General" value="Quien soy y cual es mi proposito">
                 </div>
 
-                <!-- 2. DATOS DEL EXPOSITOR -->
                 <div class="section-title">✏️ 2. Tus Datos y Asignación</div>
                 
                 <div class="grid-2">
@@ -452,7 +418,6 @@
                     </div>
                 </div>
 
-                <!-- ESTADO DEL TEMA -->
                 <div class="form-group">
                     <label for="preparado_tema">¿Ya tienes listo el contenido de tu tema?</label>
                     <select id="preparado_tema" name="Estado_Tema" onchange="controlarSeccionTema()" required>
@@ -462,21 +427,16 @@
                     </select>
                 </div>
 
-                <!-- Sección desplegable para adjuntar archivo -->
-                <div id="seccion-preparado">
-                    <label for="archivo_tema" style="color: #166534; font-weight: 700;">📂 Adjunta tu documento de desarrollo (Word o PDF):</label>
-                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px; margin-bottom: 10px;">
-                        Sube tu archivo directamente aquí sin salir de la página web:
-                    </p>
-                    <input type="file" id="archivo_tema" name="Archivo_Adjunto_Tema" accept=".pdf,.doc,.docx,.txt">
+                <div id="seccion-preparado" class="form-group">
+                    <label for="enlace_drive" style="color: #166534; font-weight: 700;">🔗 Enlace de Google Drive con tu documento desarrollado:</label>
+                    <input type="text" id="enlace_drive" name="Enlace_Drive" placeholder="Pega aquí el enlace compartido de tu documento...">
                 </div>
 
-                <!-- 3. REQUERIMIENTOS TÉCNICOS -->
                 <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logísticos</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label for="tiempo">Tiempo Estimado para Exposición:</label>
+                        <label for="tiempo">Tiempo Estimado:</label>
                         <select id="tiempo" name="Tiempo_Estimado" required>
                             <option value="" disabled selected>-- Selecciona el tiempo --</option>
                             <option value="30 minutos">30 minutos</option>
@@ -484,27 +444,31 @@
                             <option value="45 minutos">45 minutos</option>
                             <option value="50 minutos">50 minutos</option>
                             <option value="1 hora">1 hora</option>
-                            <option value="Más de 1 hora">Más de 1 hora</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="dinamica">Tipo de Dinámica o Metodología:</label>
-                        <input type="text" id="dinamica" name="Tipo_Dinamica" placeholder="Ej. Plenaria, trabajo en grupos, vivencial" required>
+                        <label for="dinamica">Tipo de Dinámica:</label>
+                        <input type="text" id="dinamica" name="Tipo_Dinamica" placeholder="Ej. Plenaria, vivencial" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="requerimientos">¿Qué requieres en el salón? (Audio, Proyector, Espacio):</label>
-                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="Indica si necesitas proyector, sonido, micrófonos de solapa, espacio libre, etc." required></textarea>
+                    <label for="requerimientos">¿Qué requieres en el salón?</label>
+                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="Proyector, sonido, etc." required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="observaciones">Observaciones o Dudas adicionales para la Comisión:</label>
-                    <textarea id="observaciones" name="Observaciones_Dudas" style="height: 80px;" placeholder="Cualquier comentario adicional..."></textarea>
+                    <label for="observaciones">Observaciones o Dudas:</label>
+                    <textarea id="observaciones" name="Observaciones_Dudas" style="height: 80px;" placeholder="Comentarios adicionales..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Enviar Ficha Completada</button>
             </form>
+
+            <div id="mensaje-exito">
+                <h2 style="color: #166534; margin-top:0;">¡Ficha Registrada con Éxito! 🙏</h2>
+                <p>Tus datos y requerimientos han sido guardados correctamente en la base de datos de la Parroquia San Martín de Porres.</p>
+            </div>
         </div>
 
         <div class="footer">
@@ -512,27 +476,21 @@
         </div>
     </div>
 
-    <!-- PANEL FLOTANTE DE ADMINISTRADOR -->
     <div class="admin-overlay" id="admin-overlay" onclick="cerrarAdmin()"></div>
     <div id="admin-panel">
-        <h3 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--accent); padding-bottom:8px;">⚙️ Panel de Organización</h3>
-        <p style="font-size:13px; color:var(--text-muted);">Reasigna los nombres de los expositores de manera dinámica:</p>
-        
+        <h3 style="margin-top:0; color:var(--primary);">⚙️ Panel de Organización</h3>
         <div style="margin-bottom: 15px;">
-            <label for="admin-exp1" style="font-size:11px;">Expositor Tema 1:</label>
+            <label style="font-size:11px;">Expositor Tema 1:</label>
             <input type="text" id="admin-exp1" value="Pbro. Gustavo Ibarra Valencia">
         </div>
-
         <div style="margin-bottom: 15px;">
-            <label for="admin-exp2" style="font-size:11px;">Expositor Tema 2:</label>
+            <label style="font-size:11px;">Expositor Tema 2:</label>
             <input type="text" id="admin-exp2" value="Cristian Cadena Moreno">
         </div>
-
         <div style="margin-bottom: 20px;">
-            <label for="admin-exp3" style="font-size:11px;">Expositor Tema 3:</label>
+            <label style="font-size:11px;">Expositor Tema 3:</label>
             <input type="text" id="admin-exp3" value="Miguel Sanches">
         </div>
-
         <div style="display: flex; gap: 10px;">
             <button type="button" onclick="guardarCambiosAdmin()" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:10px; cursor:pointer; font-weight:700; flex:1;">Actualizar</button>
             <button type="button" onclick="cerrarAdmin()" style="background:#e7e5e4; color:var(--text-main); border:none; padding:12px; border-radius:10px; cursor:pointer; font-weight:700;">Cancelar</button>
