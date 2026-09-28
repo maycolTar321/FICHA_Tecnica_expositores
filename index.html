@@ -121,21 +121,21 @@
             margin: 8px 0 0 0;
         }
 
-        .btn-drive-folder {
+        .btn-upload-drive {
             display: inline-block;
             background-color: var(--secondary-color);
             color: white;
-            padding: 10px 18px;
+            padding: 12px 20px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
             font-size: 14px;
             margin-top: 12px;
-            box-shadow: 0 2px 6px rgba(190, 24, 93, 0.2);
+            box-shadow: 0 3px 8px rgba(190, 24, 93, 0.2);
             transition: background 0.2s;
         }
 
-        .btn-drive-folder:hover {
+        .btn-upload-drive:hover {
             background-color: var(--primary-color);
         }
 
@@ -289,13 +289,6 @@
                         </li>
                     </ul>
                     <input type="hidden" name="tematica_general" value="Quien soy y cual es mi proposito">
-                    
-                    <!-- Botón directo a la carpeta de Google Drive -->
-                    <div style="text-align: center; margin-top: 15px;">
-                        <a href="https://drive.google.com/drive/folders/13HbEx5He-NMUhhwVS1p6K8RzwLZhj9vh" target="_blank" class="btn-drive-folder">
-                            📂 Ver Carpeta de Recursos en Google Drive
-                        </a>
-                    </div>
                 </div>
 
                 <!-- 2. DATOS DEL EXPOSITOR -->
@@ -327,11 +320,20 @@
                     </select>
                 </div>
 
-                <!-- Sección desplegable si dice SÍ con enlace de Drive personal -->
+                <!-- Sección desplegable si dice SÍ con el botón para subir a la carpeta de Drive -->
                 <div id="seccion-preparado">
-                    <label for="enlace_drive" style="color: #831843; font-weight: 700;">🔗 Enlace de Google Drive con tu tema desarrollado:</label>
-                    <input type="text" id="enlace_drive" name="enlace_drive" placeholder="Pega aquí el enlace compartido de tu documento...">
-                    <p style="font-size: 12px; color: #6b7280; margin-top: 5px;">*Asegúrate de que el enlace sea accesible para cualquier persona con el vínculo.</p>
+                    <label style="color: #831843; font-weight: 700;">📂 Sube tu archivo a la carpeta oficial:</label>
+                    <p style="font-size: 14px; color: #4b5563; margin-top: 5px; margin-bottom: 12px;">
+                        Haz clic en el siguiente botón para abrir la carpeta de la organización y subir tu documento desarrollado (Word o PDF):
+                    </p>
+                    <a href="https://drive.google.com/drive/folders/13HbEx5He-NMUhhwVS1p6K8RzwLZhj9vh" target="_blank" class="btn-upload-drive">
+                        📤 Subir Documento a Google Drive
+                    </a>
+                    
+                    <div class="form-group" style="margin-top: 20px; margin-bottom: 0;">
+                        <label for="enlace_drive" style="color: #831843; font-weight: 700;">🔗 (Opcional) Pega aquí el enlace directo de tu archivo si prefieres:</label>
+                        <input type="text" id="enlace_drive" name="enlace_drive" placeholder="Pega el enlace de tu archivo subido...">
+                    </div>
                 </div>
 
                 <!-- 3. REQUERIMIENTOS TÉCNICOS -->
@@ -369,4 +371,3 @@
 
 </body>
 </html>
-    
