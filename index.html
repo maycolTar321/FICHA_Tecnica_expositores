@@ -164,7 +164,6 @@
             margin: 8px 0;
         }
 
-        /* Estilo elegante para las tarjetas de cada tema detallado */
         .tema-detalle {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -196,7 +195,7 @@
             letter-spacing: 0.8px;
         }
 
-        select, input[type="text"], input[type="tel"], textarea {
+        select, input[type="text"], input[type="tel"], input[type="file"], textarea {
             width: 100%;
             padding: 16px 20px;
             border: 2px solid var(--border-color);
@@ -206,6 +205,12 @@
             background-color: #fafaf9;
             color: var(--text-main);
             transition: all 0.25s ease;
+        }
+
+        input[type="file"] {
+            background-color: #ffffff;
+            cursor: pointer;
+            padding: 12px;
         }
 
         select:focus, input:focus, textarea:focus {
@@ -366,12 +371,36 @@
 
         function enviarFormulario(event) {
             event.preventDefault();
+            var btn = document.querySelector(".btn-submit");
+            btn.innerText = "Subiendo archivo y registrando...";
+            btn.disabled = true;
+
+            var fileInput = document.getElementById("archivo_tema");
+            
+            if (fileInput.files.length > 0) {
+                var file = fileInput.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    var base64Data = reader.result.split(',')[1];
+                    enviarDatosAlServidor({
+                        archivoData: base64Data,
+                        archivoMimeType: file.type,
+                        archivoNombre: file.name
+                    });
+                };
+            } else {
+                enviarDatosAlServidor({});
+            }
+        }
+
+        function enviarDatosAlServidor(extraData) {
             var form = document.getElementById("form-ficha");
             var formData = new FormData(form);
-            var btn = document.querySelector(".btn-submit");
-            
-            btn.innerText = "Registrando datos...";
-            btn.disabled = true;
+
+            for (var key in extraData) {
+                formData.append(key, extraData[key]);
+            }
 
             fetch(URL_APPS_SCRIPT, {
                 method: "POST",
@@ -383,7 +412,8 @@
                 document.getElementById("mensaje-exito").style.display = "block";
             })
             .catch(error => {
-                alert("Hubo un error al registrar. Por favor intente de nuevo.");
+                alert("Error al enviar. Intente de nuevo.");
+                var btn = document.querySelector(".btn-submit");
                 btn.innerText = "Enviar Ficha Completada";
                 btn.disabled = false;
             });
@@ -468,9 +498,13 @@
                     </select>
                 </div>
 
+                <!-- Botón de subida de archivo directo -->
                 <div id="seccion-preparado" class="form-group">
-                    <label for="enlace_drive" style="color: #166534; font-weight: 700;">🔗 Enlace de Google Drive con tu documento desarrollado:</label>
-                    <input type="text" id="enlace_drive" name="Enlace_Drive" placeholder="Pega aquí el enlace compartido de tu documento...">
+                    <label for="archivo_tema" style="color: #166534; font-weight: 700;">📂 Sube tu archivo desarrollado (Word o PDF):</label>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px; margin-bottom: 10px;">
+                        Selecciona tu documento desde tu celular o computadora y se guardará automáticamente:
+                    </p>
+                    <input type="file" id="archivo_tema" accept=".pdf,.doc,.docx,.txt">
                 </div>
 
                 <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logísticos</div>
@@ -507,8 +541,8 @@
             </form>
 
             <div id="mensaje-exito">
-                <h2 style="color: #166534; margin-top:0;">¡Ficha Registrada con Éxito! 🙏</h2>
-                <p>Tus datos, objetivos y requerimientos han sido guardados correctamente en la base de datos de la Parroquia San Martín de Porres.</p>
+                <h2 style="color: #166534; margin-top:0;">¡Ficha y Archivo Registrados con Éxito! 🙏</h2>
+                <p>Tus datos, objetivos y documento han sido guardados automáticamente en la base de datos de la Parroquia San Martín de Porres.</p>
             </div>
         </div>
 
@@ -517,6 +551,7 @@
         </div>
     </div>
 
+    <!-- Panel de Administrador Oculto -->
     <div class="admin-overlay" id="admin-overlay" onclick="cerrarAdmin()"></div>
     <div id="admin-panel">
         <h3 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--accent); padding-bottom:8px;">⚙️ Panel de Organización</h3>
