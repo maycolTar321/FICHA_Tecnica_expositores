@@ -3,364 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha Técnica - Retiro Jóvenes de la Confirmación 2026</title>
-    <style>
-        :root {
-            --primary-color: #831843;
-            --secondary-color: #be185d;
-            --accent-bg: #fff1f2;
-            --text-color: #1f2937;
-            --border-color: #fbcfe8;
-            --card-bg: #ffffff;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fdf2f8;
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 850px;
-            background: var(--card-bg);
-            margin: 0 auto;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(131, 24, 67, 0.08);
-            overflow: hidden;
-            border-top: 8px solid var(--primary-color);
-        }
-
-        .header {
-            background: linear-gradient(to bottom, #fff1f2, #ffe4e6);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .header h3 {
-            margin: 0 0 5px 0;
-            font-size: 13px;
-            color: #9f1239;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-        }
-
-        .header h1 {
-            margin: 0 0 10px 0;
-            font-size: 24px;
-            color: var(--primary-color);
-            font-weight: 800;
-            line-height: 1.3;
-        }
-
-        .header p.iglesia {
-            margin: 0 0 15px 0;
-            font-size: 15px;
-            color: #4b5563;
-            font-weight: 600;
-        }
-
-        .lema-box {
-            background: #ffffff;
-            border: 1px dashed var(--secondary-color);
-            padding: 10px 20px;
-            border-radius: 8px;
-            display: inline-block;
-            font-weight: bold;
-            color: var(--secondary-color);
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-
-        .body-content {
-            padding: 35px 30px;
-        }
-
-        .section-title {
-            font-size: 15px;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
-            margin-top: 30px;
-            margin-bottom: 18px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-card {
-            background: #fffbfe;
-            border: 1px solid #f3e8ff;
-            border-left: 5px solid var(--secondary-color);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .info-card h4 {
-            margin: 0 0 8px 0;
-            color: var(--primary-color);
-            font-size: 15px;
-        }
-
-        .info-card p, .info-card li {
-            font-size: 14px;
-            color: #4b5563;
-            line-height: 1.6;
-            margin: 5px 0;
-        }
-
-        .info-card ul {
-            padding-left: 20px;
-            margin: 8px 0 0 0;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 700;
-            font-size: 13px;
-            margin-bottom: 8px;
-            color: #374151;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        select, input[type="text"], input[type="tel"], input[type="file"], textarea {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 15px;
-            box-sizing: border-box;
-            background-color: #fff;
-            transition: all 0.2s ease;
-        }
-
-        input[type="file"] {
-            background-color: #f8fafc;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        select:focus, input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 4px rgba(190, 24, 93, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            height: 100px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        #seccion-preparado {
-            display: none;
-            background: #fdf4f7;
-            border: 1px solid #fbcfe8;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .btn-submit {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 16px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
-            margin-top: 15px;
-            box-shadow: 0 4px 12px rgba(131, 24, 67, 0.2);
-        }
-
-        .btn-submit:hover {
-            background-color: #500724;
-        }
-
-        .footer {
-            background: var(--accent-bg);
-            padding: 25px;
-            text-align: center;
-            font-size: 13px;
-            color: #64748b;
-            border-top: 1px solid var(--border-color);
-        }
-
-        @media (max-width: 650px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .body-content {
-                padding: 20px 15px;
-            }
-        }
-    </style>
-    <script>
-        function controlarSeccionTema() {
-            var selectEstado = document.getElementById("preparado_tema").value;
-            var seccionExtra = document.getElementById("seccion-preparado");
-            
-            if (selectEstado === "Si") {
-                seccionExtra.style.display = "block";
-            } else {
-                seccionExtra.style.display = "none";
-            }
-        }
-    </script>
+    <title>Ficha Técnica - Expositores</title>
+    <!-- Agrega aquí tus estilos CSS o frameworks -->
 </head>
 <body>
 
-    <div class="container">
-        <!-- Encabezado con datos de la Iglesia y Título -->
-        <div class="header">
-            <h3>Comisión Organizadora • Iglesia San Martín</h3>
-            <h1>RETIRO ESPIRITUAL JÓVENES DE LA CONFIRMACIÓN 2026</h1>
-            <p class="iglesia">Parroquia / Comunidad San Martín</p>
-            <div class="lema-box">
-                Lema: Soy Amado — Llamado — Enviado
-            </div>
+    <form action="https://formsubmit.co/avilamich" method="POST">
+        
+        <!-- CORRECCIÓN DEL BOTÓN VOLVER: Redirige exactamente a tu subpágina -->
+        <input type="hidden" name="_next" value="https://maycoltar321.github.io/FICHA_Tecnica_expositores/">
+        
+        <!-- MEJORA DE FORMATO: Organiza los datos en una tabla limpia dentro del correo -->
+        <input type="hidden" name="_template" value="table">
+        
+        <!-- ASUNTO PERSONALIZADO: Para identificar los registros fácilmente en tu bandeja -->
+        <input type="hidden" name="_subject" value="Nueva Ficha Técnica - Expositor Registrado">
+
+        <!-- Evita campos molestos de reCAPTCHA si deseas que el envío sea directo -->
+        <input type="hidden" name="_captcha" value="false">
+
+        <h2>Ficha Técnica de Expositor</h2>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="nombre">Nombre Completo:</label><br>
+            <input type="text" id="nombre" name="Nombre Completo" required style="width: 100%; padding: 8px;">
         </div>
 
-        <!-- Formulario configurado con FormSubmit para aceptar archivos directamente sin salir de la página -->
-        <div class="body-content">
-            <form action="https://formsubmit.co/avilamichael0@gmail.com" method="POST" enctype="multipart/form-data">
-                
-                <!-- Configuraciones ocultas para FormSubmit -->
-                <input type="hidden" name="_subject" value="Nueva Ficha Técnica de Expositor - Retiro Confirmación">
-                <input type="hidden" name="_captcha" value="false">
-
-                <!-- 1. INFORMACIÓN CLARA PARA EL EXPOSITOR -->
-                <div class="section-title">📌 Lineamientos y Objetivos del Retiro</div>
-                
-                <div class="info-card">
-                    <h4>Público Objetivo:</h4>
-                    <p>Adolescentes y jóvenes de <strong>15 a 17 años</strong> que se encuentran preparándose para recibir el Sacramento de la Confirmación. Necesitamos un lenguaje sumamente cercano, empático, sin juicios y motivador que conecte directamente con sus dudas, su realidad y sus retos diarios.</p>
-                    <input type="hidden" name="publico_objetivo" value="Jovenes de 15 a 17 años - Confirmacion">
-                </div>
-
-                <div class="info-card">
-                    <h4>Temática Central y Lo que queremos lograr en cada tema:</h4>
-                    <p><strong>Eje Temático Principal:</strong> ¿Quién soy y cuál es mi propósito?</p>
-                    <ul>
-                        <li>
-                            <strong>Pbro. Gustavo Ibarra Valencia (Tema 1):</strong> 
-                            <em>¿Quién soy yo? (Cuando nadie me está mirando)</em>. 
-                            <strong>Objetivo:</strong> Ayudarles a desmontar máscaras, complejos y la presión de las redes sociales o amistades. Que descubran que su identidad real y su valor ante Dios se fundamentan en el amor incondicional, incluso en su intimidad.
-                        </li>
-                        <br>
-                        <li>
-                            <strong>Cristian Cadena Moreno (Tema 2):</strong> 
-                            <em>Señor, ¿Qué quieres de mí?</em>. 
-                            <strong>Objetivo:</strong> Conectar con sus dudas vocacionales, decisiones de vida y su futuro cercano. Guiarles a escuchar la voz de Dios y a descubrir que Él tiene un proyecto único para cada uno de ellos.
-                        </li>
-                        <br>
-                        <li>
-                            <strong>Miguel Sanches (Tema 3):</strong> 
-                            <em>Dios tiene un propósito para mí</em>. 
-                            <strong>Objetivo:</strong> Impulsar el envío y la misión de vuelta a sus casas, colegios y amigos. Inspirarles a vivir con sentido, demostrando que su juventud es clave para marcar la diferencia sirviendo a los demás.
-                        </li>
-                    </ul>
-                    <input type="hidden" name="tematica_general" value="Quien soy y cual es mi proposito">
-                </div>
-
-                <!-- 2. DATOS DEL EXPOSITOR -->
-                <div class="section-title">✏️ Tus Datos y Asignación</div>
-                
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label for="expositor">Selecciona tu Nombre:</label>
-                        <select id="expositor" name="expositor" required>
-                            <option value="" disabled selected>-- Elige tu nombre --</option>
-                            <option value="Pbro. Gustavo Ibarra Valencia">Pbro. Gustavo Ibarra Valencia (Tema 1)</option>
-                            <option value="Cristian Cadena Moreno">Cristian Cadena Moreno (Tema 2)</option>
-                            <option value="Miguel Sanches">Miguel Sanches (Tema 3)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Tu Número de Teléfono / WhatsApp:</label>
-                        <input type="tel" id="telefono" name="telefono" placeholder="Ej. 70000000" required>
-                    </div>
-                </div>
-
-                <!-- PREGUNTA DE ESTADO DEL TEMA -->
-                <div class="form-group">
-                    <label for="preparado_tema">¿Ya tienes listo el contenido de tu tema?</label>
-                    <select id="preparado_tema" name="preparado_tema" onchange="controlarSeccionTema()" required>
-                        <option value="" disabled selected>-- Selecciona una opción --</option>
-                        <option value="Si">Sí, ya lo tengo preparado</option>
-                        <option value="No">No todavía / Lo estoy elaborando</option>
-                    </select>
-                </div>
-
-                <!-- Sección desplegable si dice SÍ con opción de adjuntar archivo directo -->
-                <div id="seccion-preparado">
-                    <label for="archivo_tema" style="color: #831843; font-weight: 700;">📂 Adjunta tu archivo de desarrollo (Word o PDF):</label>
-                    <p style="font-size: 13px; color: #4b5563; margin-top: 3px; margin-bottom: 10px;">
-                        Sube tu documento directamente aquí sin salir del formulario:
-                    </p>
-                    <input type="file" id="archivo_tema" name="archivo_tema" accept=".pdf,.doc,.docx,.txt">
-                </div>
-
-                <!-- 3. REQUERIMIENTOS TÉCNICOS Y TIEMPO -->
-                <div class="section-title">🛠️ Requerimientos Técnicos y Logísticos</div>
-                
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label for="tiempo">Tiempo Estimado para tu Exposición:</label>
-                        <select id="tiempo" name="tiempo" required>
-                            <option value="" disabled selected>-- Selecciona el tiempo --</option>
-                            <option value="30 minutos">30 minutos</option>
-                            <option value="40 minutos">40 minutos</option>
-                            <option value="45 minutos">45 minutos</option>
-                            <option value="50 minutos">50 minutos</option>
-                            <option value="1 hora">1 hora</option>
-                            <option value="Más de 1 hora">Más de 1 hora</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="dinamica">Tipo de Dinámica:</label>
-                        <input type="text" id="dinamica" name="dinamica" placeholder="Ej. Charla interactiva / Reflexión" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="requerimientos">¿Qué necesitas en el salón? (Audio, Proyector, Espacio):</label>
-                    <textarea id="requerimientos" name="requerimientos" placeholder="Indica si necesitas proyector multimedia, micrófono, espacio para grupos, etc." required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="observaciones">Observaciones o Dudas adicionales:</label>
-                    <textarea id="observaciones" name="observaciones" style="height: 80px;" placeholder="Cualquier comentario para la organización..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">Enviar Ficha Completada</button>
-            </form>
+        <div style="margin-bottom: 15px;">
+            <label for="email">Correo Electrónico:</label><br>
+            <input type="email" id="email" name="Correo" required style="width: 100%; padding: 8px;">
         </div>
 
-        <div class="footer">
-            Iglesia San Martín &bull; Equipo Organizador del Retiro Juvenil 2026
+        <div style="margin-bottom: 15px;">
+            <label for="telefono">Teléfono / Celular:</label><br>
+            <input type="tel" id="telefono" name="Telefono" required style="width: 100%; padding: 8px;">
         </div>
-    </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="tematica">Tema o Título de Exposición:</label><br>
+            <textarea id="tematica" name="Tema de Exposicion" rows="4" required style="width: 100%; padding: 8px;"></textarea>
+        </div>
+
+        <button type="submit" style="background: #2563eb; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+            Enviar Ficha Técnica
+        </button>
+    </form>
 
 </body>
 </html>
