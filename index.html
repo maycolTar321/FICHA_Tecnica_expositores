@@ -85,7 +85,6 @@
             gap: 10px;
         }
 
-        /* Tarjetas de información específica de la organización */
         .info-card-org {
             background: var(--locked-bg);
             border: 1px solid #cbd5e1;
@@ -134,7 +133,7 @@
             letter-spacing: 0.5px;
         }
 
-        select, input[type="text"], textarea {
+        select, input[type="text"], input[type="file"], textarea {
             width: 100%;
             padding: 14px;
             border: 1px solid var(--border-color);
@@ -143,6 +142,11 @@
             box-sizing: border-box;
             background-color: #fff;
             transition: all 0.2s ease;
+        }
+
+        input[type="file"] {
+            background-color: #f8fafc;
+            cursor: pointer;
         }
 
         select:focus, input:focus, textarea:focus {
@@ -233,36 +237,36 @@
             </div>
         </div>
 
-        <!-- Formulario conectado a Formspree -->
+        <!-- Formulario configurado para aceptar archivos con enctype -->
         <div class="body-content">
-            <form action="https://formspree.io/f/xbglpngq" method="POST">
+            <form action="https://formspree.io/f/xbglpngq" method="POST" enctype="multipart/form-data">
                 
-                <!-- 1. INFORMACIÓN ESPECÍFICA DE LA ORGANIZACIÓN -->
-                <div class="section-title">📌 1. Marco General del Retiro (Definido por la Organización)</div>
+                <!-- 1. INFORMACIÓN DE LA ORGANIZACIÓN -->
+                <div class="section-title">📌 1. Marco General del Retiro</div>
                 
                 <div class="info-card-org">
                     <span class="org-label">Segmento de Público Objetivo</span>
                     <div class="org-value">
-                        <strong>Adolescentes y jóvenes de 15 a 17 años.</strong> Se trata de una etapa crucial de transición, búsqueda de identidad personal, experimentación de cambios emocionales y presión social/digital. El lenguaje debe ser sumamente cercano, empático, sin juicios y motivador.
+                        <strong>Adolescentes y jóvenes de 15 a 17 años.</strong> Lenguaje cercano, empático, sin juicios y motivador ante los retos de su edad.
                     </div>
                     <input type="hidden" name="publico_objetivo" value="Jovenes de 15 a 17 años">
                 </div>
 
                 <div class="info-card-org">
-                    <span class="org-label">Temática Central y Distribución de Temas</span>
+                    <span class="org-label">Temática Central y Distribución</span>
                     <div class="org-value">
                         <strong>Eje Temático Principal:</strong> ¿Quién soy y cuál es mi propósito?<br><br>
-                        <strong>Asignación detallada para los ponentes:</strong>
+                        <strong>Asignación:</strong>
                         <ul>
-                            <li><strong>Pbro. Gustavo Ibarra Valencia:</strong> Tema 1 — <em>¿Quién soy yo? (Cuando nadie me está mirando)</em>. Enfoque en desmontar máscaras, valor personal ante Dios y autenticidad en la intimidad.</li>
-                            <li><strong>Cristian Cadena Moreno:</strong> Tema 2 — <em>Señor, ¿Qué quieres de mí?</em>. Enfoque en discernir el proyecto de vida y escuchar la voz de Dios frente a las dudas juveniles.</li>
-                            <li><strong>Miguel Sanches:</strong> Tema 3 — <em>Dios tiene un propósito para mí</em>. Enfoque en el envío misionero, el compromiso cotidiano y el testimonio en su entorno (colegio, familia, amigos).</li>
+                            <li><strong>Pbro. Gustavo Ibarra Valencia:</strong> Tema 1 — <em>¿Quién soy yo? (Cuando nadie me está mirando)</em></li>
+                            <li><strong>Cristian Cadena Moreno:</strong> Tema 2 — <em>Señor, ¿Qué quieres de mí?</em></li>
+                            <li><strong>Miguel Sanches:</strong> Tema 3 — <em>Dios tiene un propósito para mí</em></li>
                         </ul>
                     </div>
                     <input type="hidden" name="tematica_general" value="Quien soy y cual es mi proposito">
                 </div>
 
-                <!-- 2. SECCIÓN PARA EL EXPOSITOR -->
+                <!-- 2. DATOS DEL EXPOSITOR -->
                 <div class="section-title">✏️ 2. Identificación del Expositor</div>
                 
                 <div class="form-group">
@@ -285,14 +289,19 @@
                     </select>
                 </div>
 
-                <!-- Sección desplegable si dice SÍ -->
+                <!-- Sección desplegable con opción de adjuntar archivo si dice SÍ -->
                 <div id="seccion-preparado">
-                    <label for="detalle_tema" style="color: #166534; font-weight: 700;">📝 Resumen o puntos clave de tu tema preparado:</label>
-                    <textarea id="detalle_tema" name="detalle_tema" placeholder="Describe brevemente los puntos centrales, textos de apoyo o la estructura que usarás..."></textarea>
+                    <label for="detalle_tema" style="color: #166534; font-weight: 700;">📝 Resumen o puntos clave:</label>
+                    <textarea id="detalle_tema" name="detalle_tema" placeholder="Describe brevemente los puntos centrales..."></textarea>
+                    
+                    <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
+                        <label for="archivo_tema" style="color: #166534; font-weight: 700;">📎 Sube tu archivo con el tema desarrollado (Word, PDF, etc.):</label>
+                        <input type="file" id="archivo_tema" name="archivo_tema" accept=".pdf,.doc,.docx,.txt">
+                    </div>
                 </div>
 
-                <!-- 3. REQUERIMIENTOS TÉCNICOS Y LOGÍSTICOS -->
-                <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logísticos (Para completar)</div>
+                <!-- 3. REQUERIMIENTOS TÉCNICOS -->
+                <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logísticos</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
@@ -307,12 +316,12 @@
 
                 <div class="form-group">
                     <label for="requerimientos">¿Qué requieres en el salón? (Audio, Proyector, Espacio):</label>
-                    <textarea id="requerimientos" name="requerimientos" placeholder="Indica si necesitas proyector multimedia, micrófono de solapa, espacio para trabajo grupal, etc." required></textarea>
+                    <textarea id="requerimientos" name="requerimientos" placeholder="Indica si necesitas proyector multimedia, micrófono, etc." required></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="observaciones">Observaciones o Dudas adicionales:</label>
-                    <textarea id="observaciones" name="observaciones" style="height: 80px;" placeholder="Cualquier comentario o mensaje para el comité organizador..."></textarea>
+                    <textarea id="observaciones" name="observaciones" style="height: 80px;" placeholder="Cualquier comentario adicional..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Enviar Ficha Completada</button>
