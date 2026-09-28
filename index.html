@@ -110,17 +110,16 @@
             font-weight: 600;
         }
 
-        /* Lema guinda solemne y responsivo */
         .lema-badge {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: #ffffff;
-            padding: 12px 25px;
+            padding: 12px 30px;
             border-radius: 40px;
             display: inline-block;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 15px;
             box-shadow: 0 8px 20px rgba(76, 5, 25, 0.25);
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             border: 1.5px solid #fbcfe8;
             text-transform: uppercase;
             max-width: 100%;
@@ -170,26 +169,31 @@
             margin: 6px 0;
         }
 
+        /* Tarjeta del tema dinámico */
+        #seccion-tema-asignado {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
         .tema-detalle {
             background: #ffffff;
             border: 1px solid #e7e5e4;
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            border-radius: 14px;
-            margin-top: 15px;
-            margin-bottom: 18px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--accent);
+            padding: 22px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
         }
 
         .cita-biblica {
             background: #fffbeb;
             border-left: 4px solid var(--accent);
-            padding: 10px 15px;
+            padding: 12px 16px;
             border-radius: 0 10px 10px 0;
             font-style: italic;
             color: #78350f;
-            margin: 10px 0 14px 0;
-            font-size: 13.5px;
+            margin: 12px 0 16px 0;
+            font-size: 14px;
         }
 
         .form-group {
@@ -250,7 +254,6 @@
             margin-bottom: 22px;
         }
 
-        /* Botón guinda de alta gama responsivo */
         .btn-submit {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
@@ -320,40 +323,49 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* MEDIA QUERIES PARA CELULARES PERFECTOS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 768px) {
-            body {
-                padding: 5px;
-            }
-            .container {
-                border-radius: 16px;
-                border-top-width: 8px;
-            }
-            .header {
-                padding: 30px 15px 25px 15px;
-            }
-            .header h1 {
-                font-size: 18px;
-            }
-            .body-content {
-                padding: 20px 15px;
-            }
-            .grid-2 {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            .lema-badge {
-                font-size: 12px;
-                padding: 10px 18px;
-            }
+            body { padding: 5px; }
+            .container { border-radius: 16px; border-top-width: 8px; }
+            .header { padding: 30px 15px 25px 15px; }
+            .header h1 { font-size: 18px; }
+            .body-content { padding: 20px 15px; }
+            .grid-2 { grid-template-columns: 1fr; gap: 15px; }
+            .lema-badge { font-size: 13px; padding: 10px 20px; }
             select, input[type="text"], input[type="tel"], textarea {
-                font-size: 16px; /* Evita zoom automático molesto en iOS/Android */
+                font-size: 16px;
                 padding: 12px 14px;
             }
         }
     </style>
     <script>
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwcyAxqR6dnUyRgdqXlPVUCg65ahhJbvAMuXF4qNl47uxFwNQF7bjCKh0Zld39Z-q7zng/exec";
+
+        function mostrarTemaAsignado() {
+            var select = document.getElementById("expositor");
+            var valor = select.value;
+            
+            // Ocultar todas las tarjetas de temas primero
+            document.getElementById("tema-1").style.display = "none";
+            document.getElementById("tema-2").style.display = "none";
+            document.getElementById("tema-3").style.display = "none";
+            
+            // Mostrar el contenedor y la tarjeta específica del expositor seleccionado
+            var seccionTema = document.getElementById("seccion-tema-asignado");
+            seccionTema.style.display = "block";
+
+            if (valor === document.getElementById("opt-exp1").value) {
+                document.getElementById("tema-1").style.display = "block";
+            } else if (valor === document.getElementById("opt-exp2").value) {
+                document.getElementById("tema-2").style.display = "block";
+            } else if (valor === document.getElementById("opt-exp3").value) {
+                document.getElementById("tema-3").style.display = "block";
+            }
+        }
 
         function controlarSeccionTema() {
             var selectEstado = document.getElementById("preparado_tema").value;
@@ -375,18 +387,22 @@
         }
 
         function guardarCambiosAdmin() {
-            document.getElementById("t1-nombre").innerText = document.getElementById("admin-exp1").value;
-            document.getElementById("t2-nombre").innerText = document.getElementById("admin-exp2").value;
-            document.getElementById("t3-nombre").innerText = document.getElementById("admin-exp3").value;
+            var n1 = document.getElementById("admin-exp1").value;
+            var n2 = document.getElementById("admin-exp2").value;
+            var n3 = document.getElementById("admin-exp3").value;
 
-            document.getElementById("opt-exp1").text = document.getElementById("admin-exp1").value + " (Tema 1)";
-            document.getElementById("opt-exp1").value = document.getElementById("admin-exp1").value;
+            document.getElementById("t1-nombre").innerText = n1;
+            document.getElementById("t2-nombre").innerText = n2;
+            document.getElementById("t3-nombre").innerText = n3;
 
-            document.getElementById("opt-exp2").text = document.getElementById("admin-exp2").value + " (Tema 2)";
-            document.getElementById("opt-exp2").value = document.getElementById("admin-exp2").value;
+            document.getElementById("opt-exp1").text = n1 + " (Tema 1)";
+            document.getElementById("opt-exp1").value = n1;
 
-            document.getElementById("opt-exp3").text = document.getElementById("admin-exp3").value + " (Tema 3)";
-            document.getElementById("opt-exp3").value = document.getElementById("admin-exp3").value;
+            document.getElementById("opt-exp2").text = n2 + " (Tema 2)";
+            document.getElementById("opt-exp2").value = n2;
+
+            document.getElementById("opt-exp3").text = n3 + " (Tema 3)";
+            document.getElementById("opt-exp3").value = n3;
 
             alert("¡Expositores actualizados con éxito!");
             cerrarAdmin();
@@ -470,47 +486,13 @@
                     <p>En el camino hacia el Sacramento de la Confirmación, la Iglesia acompaña a los adolescentes de <strong>15 a 17 años</strong> no como jueces, sino como madre y maestra. Comprendemos las angustias de su etapa: la presión social, el vértigo de las redes y las dudas existenciales. Guiados por la gracia del Espíritu Santo, buscamos ofrecerles un refugio de misericordia donde experimenten el primer anuncio del Kerygma: Dios los conoce íntimamente y los ama tal como son.</p>
                 </div>
 
-                <div class="info-card">
-                    <h4>📖 Itinerario de Ponencias y Fundamento Bíblico</h4>
-                    <p style="margin-bottom: 12px;"><strong>Eje Central:</strong> Descubrir la dignidad filial y la misión en Cristo.</p>
-                    
-                    <!-- Tema 1 -->
-                    <div class="tema-detalle">
-                        <strong id="t1-nombre" style="color: var(--primary); font-size: 16px;">Pbro. Gustavo Ibarra Valencia</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 1)</span><br>
-                        <em style="color: #9a3412; font-weight: 700; font-size: 14.5px;">Título: ¿Quién soy yo? (Cuando nadie me está mirando)</em>
-                        <div class="cita-biblica">
-                            "Antes de formarte en el vientre materno, ya te conocía; antes de que salieras del seno, te había consagrado." — Jeremías 1, 5
-                        </div>
-                        <p style="margin-top: 6px; font-size: 13.5px;"><strong>Objetivo Pastoral:</strong> Despojar al joven de las máscaras, complejos y de la tiranía de la aprobación digital. Ayudarle a reconocer que su verdadero valor brota de la mirada de amor eterno de Dios, quien habita en lo secreto de su corazón y lo conoce en su verdad más profunda.</p>
-                    </div>
-
-                    <!-- Tema 2 -->
-                    <div class="tema-detalle">
-                        <strong id="t2-nombre" style="color: var(--primary); font-size: 16px;">Cristian Cadena Moreno</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 2)</span><br>
-                        <em style="color: #9a3412; font-weight: 700; font-size: 14.5px;">Título: Señor, ¿Qué quieres de mí?</em>
-                        <div class="cita-biblica">
-                            "Habla, Señor, que tu siervo escucha." — 1 Samuel 3, 9
-                        </div>
-                        <p style="margin-top: 6px; font-size: 13.5px;"><strong>Objetivo Pastoral:</strong> Fomentar el discernimiento vocacional y existencial. En medio del ruido ensordecedor del mundo, guiar al confirmando a hacer silencio interior para escuchar la llamada personal de Dios, descubriendo que el Señor tiene un proyecto único de plenitud y felicidad para su vida.</p>
-                    </div>
-
-                    <!-- Tema 3 -->
-                    <div class="tema-detalle">
-                        <strong id="t3-nombre" style="color: var(--primary); font-size: 16px;">Miguel Sanches</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 3)</span><br>
-                        <em style="color: #9a3412; font-weight: 700; font-size: 14.5px;">Título: Dios tiene un propósito para mí</em>
-                        <div class="cita-biblica">
-                            "Ustedes son la luz del mundo... Brille así su luz delante de los hombres, para que vean sus buenas obras y glorifiquen a su Padre que está en los cielos." — Mateo 5, 14.16
-                        </div>
-                        <p style="margin-top: 6px; font-size: 13.5px;"><strong>Objetivo Pastoral:</strong> Impulsar el envío misionero y la corresponsabilidad eclesial. Al concluir el retiro, el joven debe sentirse animado a ser testigo valiente del Evangelio en su familia, su colegio y su comunidad, poniendo sus talentos al servicio del Reino.</p>
-                    </div>
-                </div>
-
                 <div class="section-title">✍️ 2. Ficha Técnica y Asignación del Expositor</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
                         <label for="expositor">Selecciona tu Nombre:</label>
-                        <select id="expositor" name="Expositor" required>
+                        <!-- Al cambiar la selección, muestra automáticamente su tema -->
+                        <select id="expositor" name="Expositor" onchange="mostrarTemaAsignado()" required>
                             <option value="" disabled selected>-- Elige tu nombre --</option>
                             <option id="opt-exp1" value="Pbro. Gustavo Ibarra Valencia">Pbro. Gustavo Ibarra Valencia (Tema 1)</option>
                             <option id="opt-exp2" value="Cristian Cadena Moreno">Cristian Cadena Moreno (Tema 2)</option>
@@ -523,7 +505,42 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <!-- SECCIÓN DINÁMICA: Se muestra solo cuando el expositor elige su nombre -->
+                <div id="seccion-tema-asignado">
+                    <div class="section-title">📖 Tu Tema Asignado y Objetivo Pastoral</div>
+                    
+                    <!-- Tema 1 -->
+                    <div id="tema-1" class="tema-detalle" style="display: none;">
+                        <strong id="t1-nombre" style="color: var(--primary); font-size: 17px;">Pbro. Gustavo Ibarra Valencia</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 1)</span><br>
+                        <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: ¿Quién soy yo? (Cuando nadie me está mirando)</em>
+                        <div class="cita-biblica">
+                            "Antes de formarte en el vientre materno, ya te conocía; antes de que salieras del seno, te había consagrado." — Jeremías 1, 5
+                        </div>
+                        <p style="font-size: 14px;"><strong>Objetivo Pastoral:</strong> Despojar al joven de las máscaras, complejos y de la tiranía de la aprobación digital. Ayudarle a reconocer que su verdadero valor brota de la mirada de amor eterno de Dios, quien habita en lo secreto de su corazón y lo conoce en su verdad más profunda.</p>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div id="tema-2" class="tema-detalle" style="display: none;">
+                        <strong id="t2-nombre" style="color: var(--primary); font-size: 17px;">Cristian Cadena Moreno</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 2)</span><br>
+                        <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: Señor, ¿Qué quieres de mí?</em>
+                        <div class="cita-biblica">
+                            "Habla, Señor, que tu siervo escucha." — 1 Samuel 3, 9
+                        </div>
+                        <p style="font-size: 14px;"><strong>Objetivo Pastoral:</strong> Fomentar el discernimiento vocacional y existencial. En medio del ruido ensordecedor del mundo, guiar al confirmando a hacer silencio interior para escuchar la llamada personal de Dios, descubriendo que el Señor tiene un proyecto único de plenitud y felicidad para su vida.</p>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div id="tema-3" class="tema-detalle" style="display: none;">
+                        <strong id="t3-nombre" style="color: var(--primary); font-size: 17px;">Miguel Sanches</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 3)</span><br>
+                        <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: Dios tiene un propósito para mí</em>
+                        <div class="cita-biblica">
+                            "Ustedes son la luz del mundo... Brille así su luz delante de los hombres, para que vean sus buenas obras y glorifiquen a su Padre que está en los cielos." — Mateo 5, 14.16
+                        </div>
+                        <p style="font-size: 14px;"><strong>Objetivo Pastoral:</strong> Impulsar el envío misionero y la corresponsabilidad eclesial. Al concluir el retiro, el joven debe sentirse animado a ser testigo valiente del Evangelio en su familia, su colegio y su comunidad, poniendo sus talentos al servicio del Reino.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
                     <label for="preparado_tema">¿Ya tienes listo el contenido de tu ponencia?</label>
                     <select id="preparado_tema" name="Estado_Tema" onchange="controlarSeccionTema()" required>
                         <option value="" disabled selected>-- Selecciona una opción --</option>
