@@ -122,21 +122,23 @@
         }
 
         .btn-upload-drive {
-            display: inline-block;
-            background-color: var(--secondary-color);
+            display: block;
+            background-color: var(--primary-color);
             color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 14px 20px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 14px;
-            margin-top: 12px;
-            box-shadow: 0 3px 8px rgba(190, 24, 93, 0.2);
+            font-size: 15px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(131, 24, 67, 0.2);
             transition: background 0.2s;
         }
 
         .btn-upload-drive:hover {
-            background-color: var(--primary-color);
+            background-color: #500724;
         }
 
         .form-group {
@@ -320,29 +322,37 @@
                     </select>
                 </div>
 
-                <!-- Sección desplegable si dice SÍ con el botón para subir a la carpeta de Drive -->
+                <!-- Sección desplegable si dice SÍ con el botón limpio para subir a Google Drive -->
                 <div id="seccion-preparado">
-                    <label style="color: #831843; font-weight: 700;">📂 Sube tu archivo a la carpeta oficial:</label>
-                    <p style="font-size: 14px; color: #4b5563; margin-top: 5px; margin-bottom: 12px;">
-                        Haz clic en el siguiente botón para abrir la carpeta de la organización y subir tu documento desarrollado (Word o PDF):
+                    <label style="color: #831843; font-weight: 700;">📂 Envío de tu documento:</label>
+                    <p style="font-size: 14px; color: #4b5563; margin-top: 5px; margin-bottom: 10px;">
+                        Haz clic en el botón para subir tu archivo (Word o PDF) directamente a la carpeta oficial de la organización:
                     </p>
                     <a href="https://drive.google.com/drive/folders/13HbEx5He-NMUhhwVS1p6K8RzwLZhj9vh" target="_blank" class="btn-upload-drive">
-                        📤 Subir Documento a Google Drive
+                        📤 Subir Archivo a la Carpeta de Google Drive
                     </a>
                     
-                    <div class="form-group" style="margin-top: 20px; margin-bottom: 0;">
-                        <label for="enlace_drive" style="color: #831843; font-weight: 700;">🔗 (Opcional) Pega aquí el enlace directo de tu archivo si prefieres:</label>
-                        <input type="text" id="enlace_drive" name="enlace_drive" placeholder="Pega el enlace de tu archivo subido...">
+                    <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
+                        <label for="enlace_drive" style="color: #831843; font-weight: 700;">🔗 (Opcional) Pega el enlace de tu archivo aquí si prefieres:</label>
+                        <input type="text" id="enlace_drive" name="enlace_drive" placeholder="Ej. Enlace de tu archivo en Drive...">
                     </div>
                 </div>
 
-                <!-- 3. REQUERIMIENTOS TÉCNICOS -->
+                <!-- 3. REQUERIMIENTOS TÉCNICOS Y TIEMPO -->
                 <div class="section-title">🛠️ Requerimientos Técnicos y Logísticos</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label for="tiempo">Tiempo Estimado:</label>
-                        <input type="text" id="tiempo" name="tiempo" placeholder="Ej. 45 a 50 minutos" required>
+                        <label for="tiempo">Tiempo Estimado para tu Exposición:</label>
+                        <select id="tiempo" name="tiempo" required>
+                            <option value="" disabled selected>-- Selecciona el tiempo --</option>
+                            <option value="30 minutos">30 minutos</option>
+                            <option value="40 minutos">40 minutos</option>
+                            <option value="45 minutos">45 minutos</option>
+                            <option value="50 minutos">50 minutos</option>
+                            <option value="1 hora">1 hora</option>
+                            <option value="Más de 1 hora">Más de 1 hora</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="dinamica">Tipo de Dinámica:</label>
