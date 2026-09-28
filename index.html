@@ -39,6 +39,12 @@
             border-top: 10px solid var(--primary);
             position: relative;
             width: 100%;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .admin-trigger {
@@ -127,7 +133,7 @@
         }
 
         .body-content {
-            padding: 30px 20px;
+            padding: 35px 25px;
         }
 
         .section-title {
@@ -169,10 +175,9 @@
             margin: 6px 0;
         }
 
-        /* Tarjeta del tema dinámico */
         #seccion-tema-asignado {
             display: none;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         .tema-detalle {
@@ -236,7 +241,7 @@
 
         textarea {
             resize: vertical;
-            height: 110px;
+            height: 120px;
         }
 
         .grid-2 {
@@ -252,6 +257,7 @@
             padding: 22px;
             border-radius: 16px;
             margin-bottom: 22px;
+            animation: fadeIn 0.3s ease;
         }
 
         .btn-submit {
@@ -279,11 +285,12 @@
         #mensaje-exito {
             display: none;
             text-align: center;
-            padding: 35px 20px;
+            padding: 40px 20px;
             background: #f0fdf4;
             border: 2px solid #86efac;
             border-radius: 20px;
             margin-top: 20px;
+            animation: fadeIn 0.4s ease;
         }
 
         #admin-panel {
@@ -349,12 +356,10 @@
             var select = document.getElementById("expositor");
             var valor = select.value;
             
-            // Ocultar todas las tarjetas de temas primero
             document.getElementById("tema-1").style.display = "none";
             document.getElementById("tema-2").style.display = "none";
             document.getElementById("tema-3").style.display = "none";
             
-            // Mostrar el contenedor y la tarjeta específica del expositor seleccionado
             var seccionTema = document.getElementById("seccion-tema-asignado");
             seccionTema.style.display = "block";
 
@@ -491,7 +496,6 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label for="expositor">Selecciona tu Nombre:</label>
-                        <!-- Al cambiar la selección, muestra automáticamente su tema -->
                         <select id="expositor" name="Expositor" onchange="mostrarTemaAsignado()" required>
                             <option value="" disabled selected>-- Elige tu nombre --</option>
                             <option id="opt-exp1" value="Pbro. Gustavo Ibarra Valencia">Pbro. Gustavo Ibarra Valencia (Tema 1)</option>
@@ -505,21 +509,19 @@
                     </div>
                 </div>
 
-                <!-- SECCIÓN DINÁMICA: Se muestra solo cuando el expositor elige su nombre -->
+                <!-- SECCIÓN DINÁMICA -->
                 <div id="seccion-tema-asignado">
                     <div class="section-title">📖 Tu Tema Asignado y Objetivo Pastoral</div>
                     
-                    <!-- Tema 1 -->
                     <div id="tema-1" class="tema-detalle" style="display: none;">
                         <strong id="t1-nombre" style="color: var(--primary); font-size: 17px;">Pbro. Gustavo Ibarra Valencia</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 1)</span><br>
-                        <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: ¿Quién soy yo? (Cuando nadie me está mirando)</em>
+                        <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: ¿Quién soy yo? (Когда nadie me está mirando)</em>
                         <div class="cita-biblica">
                             "Antes de formarte en el vientre materno, ya te conocía; antes de que salieras del seno, te había consagrado." — Jeremías 1, 5
                         </div>
                         <p style="font-size: 14px;"><strong>Objetivo Pastoral:</strong> Despojar al joven de las máscaras, complejos y de la tiranía de la aprobación digital. Ayudarle a reconocer que su verdadero valor brota de la mirada de amor eterno de Dios, quien habita en lo secreto de su corazón y lo conoce en su verdad más profunda.</p>
                     </div>
 
-                    <!-- Tema 2 -->
                     <div id="tema-2" class="tema-detalle" style="display: none;">
                         <strong id="t2-nombre" style="color: var(--primary); font-size: 17px;">Cristian Cadena Moreno</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 2)</span><br>
                         <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: Señor, ¿Qué quieres de mí?</em>
@@ -529,7 +531,6 @@
                         <p style="font-size: 14px;"><strong>Objetivo Pastoral:</strong> Fomentar el discernimiento vocacional y existencial. En medio del ruido ensordecedor del mundo, guiar al confirmando a hacer silencio interior para escuchar la llamada personal de Dios, descubriendo que el Señor tiene un proyecto único de plenitud y felicidad para su vida.</p>
                     </div>
 
-                    <!-- Tema 3 -->
                     <div id="tema-3" class="tema-detalle" style="display: none;">
                         <strong id="t3-nombre" style="color: var(--primary); font-size: 17px;">Miguel Sanches</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 3)</span><br>
                         <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: Dios tiene un propósito para mí</em>
@@ -549,7 +550,6 @@
                     </select>
                 </div>
 
-                <!-- Subida de archivo directa -->
                 <div id="seccion-preparado" class="form-group">
                     <label for="archivo_tema" style="color: #166534; font-weight: 800;">📂 Adjunta tu documento desarrollado (Word o PDF):</label>
                     <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px; margin-bottom: 10px;">
@@ -578,9 +578,10 @@
                     </div>
                 </div>
 
+                <!-- Campo mejorado para lista numerada -->
                 <div class="form-group">
-                    <label for="requerimientos">¿Qué requieres en el salón de retiro?</label>
-                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="Proyector multimedia, sonido, micrófono, espacio para dinámicas grupales, etc." required></textarea>
+                    <label for="requerimientos">¿Qué requieres en el salón de retiro? (Usa viñetas o números ej. 1. Proyector...):</label>
+                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="1. Proyector multimedia&#10;2. Micrófono inalámbrico&#10;3. Espacio para dinámicas grupales" required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -593,7 +594,7 @@
 
             <div id="mensaje-exito">
                 <h2 style="color: #166534; margin-top:0;">¡Ficha Registrada con Éxito! 🙏</h2>
-                <p>Que el Señor bendiga ricamente tu labor en este retiro espiritual. Tus datos y documento se han guardado correctamente en la Parroquia San Martín de Porres.</p>
+                <p>Su ficha técnica y documento se han guardado correctamente en la plataforma de la Parroquia San Martín de Porres.</p>
             </div>
         </div>
 
