@@ -121,26 +121,6 @@
             margin: 8px 0 0 0;
         }
 
-        .btn-upload-drive {
-            display: block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 14px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 15px;
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 12px rgba(131, 24, 67, 0.2);
-            transition: background 0.2s;
-        }
-
-        .btn-upload-drive:hover {
-            background-color: #500724;
-        }
-
         .form-group {
             margin-bottom: 20px;
         }
@@ -155,7 +135,7 @@
             letter-spacing: 0.5px;
         }
 
-        select, input[type="text"], input[type="tel"], textarea {
+        select, input[type="text"], input[type="tel"], input[type="file"], textarea {
             width: 100%;
             padding: 14px;
             border: 1px solid #cbd5e1;
@@ -164,6 +144,12 @@
             box-sizing: border-box;
             background-color: #fff;
             transition: all 0.2s ease;
+        }
+
+        input[type="file"] {
+            background-color: #f8fafc;
+            cursor: pointer;
+            padding: 10px;
         }
 
         select:focus, input:focus, textarea:focus {
@@ -190,32 +176,6 @@
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #ffffff;
-            padding: 12px;
-            border: 1px solid #fbcfe8;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .checkbox-container input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--primary-color);
-            cursor: pointer;
-        }
-
-        .checkbox-container label {
-            margin: 0;
-            color: #831843;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: none;
         }
 
         .btn-submit {
@@ -281,10 +241,14 @@
             </div>
         </div>
 
-        <!-- Formulario conectado a Formspree -->
+        <!-- Formulario configurado con FormSubmit para aceptar archivos directamente sin salir de la página -->
         <div class="body-content">
-            <form action="https://formspree.io/f/xbglpngq" method="POST">
+            <form action="https://formsubmit.co/avilamichael0@gmail.com" method="POST" enctype="multipart/form-data">
                 
+                <!-- Configuraciones ocultas para FormSubmit -->
+                <input type="hidden" name="_subject" value="Nueva Ficha Técnica de Expositor - Retiro Confirmación">
+                <input type="hidden" name="_captcha" value="false">
+
                 <!-- 1. INFORMACIÓN CLARA PARA EL EXPOSITOR -->
                 <div class="section-title">📌 Lineamientos y Objetivos del Retiro</div>
                 
@@ -348,23 +312,13 @@
                     </select>
                 </div>
 
-                <!-- Sección desplegable si dice SÍ con botón seguro y casilla de confirmación -->
+                <!-- Sección desplegable si dice SÍ con opción de adjuntar archivo directo -->
                 <div id="seccion-preparado">
-                    <label style="color: #831843; font-weight: 700;">📂 Envío de tu documento:</label>
-                    <p style="font-size: 14px; color: #4b5563; margin-top: 5px; margin-bottom: 10px;">
-                        1. Haz clic en el botón (se abrirá en una pestaña nueva para que no pierdas este formulario):
+                    <label for="archivo_tema" style="color: #831843; font-weight: 700;">📂 Adjunta tu archivo de desarrollo (Word o PDF):</label>
+                    <p style="font-size: 13px; color: #4b5563; margin-top: 3px; margin-bottom: 10px;">
+                        Sube tu documento directamente aquí sin salir del formulario:
                     </p>
-                    
-                    <!-- target="_blank" asegura que abra otra pestaña y no cierre el formulario -->
-                    <a href="https://drive.google.com/drive/folders/13HbEx5He-NMUhhwVS1p6K8RzwLZhj9vh" target="_blank" class="btn-upload-drive">
-                        📤 Subir Archivo a la Carpeta de Google Drive
-                    </a>
-
-                    <!-- Casilla obligatoria de confirmación -->
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="confirma_subida" name="confirma_subida" value="Si_subio_archivo" required>
-                        <label for="confirma_subida"><strong>✅ Confirmo que ya subí mi archivo a la carpeta de Google Drive.</strong></label>
-                    </div>
+                    <input type="file" id="archivo_tema" name="archivo_tema" accept=".pdf,.doc,.docx,.txt">
                 </div>
 
                 <!-- 3. REQUERIMIENTOS TÉCNICOS Y TIEMPO -->
