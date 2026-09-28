@@ -6,31 +6,32 @@
     <title>Ficha Técnica - Retiro Jóvenes de la Confirmación 2026</title>
     <style>
         :root {
-            --primary: #4c0519;
-            --primary-light: #881337;
-            --accent: #b45309;
-            --bg-page: #fdfbf7;
+            --primary: #581c87;         /* Púrpura eclesial moderno y elegante */
+            --primary-light: #7e22ce;
+            --primary-bg: #f3e8ff;
+            --accent: #d97706;          /* Dorado pastoral refinado */
+            --bg-page: #f8fafc;
             --card-bg: #ffffff;
-            --text-main: #1c1917;
-            --text-muted: #57534e;
-            --border-color: #e7e5e4;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #cbd5e1;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #fdfbf7 0%, #f5efe6 100%);
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
             color: var(--text-main);
             margin: 0;
-            padding: 40px 15px;
+            padding: 30px 15px;
             line-height: 1.7;
         }
 
         .container {
-            max-width: 860px;
+            max-width: 880px;
             background: var(--card-bg);
             margin: 0 auto;
-            border-radius: 28px;
-            box-shadow: 0 25px 60px rgba(76, 5, 25, 0.08);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -12px rgba(88, 28, 135, 0.15);
             overflow: hidden;
             border-top: 10px solid var(--primary);
             position: relative;
@@ -38,21 +39,22 @@
 
         .admin-trigger {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            top: 24px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--border-color);
-            padding: 8px 12px;
+            padding: 8px 14px;
             border-radius: 30px;
-            font-size: 11px;
+            font-size: 12px;
+            font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
             z-index: 10;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
-            gap: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            gap: 6px;
         }
 
         .admin-trigger:hover {
@@ -62,22 +64,22 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fdf2f4 100%);
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
             padding: 50px 30px 40px 30px;
             text-align: center;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #e9d5ff;
         }
 
         .logo-img {
             max-width: 100px;
             max-height: 100px;
             object-fit: contain;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(76, 5, 25, 0.12);
+            box-shadow: 0 10px 25px rgba(88, 28, 135, 0.15);
             background: #ffffff;
-            padding: 8px;
-            border: 1px solid rgba(231, 229, 228, 0.8);
+            padding: 10px;
+            border: 2px solid #e9d5ff;
         }
 
         .header h3 {
@@ -91,9 +93,10 @@
 
         .header h1 {
             margin: 0 0 8px 0;
-            font-size: 25px;
+            font-size: 26px;
             color: var(--primary);
             font-weight: 900;
+            letter-spacing: -0.5px;
         }
 
         .header p.iglesia {
@@ -106,49 +109,52 @@
         .lema-badge {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: #ffffff;
-            padding: 10px 26px;
+            padding: 10px 28px;
             border-radius: 35px;
             display: inline-block;
             font-weight: 700;
             font-size: 13px;
-            box-shadow: 0 8px 20px rgba(76, 5, 25, 0.2);
+            box-shadow: 0 8px 20px rgba(88, 28, 135, 0.25);
             letter-spacing: 1px;
         }
 
         .body-content {
-            padding: 50px 40px;
+            padding: 50px 45px;
         }
 
         .section-title {
-            font-size: 14px;
+            font-size: 15px;
             color: var(--primary);
-            border-bottom: 2px solid #f5efe6;
-            padding-bottom: 10px;
+            border-bottom: 2px solid #f3e8ff;
+            padding-bottom: 12px;
             margin-top: 45px;
-            margin-bottom: 24px;
+            margin-bottom: 25px;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .info-card {
             background: #fafaf9;
             border: 1px solid var(--border-color);
             border-left: 6px solid var(--primary-light);
-            padding: 26px;
-            border-radius: 18px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.015);
+            padding: 28px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
         .info-card h4 {
             margin: 0 0 12px 0;
             color: var(--primary);
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .info-card p, .info-card li {
@@ -158,28 +164,31 @@
             margin: 8px 0;
         }
 
-        .info-card ul {
-            padding-left: 20px;
-            margin: 8px 0 0 0;
-        }
-
+        /* Estilo elegante para las tarjetas de cada tema detallado */
         .tema-detalle {
             background: #ffffff;
-            border: 1px solid #e7e5e4;
-            padding: 20px;
-            border-radius: 14px;
-            margin-top: 14px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--accent);
+            padding: 22px;
+            border-radius: 16px;
+            margin-top: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tema-detalle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
         }
 
         .form-group {
-            margin-bottom: 26px;
+            margin-bottom: 28px;
         }
 
         label {
             display: block;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 12px;
             margin-bottom: 8px;
             color: var(--text-main);
@@ -196,13 +205,14 @@
             box-sizing: border-box;
             background-color: #fafaf9;
             color: var(--text-main);
+            transition: all 0.25s ease;
         }
 
         select:focus, input:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-light);
             background-color: #ffffff;
-            box-shadow: 0 0 0 5px rgba(136, 19, 55, 0.1);
+            box-shadow: 0 0 0 5px rgba(126, 34, 206, 0.12);
         }
 
         textarea {
@@ -220,33 +230,46 @@
             display: none;
             background: #f0fdf4;
             border: 2px solid #bbf7d0;
-            padding: 26px;
-            border-radius: 16px;
-            margin-bottom: 26px;
+            padding: 28px;
+            border-radius: 18px;
+            margin-bottom: 28px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .btn-submit {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             border: none;
-            padding: 18px 25px;
+            padding: 18px 28px;
             font-size: 15px;
             font-weight: 800;
             border-radius: 14px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(76, 5, 25, 0.25);
+            box-shadow: 0 10px 30px rgba(88, 28, 135, 0.3);
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(88, 28, 135, 0.4);
         }
 
         #mensaje-exito {
             display: none;
             text-align: center;
-            padding: 40px;
+            padding: 45px;
             background: #f0fdf4;
             border: 2px solid #bbf7d0;
-            border-radius: 20px;
+            border-radius: 24px;
             margin-top: 20px;
         }
 
@@ -257,8 +280,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: #ffffff;
-            padding: 30px;
-            border-radius: 20px;
+            padding: 35px;
+            border-radius: 24px;
             box-shadow: 0 30px 70px rgba(0,0,0,0.25);
             width: 90%;
             max-width: 450px;
@@ -274,21 +297,32 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(5px);
             z-index: 999;
         }
 
         .footer {
-            background: #fafaf9;
+            background: #f8fafc;
             padding: 35px;
             text-align: center;
             font-size: 13px;
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
         }
+
+        @media (max-width: 650px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .body-content {
+                padding: 30px 20px;
+            }
+            body {
+                padding: 10px 5px;
+            }
+        }
     </style>
     <script>
-        // URL de tu Apps Script ya integrada
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwcyAxqR6dnUyRgdqXlPVUCg65ahhJbvAMuXF4qNl47uxFwNQF7bjCKh0Zld39Z-q7zng/exec";
 
         function controlarSeccionTema() {
@@ -334,10 +368,9 @@
             event.preventDefault();
             var form = document.getElementById("form-ficha");
             var formData = new FormData(form);
-
-            // Mostrar estado de carga opcional en el botón
             var btn = document.querySelector(".btn-submit");
-            btn.innerText = "Enviando registro...";
+            
+            btn.innerText = "Registrando datos...";
             btn.disabled = true;
 
             fetch(URL_APPS_SCRIPT, {
@@ -362,14 +395,16 @@
     <div class="admin-trigger" onclick="abrirAdmin()">⚙️ Admin</div>
 
     <div class="container">
+        <!-- Encabezado Estilo App Web -->
         <div class="header">
-            <img src="logo.jpg" alt="Logo Parroquia" class="logo-img">
+            <img src="logo.jpg" alt="Logo Parroquia" class="logo-img" onerror="this.onerror=null; this.src='logo.png';">
             <h3>Comisión Organizadora • Parroquia San Martín de Porres</h3>
             <h1>RETIRO ESPIRITUAL JÓVENES DE LA CONFIRMACIÓN 2026</h1>
             <p class="iglesia">Comunidad Parroquial San Martín de Porres</p>
             <div class="lema-badge">✨ Lema: Soy Amado — Llamado — Enviado ✨</div>
         </div>
 
+        <!-- Contenido y Formulario -->
         <div class="body-content">
             <form id="form-ficha" onsubmit="enviarFormulario(event)">
                 
@@ -377,26 +412,32 @@
                 
                 <div class="info-card">
                     <h4>👥 Visión Pastoral del Público Objetivo</h4>
-                    <p>Adolescentes y jóvenes de <strong>15 a 17 años</strong> en preparación para el Sacramento de la Confirmación. Un espacio cálido, de escucha activa y sin juicios ante sus retos existenciales y digitales.</p>
+                    <p>Nos dirigimos a adolescentes y jóvenes de <strong>15 a 17 años</strong> que se encuentran en el tramo final de su preparación para recibir el Sacramento de la Confirmación. Como Iglesia, entendemos que esta etapa está marcada por profundas preguntas existenciales, la búsqueda de aceptación, la presión del grupo de pares y la fuerte influencia del mundo digital. La Iglesia desea acogerlos sin juicios, ofreciéndoles un espacio cálido, de escucha activa y de auténtico encuentro con la misericordia de Dios.</p>
                 </div>
 
                 <div class="info-card">
                     <h4>📖 Eje Temático Central y Profundización de Ponencias</h4>
-                    <p><strong>Tema Central del Retiro:</strong> ¿Quién soy y cuál es mi propósito?</p>
+                    <p style="margin-bottom: 15px;"><strong>Tema Central del Retiro:</strong> ¿Quién soy y cuál es mi propósito?</p>
                     
+                    <!-- Tema 1 -->
                     <div class="tema-detalle">
-                        <strong id="t1-nombre" style="color: var(--primary); font-size: 15px;">Pbro. Gustavo Ibarra Valencia</strong> (Tema 1)<br>
-                        <em>¿Quién soy yo? (Когда nadie me está mirando)</em>
+                        <strong id="t1-nombre" style="color: var(--primary); font-size: 16px;">Pbro. Gustavo Ibarra Valencia</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 1)</span><br>
+                        <em style="color: #7c2d12; font-weight: 600;">Título: ¿Quién soy yo? (Cuando nadie me está mirando)</em><br>
+                        <p style="margin-top: 8px; font-size: 13.5px;"><strong>Lo que la Iglesia busca lograr:</strong> Ayudar al joven a despojarse de las máscaras sociales, los complejos físicos y la necesidad constante de aprobación en redes sociales. Se busca que descubra su verdad más íntima ante los ojos de Dios: comprender que son amados incondicionalmente no por lo que hacen o aparentan ante los demás, sino por quienes son en su recámara, en su interior y en su vida secreta u online, donde solo Dios los ve.</p>
                     </div>
 
+                    <!-- Tema 2 -->
                     <div class="tema-detalle">
-                        <strong id="t2-nombre" style="color: var(--primary); font-size: 15px;">Cristian Cadena Moreno</strong> (Tema 2)<br>
-                        <em>Señor, ¿Qué quieres de mí?</em>
+                        <strong id="t2-nombre" style="color: var(--primary); font-size: 16px;">Cristian Cadena Moreno</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 2)</span><br>
+                        <em style="color: #7c2d12; font-weight: 600;">Título: Señor, ¿Qué quieres de mí?</em><br>
+                        <p style="margin-top: 8px; font-size: 13.5px;"><strong>Lo que la Iglesia busca lograr:</strong> Conectar con el discernimiento vocacional y existencial del adolescente. En un mundo lleno de ruidos, distracciones y decisiones de futuro (estudios, amistades, valores), este tema busca enseñarles a hacer silencio interior para sintonizar con la voz de Dios, descubriendo que el Señor tiene un proyecto de felicidad y plenitud trazado específicamente para cada uno de ellos.</p>
                     </div>
 
+                    <!-- Tema 3 -->
                     <div class="tema-detalle">
-                        <strong id="t3-nombre" style="color: var(--primary); font-size: 15px;">Miguel Sanches</strong> (Tema 3)<br>
-                        <em>Dios tiene un propósito para mí</em>
+                        <strong id="t3-nombre" style="color: var(--primary); font-size: 16px;">Miguel Sanches</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 3)</span><br>
+                        <em style="color: #7c2d12; font-weight: 600;">Título: Dios tiene un propósito para mí</em><br>
+                        <p style="margin-top: 8px; font-size: 13.5px;"><strong>Lo que la Iglesia busca lograr:</strong> Consolidar el sentido de pertenencia a la comunidad eclesial y motivar el envío misionero. Al finalizar el retiro, el joven no debe sentirse solo, sino llamado a ser sal y luz en su colegio, su familia y su grupo de amigos. Se busca encender el compromiso de poner sus talentos al servicio de los demás como respuesta viva a su Confirmación.</p>
                     </div>
                 </div>
 
@@ -467,7 +508,7 @@
 
             <div id="mensaje-exito">
                 <h2 style="color: #166534; margin-top:0;">¡Ficha Registrada con Éxito! 🙏</h2>
-                <p>Tus datos y requerimientos han sido guardados correctamente en la base de datos de la Parroquia San Martín de Porres.</p>
+                <p>Tus datos, objetivos y requerimientos han sido guardados correctamente en la base de datos de la Parroquia San Martín de Porres.</p>
             </div>
         </div>
 
@@ -478,7 +519,9 @@
 
     <div class="admin-overlay" id="admin-overlay" onclick="cerrarAdmin()"></div>
     <div id="admin-panel">
-        <h3 style="margin-top:0; color:var(--primary);">⚙️ Panel de Organización</h3>
+        <h3 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--accent); padding-bottom:8px;">⚙️ Panel de Organización</h3>
+        <p style="font-size:13px; color:var(--text-muted);">Reasigna los nombres de los expositores de manera dinámica:</p>
+        
         <div style="margin-bottom: 15px;">
             <label style="font-size:11px;">Expositor Tema 1:</label>
             <input type="text" id="admin-exp1" value="Pbro. Gustavo Ibarra Valencia">
