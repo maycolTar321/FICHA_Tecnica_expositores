@@ -6,34 +6,34 @@
     <title>Ficha Técnica - Retiro Jóvenes de la Confirmación 2026</title>
     <style>
         :root {
-            --primary: #581c87;         /* Púrpura eclesial moderno y elegante */
-            --primary-light: #7e22ce;
-            --primary-bg: #f3e8ff;
-            --accent: #d97706;          /* Dorado pastoral refinado */
+            --primary: #3b0764;         /* Púrpura litúrgico profundo */
+            --primary-light: #6b21a8;
+            --accent: #b45309;          /* Dorado litúrgico elegante */
+            --accent-light: #d97706;
             --bg-page: #f8fafc;
             --card-bg: #ffffff;
-            --text-main: #0f172a;
+            --text-main: #1e1b4b;
             --text-muted: #475569;
-            --border-color: #cbd5e1;
+            --border-color: #e2e8f0;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, #f3e8ff 0%, #e2e8f0 100%);
             color: var(--text-main);
             margin: 0;
             padding: 30px 15px;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .container {
-            max-width: 880px;
+            max-width: 900px;
             background: var(--card-bg);
             margin: 0 auto;
-            border-radius: 30px;
-            box-shadow: 0 25px 50px -12px rgba(88, 28, 135, 0.15);
+            border-radius: 32px;
+            box-shadow: 0 25px 60px -15px rgba(59, 7, 100, 0.2);
             overflow: hidden;
-            border-top: 10px solid var(--primary);
+            border-top: 12px solid var(--primary);
             position: relative;
         }
 
@@ -41,20 +41,20 @@
             position: absolute;
             top: 24px;
             right: 24px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--border-color);
-            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1.5px solid var(--border-color);
+            padding: 8px 16px;
             border-radius: 30px;
             font-size: 12px;
             font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
             z-index: 10;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: all 0.2s;
         }
 
         .admin-trigger:hover {
@@ -65,26 +65,26 @@
 
         .header {
             background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-            padding: 50px 30px 40px 30px;
+            padding: 55px 35px 45px 35px;
             text-align: center;
-            border-bottom: 1px solid #e9d5ff;
+            border-bottom: 2px solid #e9d5ff;
         }
 
         .logo-img {
-            max-width: 100px;
-            max-height: 100px;
+            max-width: 110px;
+            max-height: 110px;
             object-fit: contain;
-            margin-bottom: 18px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(88, 28, 135, 0.15);
+            margin-bottom: 20px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(59, 7, 100, 0.15);
             background: #ffffff;
             padding: 10px;
-            border: 2px solid #e9d5ff;
+            border: 2px solid #d8b4fe;
         }
 
         .header h3 {
-            margin: 0 0 6px 0;
-            font-size: 12px;
+            margin: 0 0 8px 0;
+            font-size: 13px;
             color: var(--primary-light);
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -92,46 +92,49 @@
         }
 
         .header h1 {
-            margin: 0 0 8px 0;
-            font-size: 26px;
+            margin: 0 0 10px 0;
+            font-size: 27px;
             color: var(--primary);
             font-weight: 900;
             letter-spacing: -0.5px;
         }
 
         .header p.iglesia {
-            margin: 0 0 20px 0;
-            font-size: 15px;
+            margin: 0 0 25px 0;
+            font-size: 16px;
             color: var(--text-muted);
             font-weight: 600;
         }
 
+        /* Lema grande, imponente y sin estrellas */
         .lema-badge {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: #ffffff;
-            padding: 10px 28px;
-            border-radius: 35px;
+            padding: 14px 35px;
+            border-radius: 50px;
             display: inline-block;
-            font-weight: 700;
-            font-size: 13px;
-            box-shadow: 0 8px 20px rgba(88, 28, 135, 0.25);
-            letter-spacing: 1px;
+            font-weight: 800;
+            font-size: 16px;
+            box-shadow: 0 10px 30px rgba(59, 7, 100, 0.3);
+            letter-spacing: 1.5px;
+            border: 2px solid #d8b4fe;
+            text-transform: uppercase;
         }
 
         .body-content {
-            padding: 50px 45px;
+            padding: 55px 45px;
         }
 
         .section-title {
-            font-size: 15px;
+            font-size: 16px;
             color: var(--primary);
-            border-bottom: 2px solid #f3e8ff;
+            border-bottom: 2.5px solid #f3e8ff;
             padding-bottom: 12px;
-            margin-top: 45px;
-            margin-bottom: 25px;
+            margin-top: 50px;
+            margin-bottom: 28px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 800;
+            letter-spacing: 1.2px;
+            font-weight: 900;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -141,55 +144,64 @@
             background: #fafaf9;
             border: 1px solid var(--border-color);
             border-left: 6px solid var(--primary-light);
-            padding: 28px;
+            padding: 30px;
             border-radius: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
         }
 
         .info-card h4 {
-            margin: 0 0 12px 0;
+            margin: 0 0 14px 0;
             color: var(--primary);
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .info-card p, .info-card li {
-            font-size: 14px;
+        .info-card p {
+            font-size: 15px;
             color: var(--text-muted);
             line-height: 1.8;
             margin: 8px 0;
         }
 
+        /* Contenedores de temas con profundidad y acento pastoral */
         .tema-detalle {
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-left: 4px solid var(--accent);
-            padding: 22px;
-            border-radius: 16px;
-            margin-top: 16px;
-            margin-bottom: 18px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+            border-left: 5px solid var(--accent);
+            padding: 26px;
+            border-radius: 18px;
+            margin-top: 18px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .tema-detalle:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+        }
+
+        .cita-biblica {
+            background: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 12px 18px;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: #78350f;
+            margin: 12px 0 16px 0;
+            font-size: 14px;
         }
 
         .form-group {
-            margin-bottom: 28px;
+            margin-bottom: 30px;
         }
 
         label {
             display: block;
             font-weight: 800;
-            font-size: 12px;
-            margin-bottom: 8px;
+            font-size: 13px;
+            margin-bottom: 10px;
             color: var(--text-main);
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -197,9 +209,9 @@
 
         select, input[type="text"], input[type="tel"], input[type="file"], textarea {
             width: 100%;
-            padding: 16px 20px;
+            padding: 18px 22px;
             border: 2px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             font-size: 15px;
             box-sizing: border-box;
             background-color: #fafaf9;
@@ -210,34 +222,34 @@
         input[type="file"] {
             background-color: #ffffff;
             cursor: pointer;
-            padding: 12px;
+            padding: 14px;
         }
 
         select:focus, input:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-light);
             background-color: #ffffff;
-            box-shadow: 0 0 0 5px rgba(126, 34, 206, 0.12);
+            box-shadow: 0 0 0 6px rgba(107, 33, 168, 0.12);
         }
 
         textarea {
             resize: vertical;
-            height: 120px;
+            height: 130px;
         }
 
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 25px;
         }
 
         #seccion-preparado {
             display: none;
             background: #f0fdf4;
-            border: 2px solid #bbf7d0;
-            padding: 28px;
-            border-radius: 18px;
-            margin-bottom: 28px;
+            border: 2px solid #86efac;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
             animation: fadeIn 0.3s ease;
         }
 
@@ -246,36 +258,37 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Estilo de botones moderno de alta gama */
         .btn-submit {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             border: none;
-            padding: 18px 28px;
-            font-size: 15px;
-            font-weight: 800;
-            border-radius: 14px;
+            padding: 20px 30px;
+            font-size: 16px;
+            font-weight: 900;
+            border-radius: 16px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(88, 28, 135, 0.3);
+            box-shadow: 0 12px 35px rgba(59, 7, 100, 0.35);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.2s ease;
+            letter-spacing: 2px;
+            transition: all 0.25s ease;
         }
 
         .btn-submit:hover {
             opacity: 0.95;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(88, 28, 135, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 45px rgba(59, 7, 100, 0.45);
         }
 
         #mensaje-exito {
             display: none;
             text-align: center;
-            padding: 45px;
+            padding: 50px;
             background: #f0fdf4;
-            border: 2px solid #bbf7d0;
-            border-radius: 24px;
-            margin-top: 20px;
+            border: 2px solid #86efac;
+            border-radius: 28px;
+            margin-top: 25px;
         }
 
         #admin-panel {
@@ -285,13 +298,13 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: #ffffff;
-            padding: 35px;
-            border-radius: 24px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.25);
+            padding: 40px;
+            border-radius: 28px;
+            box-shadow: 0 35px 80px rgba(0,0,0,0.3);
             width: 90%;
-            max-width: 450px;
+            max-width: 480px;
             z-index: 1000;
-            border: 2px solid var(--accent);
+            border: 2.5px solid var(--accent);
         }
 
         .admin-overlay {
@@ -301,30 +314,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(6px);
             z-index: 999;
         }
 
         .footer {
             background: #f8fafc;
-            padding: 35px;
+            padding: 40px;
             text-align: center;
-            font-size: 13px;
+            font-size: 13.5px;
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
         }
 
         @media (max-width: 650px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .body-content {
-                padding: 30px 20px;
-            }
-            body {
-                padding: 10px 5px;
-            }
+            .grid-2 { grid-template-columns: 1fr; }
+            .body-content { padding: 35px 20px; }
+            body { padding: 10px 5px; }
         }
     </style>
     <script>
@@ -341,9 +348,7 @@
             if (pass === "admin2026") {
                 document.getElementById("admin-panel").style.display = "block";
                 document.getElementById("admin-overlay").style.display = "block";
-            } else if (pass !== null) {
-                alert("Contraseña incorrecta.");
-            }
+            } else if (pass !== null) { alert("Contraseña incorrecta."); }
         }
 
         function cerrarAdmin() {
@@ -425,53 +430,64 @@
     <div class="admin-trigger" onclick="abrirAdmin()">⚙️ Admin</div>
 
     <div class="container">
-        <!-- Encabezado Estilo App Web -->
+        <!-- Encabezado con Lema Grande y Solemne -->
         <div class="header">
             <img src="logo.jpg" alt="Logo Parroquia" class="logo-img" onerror="this.onerror=null; this.src='logo.png';">
             <h3>Comisión Organizadora • Parroquia San Martín de Porres</h3>
             <h1>RETIRO ESPIRITUAL JÓVENES DE LA CONFIRMACIÓN 2026</h1>
             <p class="iglesia">Comunidad Parroquial San Martín de Porres</p>
-            <div class="lema-badge">✨ Lema: Soy Amado — Llamado — Enviado ✨</div>
+            <div class="lema-badge">
+                Lema: Soy Amado — Llamado — Enviado
+            </div>
         </div>
 
         <!-- Contenido y Formulario -->
         <div class="body-content">
             <form id="form-ficha" onsubmit="enviarFormulario(event)">
                 
-                <div class="section-title">🎯 1. Lineamientos y Objetivos Pastorales de la Parroquia</div>
+                <div class="section-title">✝️ 1. Marco Teológico y Pastoral del Retiro</div>
                 
                 <div class="info-card">
-                    <h4>👥 Visión Pastoral del Público Objetivo</h4>
-                    <p>Nos dirigimos a adolescentes y jóvenes de <strong>15 a 17 años</strong> que se encuentran en el tramo final de su preparación para recibir el Sacramento de la Confirmación. Como Iglesia, entendemos que esta etapa está marcada por profundas preguntas existenciales, la búsqueda de aceptación, la presión del grupo de pares y la fuerte influencia del mundo digital. La Iglesia desea acogerlos sin juicios, ofreciéndoles un espacio cálido, de escucha activa y de auténtico encuentro con la misericordia de Dios.</p>
+                    <h4>👥 Acompañamiento a los Jóvenes en la Confirmación</h4>
+                    <p>En el camino hacia el Sacramento de la Confirmación, la Iglesia acompaña a los adolescentes de <strong>15 a 17 años</strong> no como jueces, sino como madre y maestra. Comprendemos las angustias de su etapa: la presión social, el vértigo de las redes y las dudas existenciales. Guiados por la gracia del Espíritu Santo, buscamos ofrecerles un refugio de misericordia donde experimenten el primer anuncio del Kerygma: Dios los conoce íntimamente y los ama tal como son.</p>
                 </div>
 
                 <div class="info-card">
-                    <h4>📖 Eje Temático Central y Profundización de Ponencias</h4>
-                    <p style="margin-bottom: 15px;"><strong>Tema Central del Retiro:</strong> ¿Quién soy y cuál es mi propósito?</p>
+                    <h4>📖 Itinerario de Ponencias y Fundamento Bíblico</h4>
+                    <p style="margin-bottom: 15px;"><strong>Eje Central:</strong> Descubrir la dignidad filial y la misión en Cristo.</p>
                     
                     <!-- Tema 1 -->
                     <div class="tema-detalle">
-                        <strong id="t1-nombre" style="color: var(--primary); font-size: 16px;">Pbro. Gustavo Ibarra Valencia</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 1)</span><br>
-                        <em style="color: #7c2d12; font-weight: 600;">Título: ¿Quién soy yo? (Cuando nadie me está mirando)</em><br>
-                        <p style="margin-top: 8px; font-size: 13.5px;"><strong>Lo que la Iglesia busca lograr:</strong> Ayudar al joven a despojarse de las máscaras sociales, los complejos físicos y la necesidad constante de aprobación en redes sociales. Se busca que descubra su verdad más íntima ante los ojos de Dios: comprender que son amados incondicionalmente no por lo que hacen o aparentan ante los demás, sino por quienes son en su recámara, en su interior y en su vida secreta u online, donde solo Dios los ve.</p>
+                        <strong id="t1-nombre" style="color: var(--primary); font-size: 17px;">Pbro. Gustavo Ibarra Valencia</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 1)</span><br>
+                        <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: ¿Quién soy yo? (Cuando nadie me está mirando)</em>
+                        <div class="cita-biblica">
+                            "Antes de formarte en el vientre materno, ya te conocía; antes de que salieras del seno, te había consagrado." — Jeremías 1, 5
+                        </div>
+                        <p style="margin-top: 8px; font-size: 14px;"><strong>Objetivo Pastoral:</strong> Despojar al joven de las máscaras, complejos y de la tiranía de la aprobación digital. Ayudarle a reconocer que su verdadero valor brota de la mirada de amor eterno de Dios, quien habita en lo secreto de su corazón y lo conoce en su verdad más profunda.</p>
                     </div>
 
                     <!-- Tema 2 -->
                     <div class="tema-detalle">
-                        <strong id="t2-nombre" style="color: var(--primary); font-size: 16px;">Cristian Cadena Moreno</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 2)</span><br>
-                        <em style="color: #7c2d12; font-weight: 600;">Título: Señor, ¿Qué quieres de mí?</em><br>
-                        <p style="margin-top: 8px; font-size: 13.5px;"><strong>Lo que la Iglesia busca lograr:</strong> Conectar con el discernimiento vocacional y existencial del adolescente. En un mundo lleno de ruidos, distracciones y decisiones de futuro (estudios, amistades, valores), este tema busca enseñarles a hacer silencio interior para sintonizar con la voz de Dios, descubriendo que el Señor tiene un proyecto de felicidad y plenitud trazado específicamente para cada uno de ellos.</p>
+                        <strong id="t2-nombre" style="color: var(--primary); font-size: 17px;">Cristian Cadena Moreno</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 2)</span><br>
+                        <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: Señor, ¿Qué quieres de mí?</em>
+                        <div class="cita-biblica">
+                            "Habla, Señor, que tu siervo escucha." — 1 Samuel 3, 9
+                        </div>
+                        <p style="margin-top: 8px; font-size: 14px;"><strong>Objetivo Pastoral:</strong> Fomentar el discernimiento vocacional y existencial. En medio del ruido ensordecedor del mundo, guiar al confirmando a hacer silencio interior para escuchar la llamada personal de Dios, descubriendo que el Señor tiene un proyecto único de plenitud y felicidad para su vida.</p>
                     </div>
 
                     <!-- Tema 3 -->
                     <div class="tema-detalle">
-                        <strong id="t3-nombre" style="color: var(--primary); font-size: 16px;">Miguel Sanches</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 3)</span><br>
-                        <em style="color: #7c2d12; font-weight: 600;">Título: Dios tiene un propósito para mí</em><br>
-                        <p style="margin-top: 8px; font-size: 13.5px;"><strong>Lo que la Iglesia busca lograr:</strong> Consolidar el sentido de pertenencia a la comunidad eclesial y motivar el envío misionero. Al finalizar el retiro, el joven no debe sentirse solo, sino llamado a ser sal y luz en su colegio, su familia y su grupo de amigos. Se busca encender el compromiso de poner sus talentos al servicio de los demás como respuesta viva a su Confirmación.</p>
+                        <strong id="t3-nombre" style="color: var(--primary); font-size: 17px;">Miguel Sanches</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 3)</span><br>
+                        <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: Dios tiene un propósito para mí</em>
+                        <div class="cita-biblica">
+                            "Ustedes son la luz del mundo... Brille así su luz delante de los hombres, para que vean sus buenas obras y glorifiquen a su Padre que está en los cielos." — Mateo 5, 14.16
+                        </div>
+                        <p style="margin-top: 8px; font-size: 14px;"><strong>Objetivo Pastoral:</strong> Impulsar el envío misionero y la corresponsabilidad eclesial. Al concluir el retiro, el joven debe sentirse animado a ser testigo valiente del Evangelio en su familia, su colegio y su comunidad, poniendo sus talentos al servicio del Reino.</p>
                     </div>
                 </div>
 
-                <div class="section-title">✏️ 2. Tus Datos y Asignación</div>
+                <div class="section-title">✍️ 2. Ficha Técnica y Asignación del Expositor</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
@@ -490,7 +506,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="preparado_tema">¿Ya tienes listo el contenido de tu tema?</label>
+                    <label for="preparado_tema">¿Ya tienes listo el contenido de tu ponencia?</label>
                     <select id="preparado_tema" name="Estado_Tema" onchange="controlarSeccionTema()" required>
                         <option value="" disabled selected>-- Selecciona una opción --</option>
                         <option value="Si">Sí, ya lo tengo preparado</option>
@@ -498,20 +514,20 @@
                     </select>
                 </div>
 
-                <!-- Botón de subida de archivo directo -->
+                <!-- Subida de archivo directa -->
                 <div id="seccion-preparado" class="form-group">
-                    <label for="archivo_tema" style="color: #166534; font-weight: 700;">📂 Sube tu archivo desarrollado (Word o PDF):</label>
-                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px; margin-bottom: 10px;">
-                        Selecciona tu documento desde tu celular o computadora y se guardará automáticamente:
+                    <label for="archivo_tema" style="color: #166534; font-weight: 800;">📂 Adjunta tu documento desarrollado (Word o PDF):</label>
+                    <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 4px; margin-bottom: 12px;">
+                        Selecciona tu archivo desde tu dispositivo y se almacenará automáticamente en la plataforma parroquial:
                     </p>
                     <input type="file" id="archivo_tema" accept=".pdf,.doc,.docx,.txt">
                 </div>
 
-                <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logísticos</div>
+                <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logística</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label for="tiempo">Tiempo Estimado:</label>
+                        <label for="tiempo">Tiempo Estimado de Exposición:</label>
                         <select id="tiempo" name="Tiempo_Estimado" required>
                             <option value="" disabled selected>-- Selecciona el tiempo --</option>
                             <option value="30 minutos">30 minutos</option>
@@ -522,27 +538,27 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="dinamica">Tipo de Dinámica:</label>
-                        <input type="text" id="dinamica" name="Tipo_Dinamica" placeholder="Ej. Plenaria, vivencial" required>
+                        <label for="dinamica">Tipo de Dinámica o Metodología:</label>
+                        <input type="text" id="dinamica" name="Tipo_Dinamica" placeholder="Ej. Reflexión vivencial, plenario" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="requerimientos">¿Qué requieres en el salón?</label>
-                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="Proyector, sonido, etc." required></textarea>
+                    <label for="requerimientos">¿Qué requieres en el salón de retiro?</label>
+                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="Proyector multimedia, sonido, micrófono, espacio para dinámicas grupales, etc." required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="observaciones">Observaciones o Dudas:</label>
-                    <textarea id="observaciones" name="Observaciones_Dudas" style="height: 80px;" placeholder="Comentarios adicionales..."></textarea>
+                    <label for="observaciones">Observaciones o Dudas adicionales para la Comisión:</label>
+                    <textarea id="observaciones" name="Observaciones_Dudas" style="height: 90px;" placeholder="Comentarios para la organización..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Enviar Ficha Completada</button>
             </form>
 
             <div id="mensaje-exito">
-                <h2 style="color: #166534; margin-top:0;">¡Ficha y Archivo Registrados con Éxito! 🙏</h2>
-                <p>Tus datos, objetivos y documento han sido guardados automáticamente en la base de datos de la Parroquia San Martín de Porres.</p>
+                <h2 style="color: #166534; margin-top:0;">¡Ficha Registrada con Éxito! 🙏</h2>
+                <p>Que el Señor bendiga ricamente tu labor en este retiro espiritual. Tus datos y documento se han guardado correctamente en la Parroquia San Martín de Porres.</p>
             </div>
         </div>
 
@@ -554,7 +570,7 @@
     <!-- Panel de Administrador Oculto -->
     <div class="admin-overlay" id="admin-overlay" onclick="cerrarAdmin()"></div>
     <div id="admin-panel">
-        <h3 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--accent); padding-bottom:8px;">⚙️ Panel de Organización</h3>
+        <h3 style="margin-top:0; color:var(--primary); border-bottom:2.5px solid var(--accent); padding-bottom:10px;">⚙️ Panel de Organización</h3>
         <p style="font-size:13px; color:var(--text-muted);">Reasigna los nombres de los expositores de manera dinámica:</p>
         
         <div style="margin-bottom: 15px;">
@@ -570,8 +586,8 @@
             <input type="text" id="admin-exp3" value="Miguel Sanches">
         </div>
         <div style="display: flex; gap: 10px;">
-            <button type="button" onclick="guardarCambiosAdmin()" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:10px; cursor:pointer; font-weight:700; flex:1;">Actualizar</button>
-            <button type="button" onclick="cerrarAdmin()" style="background:#e7e5e4; color:var(--text-main); border:none; padding:12px; border-radius:10px; cursor:pointer; font-weight:700;">Cancelar</button>
+            <button type="button" onclick="guardarCambiosAdmin()" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:12px; cursor:pointer; font-weight:700; flex:1;">Actualizar</button>
+            <button type="button" onclick="cerrarAdmin()" style="background:#e2e8f0; color:var(--text-main); border:none; padding:12px; border-radius:12px; cursor:pointer; font-weight:700;">Cancelar</button>
         </div>
     </div>
 
