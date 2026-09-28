@@ -192,6 +192,32 @@
             margin-bottom: 20px;
         }
 
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            padding: 12px;
+            border: 1px solid #fbcfe8;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .checkbox-container label {
+            margin: 0;
+            color: #831843;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: none;
+        }
+
         .btn-submit {
             background-color: var(--primary-color);
             color: white;
@@ -322,19 +348,22 @@
                     </select>
                 </div>
 
-                <!-- Sección desplegable si dice SÍ con el botón limpio para subir a Google Drive -->
+                <!-- Sección desplegable si dice SÍ con botón seguro y casilla de confirmación -->
                 <div id="seccion-preparado">
                     <label style="color: #831843; font-weight: 700;">📂 Envío de tu documento:</label>
                     <p style="font-size: 14px; color: #4b5563; margin-top: 5px; margin-bottom: 10px;">
-                        Haz clic en el botón para subir tu archivo (Word o PDF) directamente a la carpeta oficial de la organización:
+                        1. Haz clic en el botón (se abrirá en una pestaña nueva para que no pierdas este formulario):
                     </p>
+                    
+                    <!-- target="_blank" asegura que abra otra pestaña y no cierre el formulario -->
                     <a href="https://drive.google.com/drive/folders/13HbEx5He-NMUhhwVS1p6K8RzwLZhj9vh" target="_blank" class="btn-upload-drive">
                         📤 Subir Archivo a la Carpeta de Google Drive
                     </a>
-                    
-                    <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
-                        <label for="enlace_drive" style="color: #831843; font-weight: 700;">🔗 (Opcional) Pega el enlace de tu archivo aquí si prefieres:</label>
-                        <input type="text" id="enlace_drive" name="enlace_drive" placeholder="Ej. Enlace de tu archivo en Drive...">
+
+                    <!-- Casilla obligatoria de confirmación -->
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="confirma_subida" name="confirma_subida" value="Si_subio_archivo" required>
+                        <label for="confirma_subida"><strong>✅ Confirmo que ya subí mi archivo a la carpeta de Google Drive.</strong></label>
                     </div>
                 </div>
 
