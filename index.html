@@ -6,40 +6,79 @@
     <title>Ficha Técnica - Retiro Jóvenes de la Confirmación 2026</title>
     <style>
         :root {
-            --primary: #701a35;
-            --primary-light: #9f1239;
-            --accent: #f43f5e;
-            --bg-page: #faf5f6;
+            --primary: #4c0519;       /* Borgoña eclesial profundo de lujo */
+            --primary-light: #881337;
+            --accent: #b45309;        /* Dorado pastoral elegante */
+            --bg-page: #fdfbf7;       /* Fondo marfil suave */
             --card-bg: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #4b5563;
-            --border-color: #fecdd3;
+            --text-main: #1c1917;
+            --text-muted: #57534e;
+            --border-color: #e7e5e4;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-page);
+            background: linear-gradient(135deg, #fdfbf7 0%, #f5efe6 100%);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
-            line-height: 1.5;
+            padding: 40px 15px;
+            line-height: 1.7;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 860px;
             background: var(--card-bg);
             margin: 0 auto;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(112, 26, 53, 0.08);
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(76, 5, 25, 0.08);
             overflow: hidden;
-            border-top: 8px solid var(--primary);
+            border-top: 10px solid var(--primary);
+            position: relative;
+        }
+
+        /* Acceso de administrador oculto y discreto en la esquina superior derecha */
+        .admin-trigger {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            color: var(--text-muted);
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .admin-trigger:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
         }
 
         .header {
-            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
-            padding: 40px 25px;
+            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fdf2f4 100%);
+            padding: 50px 30px 40px 30px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-img {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(76, 5, 25, 0.12);
+            background: #ffffff;
+            padding: 8px;
+            border: 1px solid rgba(231, 229, 228, 0.8);
         }
 
         .header h3 {
@@ -47,76 +86,81 @@
             font-size: 12px;
             color: var(--primary-light);
             text-transform: uppercase;
-            letter-spacing: 2.5px;
-            font-weight: 700;
+            letter-spacing: 3px;
+            font-weight: 800;
         }
 
         .header h1 {
             margin: 0 0 8px 0;
-            font-size: 22px;
+            font-size: 25px;
             color: var(--primary);
-            font-weight: 800;
+            font-weight: 900;
+            letter-spacing: -0.5px;
         }
 
         .header p.iglesia {
-            margin: 0 0 15px 0;
-            font-size: 14px;
+            margin: 0 0 20px 0;
+            font-size: 15px;
             color: var(--text-muted);
             font-weight: 600;
         }
 
         .lema-badge {
-            background: #ffffff;
-            border: 1.5px dashed var(--accent);
-            padding: 8px 20px;
-            border-radius: 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: #ffffff;
+            padding: 10px 26px;
+            border-radius: 35px;
             display: inline-block;
             font-weight: 700;
-            color: var(--accent);
             font-size: 13px;
-            box-shadow: 0 3px 10px rgba(244, 63, 94, 0.05);
+            box-shadow: 0 8px 20px rgba(76, 5, 25, 0.2);
+            letter-spacing: 1px;
         }
 
         .body-content {
-            padding: 40px 30px;
+            padding: 50px 40px;
         }
 
         .section-title {
             font-size: 14px;
             color: var(--primary);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
-            margin-top: 35px;
-            margin-bottom: 20px;
+            border-bottom: 2px solid #f5efe6;
+            padding-bottom: 10px;
+            margin-top: 45px;
+            margin-bottom: 24px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
+            letter-spacing: 1.2px;
+            font-weight: 800;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .info-card {
-            background: #fffbfe;
-            border: 1px solid #f3e8ff;
-            border-left: 5px solid var(--accent);
-            padding: 22px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            background: #fafaf9;
+            border: 1px solid var(--border-color);
+            border-left: 6px solid var(--primary-light);
+            padding: 26px;
+            border-radius: 18px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.015);
         }
 
         .info-card h4 {
-            margin: 0 0 8px 0;
+            margin: 0 0 12px 0;
             color: var(--primary);
-            font-size: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
         }
 
         .info-card p, .info-card li {
             font-size: 14px;
             color: var(--text-muted);
-            line-height: 1.6;
-            margin: 6px 0;
+            line-height: 1.8;
+            margin: 8px 0;
         }
 
         .info-card ul {
@@ -124,8 +168,24 @@
             margin: 8px 0 0 0;
         }
 
+        .tema-detalle {
+            background: #ffffff;
+            border: 1px solid #e7e5e4;
+            padding: 20px;
+            border-radius: 14px;
+            margin-top: 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .tema-detalle:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
         .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 26px;
         }
 
         label {
@@ -135,50 +195,52 @@
             margin-bottom: 8px;
             color: var(--text-main);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         select, input[type="text"], input[type="tel"], input[type="file"], textarea {
             width: 100%;
-            padding: 14px 16px;
-            border: 1.5px solid #cbd5e1;
-            border-radius: 12px;
-            font-size: 14px;
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            font-size: 15px;
             box-sizing: border-box;
-            background-color: #fff;
+            background-color: #fafaf9;
             transition: all 0.25s ease;
+            color: var(--text-main);
         }
 
         input[type="file"] {
-            background-color: #f8fafc;
+            background-color: #ffffff;
             cursor: pointer;
             padding: 12px;
         }
 
         select:focus, input:focus, textarea:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.1);
+            border-color: var(--primary-light);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 5px rgba(136, 19, 55, 0.1);
         }
 
         textarea {
             resize: vertical;
-            height: 110px;
+            height: 120px;
         }
 
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 24px;
         }
 
         #seccion-preparado {
             display: none;
-            background: #fdf2f4;
-            border: 1px solid var(--border-color);
-            padding: 22px;
-            border-radius: 12px;
-            margin-bottom: 22px;
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            padding: 26px;
+            border-radius: 16px;
+            margin-bottom: 26px;
             animation: fadeIn 0.3s ease;
         }
 
@@ -191,28 +253,57 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             border: none;
-            padding: 16px 25px;
+            padding: 18px 25px;
             font-size: 15px;
-            font-weight: 700;
-            border-radius: 12px;
+            font-weight: 800;
+            border-radius: 14px;
             cursor: pointer;
             width: 100%;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
             margin-top: 15px;
-            box-shadow: 0 6px 20px rgba(112, 26, 53, 0.2);
+            box-shadow: 0 10px 30px rgba(76, 5, 25, 0.25);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .btn-submit:hover {
             opacity: 0.95;
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(112, 26, 53, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(76, 5, 25, 0.35);
+        }
+
+        /* Panel Admin Flotante Oculto */
+        #admin-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.25);
+            width: 90%;
+            max-width: 450px;
+            z-index: 1000;
+            border: 2px solid var(--accent);
+        }
+
+        .admin-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
         }
 
         .footer {
-            background: var(--bg-page);
-            padding: 25px;
+            background: #fafaf9;
+            padding: 35px;
             text-align: center;
             font-size: 13px;
             color: var(--text-muted);
@@ -224,13 +315,10 @@
                 grid-template-columns: 1fr;
             }
             .body-content {
-                padding: 25px 20px;
+                padding: 30px 20px;
             }
-            .header {
-                padding: 30px 15px;
-            }
-            .header h1 {
-                font-size: 19px;
+            body {
+                padding: 10px 5px;
             }
         }
     </style>
@@ -238,68 +326,122 @@
         function controlarSeccionTema() {
             var selectEstado = document.getElementById("preparado_tema").value;
             var seccionExtra = document.getElementById("seccion-preparado");
-            
             if (selectEstado === "Si") {
                 seccionExtra.style.display = "block";
             } else {
                 seccionExtra.style.display = "none";
             }
         }
+
+        function abrirAdmin() {
+            var pass = prompt("Contraseña de Administrador:");
+            if (pass === "admin2026") {
+                document.getElementById("admin-panel").style.display = "block";
+                document.getElementById("admin-overlay").style.display = "block";
+            } else if (pass !== null) {
+                alert("Contraseña incorrecta.");
+            }
+        }
+
+        function cerrarAdmin() {
+            document.getElementById("admin-panel").style.display = "none";
+            document.getElementById("admin-overlay").style.display = "none";
+        }
+
+        function guardarCambiosAdmin() {
+            document.getElementById("t1-nombre").innerText = document.getElementById("admin-exp1").value;
+            document.getElementById("t2-nombre").innerText = document.getElementById("admin-exp2").value;
+            document.getElementById("t3-nombre").innerText = document.getElementById("admin-exp3").value;
+
+            document.getElementById("opt-exp1").text = document.getElementById("admin-exp1").value + " (Tema 1)";
+            document.getElementById("opt-exp1").value = document.getElementById("admin-exp1").value;
+
+            document.getElementById("opt-exp2").text = document.getElementById("admin-exp2").value + " (Tema 2)";
+            document.getElementById("opt-exp2").value = document.getElementById("admin-exp2").value;
+
+            document.getElementById("opt-exp3").text = document.getElementById("admin-exp3").value + " (Tema 3)";
+            document.getElementById("opt-exp3").value = document.getElementById("admin-exp3").value;
+
+            alert("¡Expositores actualizados con éxito!");
+            cerrarAdmin();
+        }
     </script>
 </head>
 <body>
 
+    <!-- Botón discreto en la esquina superior derecha para el administrador -->
+    <div class="admin-trigger" onclick="abrirAdmin()">
+        ⚙️ Admin
+    </div>
+
     <div class="container">
-        <!-- Encabezado -->
+        <!-- Encabezado con Estilo de Lujo -->
         <div class="header">
-            <h3>Comisión Organizadora • Iglesia San Martín</h3>
-            <h1>RETIRO ESPIRITUAL JÓVENES DE LA CONFIRMACIÓN 2026</h1>
-            <p class="iglesia">Parroquia / Comunidad San Martín</p>
+            <img src="logo.jpg" alt="Logo Parroquia" class="logo-img" onerror="this.onerror=null; this.src='logo.png';">
+            <h3>Comisión Organizadora • Parroquia San Martín de Porres</h3>
+            <h1 id="main-title">RETIRO ESPIRITUAL JÓVENES DE LA CONFIRMACIÓN 2026</h1>
+            <p class="iglesia">Comunidad Parroquial San Martín de Porres</p>
             <div class="lema-badge">
-                ✨ Lema: Soy Amado — Llamado — Enviado ✨
+                 Lema: Soy Amado — Llamado — Enviado 
             </div>
         </div>
 
-        <!-- Formulario configurado con FormSubmit y plantilla organizada -->
+        <!-- Formulario Principal -->
         <div class="body-content">
             <form action="https://formsubmit.co/avilamichael0@gmail.com" method="POST" enctype="multipart/form-data">
                 
-                <!-- Configuraciones ocultas para organizar el correo recibido -->
-                <input type="hidden" name="_subject" value="📋 Nueva Ficha Técnica Recibida - Retiro Confirmación">
+                <input type="hidden" name="_subject" value="📋 Ficha Técnica Oficial - Retiro Confirmación 2026">
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_captcha" value="false">
 
-                <!-- 1. INFORMACIÓN DEL RETIRO -->
-                <div class="section-title">📌 Lineamientos y Objetivos del Retiro</div>
+                <!-- 1. LINEAMIENTOS Y OBJETIVOS -->
+                <div class="section-title">🎯 1. Lineamientos y Objetivos Pastorales de la Parroquia</div>
                 
                 <div class="info-card">
-                    <h4>Público Objetivo:</h4>
-                    <p>Adolescentes y jóvenes de <strong>15 a 17 años</strong> que se preparan para el Sacramento de la Confirmación. Lenguaje cercano, empático, sin juicios y motivador que conecte con sus retos diarios.</p>
+                    <h4>👥 Visión Pastoral del Público Objetivo</h4>
+                    <p>Nos dirigimos a adolescentes y jóvenes de <strong>15 a 17 años</strong> que se encuentran en el tramo final de su preparación para recibir el Sacramento de la Confirmación. Como Iglesia, entendemos que esta etapa está marcada por profundas preguntas existenciales, la búsqueda de aceptación, la presión del grupo de pares y la fuerte influencia del mundo digital. La Iglesia desea acogerlos sin juicios, ofreciéndoles un espacio cálido, de escucha activa y de auténtico encuentro con la misericordia de Dios.</p>
                     <input type="hidden" name="1. Publico_Objetivo" value="Jovenes de 15 a 17 años - Confirmacion">
                 </div>
 
                 <div class="info-card">
-                    <h4>Eje Temático y Asignación de Ponencias:</h4>
-                    <p><strong>Tema Central:</strong> ¿Quién soy y cuál es mi propósito?</p>
-                    <ul>
-                        <li><strong>Pbro. Gustavo Ibarra Valencia:</strong> Tema 1 — <em>¿Quién soy yo? (Cuando nadie me está mirando)</em> (Desmontar máscaras y valor ante Dios).</li>
-                        <li><strong>Cristian Cadena Moreno:</strong> Tema 2 — <em>Señor, ¿Qué quieres de mí?</em> (Dudas vocacionales y proyecto de vida).</li>
-                        <li><strong>Miguel Sanches:</strong> Tema 3 — <em>Dios tiene un propósito para mí</em> (Envío misionero y servicio a los demás).</li>
-                    </ul>
+                    <h4>📖 Eje Temático Central y Profundización de Ponencias</h4>
+                    <p><strong>Tema Central del Retiro:</strong> ¿Quién soy y cuál es mi propósito?</p>
+                    
+                    <!-- Tema 1 -->
+                    <div class="tema-detalle">
+                        <strong id="t1-nombre" style="color: var(--primary); font-size: 15px;">Pbro. Gustavo Ibarra Valencia</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 1)</span><br>
+                        <em>Título: ¿Quién soy yo? (Cuando nadie me está mirando)</em><br>
+                        <p><strong>Lo que la Iglesia busca lograr:</strong> Ayudar al joven a despojarse de las máscaras sociales, los complejos físicos y la necesidad constante de aprobación en redes sociales. Se busca que descubra su verdad más íntima ante los ojos de Dios: comprender que son amados incondicionalmente no por lo que hacen o aparentan ante los demás, sino por quienes son en su recámara, en su interior y en su vida secreta u online, donde solo Dios los ve.</p>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="tema-detalle">
+                        <strong id="t2-nombre" style="color: var(--primary); font-size: 15px;">Cristian Cadena Moreno</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 2)</span><br>
+                        <em>Título: Señor, ¿Qué quieres de mí?</em><br>
+                        <p><strong>Lo que la Iglesia busca lograr:</strong> Conectar con el discernimiento vocacional y existencial del adolescente. En un mundo lleno de ruidos, distracciones y decisiones de futuro (estudios, amistades, valores), este tema busca enseñarles a hacer silencio interior para sintonizar con la voz de Dios, descubriendo que el Señor tiene un proyecto de felicidad y plenitud trazado específicamente para cada uno de ellos.</p>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="tema-detalle">
+                        <strong id="t3-nombre" style="color: var(--primary); font-size: 15px;">Miguel Sanches</strong> <span style="font-size: 13px; color: var(--text-muted);">(Tema 3)</span><br>
+                        <em>Título: Dios tiene un propósito para mí</em><br>
+                        <p><strong>Lo que la Iglesia busca lograr:</strong> Consolidar el sentido de pertenencia a la comunidad eclesial y motivar el envío misionero. Al finalizar el retiro, el joven no debe sentirse solo, sino llamado a ser sal y luz en su colegio, su familia y su grupo de amigos. Se busca encender el compromiso de poner sus talentos al servicio de los demás como respuesta viva a su Confirmación.</p>
+                    </div>
+
                     <input type="hidden" name="2. Tematica_General" value="Quien soy y cual es mi proposito">
                 </div>
 
                 <!-- 2. DATOS DEL EXPOSITOR -->
-                <div class="section-title">✏️ Tus Datos y Asignación</div>
+                <div class="section-title">✏️ 2. Tus Datos y Asignación</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
                         <label for="expositor">Selecciona tu Nombre:</label>
                         <select id="expositor" name="Expositor" required>
                             <option value="" disabled selected>-- Elige tu nombre --</option>
-                            <option value="Pbro. Gustavo Ibarra Valencia">Pbro. Gustavo Ibarra Valencia (Tema 1)</option>
-                            <option value="Cristian Cadena Moreno">Cristian Cadena Moreno (Tema 2)</option>
-                            <option value="Miguel Sanches">Miguel Sanches (Tema 3)</option>
+                            <option id="opt-exp1" value="Pbro. Gustavo Ibarra Valencia">Pbro. Gustavo Ibarra Valencia (Tema 1)</option>
+                            <option id="opt-exp2" value="Cristian Cadena Moreno">Cristian Cadena Moreno (Tema 2)</option>
+                            <option id="opt-exp3" value="Miguel Sanches">Miguel Sanches (Tema 3)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -318,17 +460,17 @@
                     </select>
                 </div>
 
-                <!-- Sección desplegable si dice SÍ -->
+                <!-- Sección desplegable para adjuntar archivo -->
                 <div id="seccion-preparado">
-                    <label for="archivo_tema" style="color: var(--primary); font-weight: 700;">📂 Adjunta tu archivo de desarrollo (Word o PDF):</label>
+                    <label for="archivo_tema" style="color: #166534; font-weight: 700;">📂 Adjunta tu documento de desarrollo (Word o PDF):</label>
                     <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px; margin-bottom: 10px;">
-                        Sube tu documento directamente sin salir de la página:
+                        Sube tu archivo directamente aquí sin salir de la página web:
                     </p>
                     <input type="file" id="archivo_tema" name="Archivo_Adjunto_Tema" accept=".pdf,.doc,.docx,.txt">
                 </div>
 
                 <!-- 3. REQUERIMIENTOS TÉCNICOS -->
-                <div class="section-title">🛠️ Requerimientos Técnicos y Logísticos</div>
+                <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logísticos</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
@@ -344,19 +486,19 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="dinamica">Tipo de Dinámica:</label>
-                        <input type="text" id="dinamica" name="Tipo_Dinamica" placeholder="Ej. Charla interactiva / Reflexión" required>
+                        <label for="dinamica">Tipo de Dinámica o Metodología:</label>
+                        <input type="text" id="dinamica" name="Tipo_Dinamica" placeholder="Ej. Plenaria, trabajo en grupos, vivencial" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="requerimientos">¿Qué necesitas en el salón? (Audio, Proyector, Espacio):</label>
-                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="Indica si necesitas proyector multimedia, micrófono, espacio para grupos, etc." required></textarea>
+                    <label for="requerimientos">¿Qué requieres en el salón? (Audio, Proyector, Espacio):</label>
+                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="Indica si necesitas proyector, sonido, micrófonos de solapa, espacio libre, etc." required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="observaciones">Observaciones o Dudas adicionales:</label>
-                    <textarea id="observaciones" name="Observaciones_Dudas" style="height: 80px;" placeholder="Cualquier comentario para la organización..."></textarea>
+                    <label for="observaciones">Observaciones o Dudas adicionales para la Comisión:</label>
+                    <textarea id="observaciones" name="Observaciones_Dudas" style="height: 80px;" placeholder="Cualquier comentario adicional..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Enviar Ficha Completada</button>
@@ -364,7 +506,34 @@
         </div>
 
         <div class="footer">
-            Iglesia San Martín &bull; Equipo Organizador del Retiro Juvenil 2026
+            Parroquia San Martín de Porres &bull; Comisión Organizadora del Retiro Juvenil 2026
+        </div>
+    </div>
+
+    <!-- PANEL FLOTANTE DE ADMINISTRADOR -->
+    <div class="admin-overlay" id="admin-overlay" onclick="cerrarAdmin()"></div>
+    <div id="admin-panel">
+        <h3 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--accent); padding-bottom:8px;">⚙️ Panel de Organización</h3>
+        <p style="font-size:13px; color:var(--text-muted);">Reasigna los nombres de los expositores de manera dinámica:</p>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="admin-exp1" style="font-size:11px;">Expositor Tema 1:</label>
+            <input type="text" id="admin-exp1" value="Pbro. Gustavo Ibarra Valencia">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="admin-exp2" style="font-size:11px;">Expositor Tema 2:</label>
+            <input type="text" id="admin-exp2" value="Cristian Cadena Moreno">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label for="admin-exp3" style="font-size:11px;">Expositor Tema 3:</label>
+            <input type="text" id="admin-exp3" value="Miguel Sanches">
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+            <button type="button" onclick="guardarCambiosAdmin()" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:10px; cursor:pointer; font-weight:700; flex:1;">Actualizar</button>
+            <button type="button" onclick="cerrarAdmin()" style="background:#e7e5e4; color:var(--text-main); border:none; padding:12px; border-radius:10px; cursor:pointer; font-weight:700;">Cancelar</button>
         </div>
     </div>
 
