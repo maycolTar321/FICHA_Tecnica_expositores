@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,151 +16,174 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8fafc;
+            background-color: #f1f5f9;
             color: var(--text-color);
             margin: 0;
             padding: 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             background: #ffffff;
             margin: 0 auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            border-top: 6px solid var(--primary-color);
+            border-top: 8px solid var(--primary-color);
         }
 
         .header {
-            background: var(--accent-bg);
-            padding: 30px;
+            background: linear-gradient(to bottom, #f8fafc, #edf2f7);
+            padding: 35px 20px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
         }
 
         .header h1 {
-            margin: 0 0 5px 0;
-            font-size: 24px;
+            margin: 0 0 8px 0;
+            font-size: 26px;
             color: var(--primary-color);
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 13px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
         }
 
         .lema-box {
             background: #eff6ff;
             border: 1px dashed var(--secondary-color);
-            padding: 8px 15px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 8px;
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 15px;
             font-weight: bold;
             color: var(--secondary-color);
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .body-content {
-            padding: 30px;
+            padding: 40px 30px;
         }
 
         .section-title {
-            font-size: 15px;
+            font-size: 16px;
             color: var(--primary-color);
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 6px;
-            margin-top: 25px;
-            margin-bottom: 15px;
+            padding-bottom: 8px;
+            margin-top: 35px;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .locked-box {
+        /* Tarjetas de información específica de la organización */
+        .info-card-org {
             background: var(--locked-bg);
-            border: 1px solid #94a3b8;
-            border-left: 5px solid #64748b;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            border: 1px solid #cbd5e1;
+            border-left: 6px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
-        .locked-label {
-            font-size: 11px;
-            font-weight: bold;
+        .org-label {
+            font-size: 12px;
+            font-weight: 700;
             color: #475569;
             text-transform: uppercase;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
         }
 
-        .locked-value {
+        .org-value {
             font-size: 15px;
             color: #0f172a;
-            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .org-value ul {
+            margin: 8px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .org-value li {
+            margin-bottom: 6px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         label {
             display: block;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 13px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #374151;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         select, input[type="text"], textarea {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 10px;
+            font-size: 15px;
             box-sizing: border-box;
             background-color: #fff;
+            transition: all 0.2s ease;
         }
 
         select:focus, input:focus, textarea:focus {
             outline: none;
             border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
         }
 
         textarea {
             resize: vertical;
-            height: 100px;
+            height: 110px;
         }
 
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
         }
 
-        /* Ocultar sección de avance por defecto */
         #seccion-preparado {
             display: none;
             background: #f0fdf4;
             border: 1px solid #bbf7d0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 22px;
         }
 
         .btn-submit {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 14px 25px;
+            padding: 16px 25px;
             font-size: 16px;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
             transition: background 0.2s;
             margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
         }
 
         .btn-submit:hover {
@@ -170,16 +192,19 @@
 
         .footer {
             background: var(--accent-bg);
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             font-size: 13px;
-            color: #6b7280;
+            color: #64748b;
             border-top: 1px solid var(--border-color);
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
             .grid-2 {
                 grid-template-columns: 1fr;
+            }
+            .body-content {
+                padding: 20px 15px;
             }
         }
     </style>
@@ -201,46 +226,58 @@
     <div class="container">
         <!-- Encabezado -->
         <div class="header">
-            <p style="margin:0; font-size:12px; text-transform:uppercase; color:#6b7280; letter-spacing: 1px;">Comité Organizador • Retiro de Jóvenes</p>
-            <h1>Ficha Técnica del Expositor</h1>
-            <div class="lema-box">Lema: Soy Amado — Llamado — Enviado</div>
+            <p>Comité Organizador • Retiro Espiritual</p>
+            <h1>Ficha Técnica y Lineamientos del Expositor</h1>
+            <div class="lema-box">
+                Lema: Soy Amado — Llamado — Enviado
+            </div>
         </div>
 
         <!-- Formulario conectado a Formspree -->
         <div class="body-content">
             <form action="https://formspree.io/f/xbglpngq" method="POST">
                 
-                <!-- 1. SECCIÓN BLOQUEADA -->
-                <div class="section-title">🔒 1. Definido por la Organización (Bloqueado)</div>
+                <!-- 1. INFORMACIÓN ESPECÍFICA DE LA ORGANIZACIÓN -->
+                <div class="section-title">📌 1. Marco General del Retiro (Definido por la Organización)</div>
                 
-                <div class="locked-box">
-                    <span class="locked-label">Segmento de Público Objetivo (Fijo)</span>
-                    <div class="locked-value">Adolescentes y jóvenes de 15 a 17 años</div>
+                <div class="info-card-org">
+                    <span class="org-label">Segmento de Público Objetivo</span>
+                    <div class="org-value">
+                        <strong>Adolescentes y jóvenes de 15 a 17 años.</strong> Se trata de una etapa crucial de transición, búsqueda de identidad personal, experimentación de cambios emocionales y presión social/digital. El lenguaje debe ser sumamente cercano, empático, sin juicios y motivador.
+                    </div>
                     <input type="hidden" name="publico_objetivo" value="Jovenes de 15 a 17 años">
                 </div>
 
-                <div class="locked-box">
-                    <span class="locked-label">Temática General del Retiro</span>
-                    <div class="locked-value">¿Quién soy y cuál es mi propósito?</div>
+                <div class="info-card-org">
+                    <span class="org-label">Temática Central y Distribución de Temas</span>
+                    <div class="org-value">
+                        <strong>Eje Temático Principal:</strong> ¿Quién soy y cuál es mi propósito?<br><br>
+                        <strong>Asignación detallada para los ponentes:</strong>
+                        <ul>
+                            <li><strong>Pbro. Gustavo Ibarra Valencia:</strong> Tema 1 — <em>¿Quién soy yo? (Cuando nadie me está mirando)</em>. Enfoque en desmontar máscaras, valor personal ante Dios y autenticidad en la intimidad.</li>
+                            <li><strong>Cristian Cadena Moreno:</strong> Tema 2 — <em>Señor, ¿Qué quieres de mí?</em>. Enfoque en discernir el proyecto de vida y escuchar la voz de Dios frente a las dudas juveniles.</li>
+                            <li><strong>Miguel Sanches:</strong> Tema 3 — <em>Dios tiene un propósito para mí</em>. Enfoque en el envío misionero, el compromiso cotidiano y el testimonio en su entorno (colegio, familia, amigos).</li>
+                        </ul>
+                    </div>
                     <input type="hidden" name="tematica_general" value="Quien soy y cual es mi proposito">
                 </div>
 
                 <!-- 2. SECCIÓN PARA EL EXPOSITOR -->
-                <div class="section-title">✏️ 2. Datos y Asignación</div>
+                <div class="section-title">✏️ 2. Identificación del Expositor</div>
                 
                 <div class="form-group">
-                    <label for="expositor">Selecciona tu Nombre (Expositor):</label>
+                    <label for="expositor">Selecciona tu Nombre:</label>
                     <select id="expositor" name="expositor" required>
-                        <option value="" disabled selected>-- Elige tu nombre --</option>
-                        <option value="Pbro. Gustavo Ibarra Valencia">Pbro. Gustavo Ibarra Valencia — (Tema 1: ¿Quién soy yo? Cuando nadie me está mirando)</option>
-                        <option value="Cristian Cadena Moreno">Cristian Cadena Moreno — (Tema 2: Señor ¿Qué quieres de mí?)</option>
-                        <option value="Miguel Sanches">Miguel Sanches — (Tema 3: Dios tiene un propósito para mí)</option>
+                        <option value="" disabled selected>-- Elige tu nombre de la lista --</option>
+                        <option value="Pbro. Gustavo Ibarra Valencia">Pbro. Gustavo Ibarra Valencia (Tema 1)</option>
+                        <option value="Cristian Cadena Moreno">Cristian Cadena Moreno (Tema 2)</option>
+                        <option value="Miguel Sanches">Miguel Sanches (Tema 3)</option>
                     </select>
                 </div>
 
-                <!-- NUEVA PREGUNTA: ¿Preparó el tema? -->
+                <!-- PREGUNTA DE ESTADO DEL TEMA -->
                 <div class="form-group">
-                    <label for="preparado_tema">¿Ya tienes preparado el contenido / esquema de tu tema?</label>
+                    <label for="preparado_tema">¿Ya tienes preparado el contenido o esquema de tu tema?</label>
                     <select id="preparado_tema" name="preparado_tema" onchange="controlarSeccionTema()" required>
                         <option value="" disabled selected>-- Selecciona una opción --</option>
                         <option value="Si">Sí, ya lo tengo listo</option>
@@ -248,14 +285,14 @@
                     </select>
                 </div>
 
-                <!-- Sección que se activa solo si dice que SÍ -->
+                <!-- Sección desplegable si dice SÍ -->
                 <div id="seccion-preparado">
-                    <label for="detalle_tema" style="color: #166534;">📝 Detalla o resume los puntos clave de tu tema:</label>
-                    <textarea id="detalle_tema" name="detalle_tema" placeholder="Escribe brevemente los puntos centrales que abordarás..."></textarea>
+                    <label for="detalle_tema" style="color: #166534; font-weight: 700;">📝 Resumen o puntos clave de tu tema preparado:</label>
+                    <textarea id="detalle_tema" name="detalle_tema" placeholder="Describe brevemente los puntos centrales, textos de apoyo o la estructura que usarás..."></textarea>
                 </div>
 
-                <!-- 3. REQUERIMIENTOS TÉCNICOS -->
-                <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logísticos</div>
+                <!-- 3. REQUERIMIENTOS TÉCNICOS Y LOGÍSTICOS -->
+                <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logísticos (Para completar)</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
@@ -263,30 +300,29 @@
                         <input type="text" id="tiempo" name="tiempo" placeholder="Ej. 45 a 50 minutos" required>
                     </div>
                     <div class="form-group">
-                        <label for="dinamica">Dinámica de Exposición:</label>
-                        <input type="text" id="dinamica" name="dinamica" placeholder="Ej. Charla + Preguntas / Reflexión" required>
+                        <label for="dinamica">Tipo de Dinámica:</label>
+                        <input type="text" id="dinamica" name="dinamica" placeholder="Ej. Charla interactiva / Reflexión" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="requerimientos">¿Qué necesitas técnicamente? (Audio / Proyector / Espacio):</label>
-                    <textarea id="requerimientos" name="requerimientos" placeholder="Indica si necesitas proyector, micrófono inalámbrico, etc." required></textarea>
+                    <label for="requerimientos">¿Qué requieres en el salón? (Audio, Proyector, Espacio):</label>
+                    <textarea id="requerimientos" name="requerimientos" placeholder="Indica si necesitas proyector multimedia, micrófono de solapa, espacio para trabajo grupal, etc." required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="observaciones">Observaciones o Dudas para la Organización:</label>
-                    <textarea id="observaciones" name="observaciones" style="height: 70px;" placeholder="Cualquier comentario adicional..."></textarea>
+                    <label for="observaciones">Observaciones o Dudas adicionales:</label>
+                    <textarea id="observaciones" name="observaciones" style="height: 80px;" placeholder="Cualquier comentario o mensaje para el comité organizador..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Enviar Ficha Completa</button>
+                <button type="submit" class="btn-submit">Enviar Ficha Completada</button>
             </form>
         </div>
 
         <div class="footer">
-            Retiro Espiritual 2026 &bull; Comité Organizador
+            Retiro Espiritual Juvenil 2026 &bull; Comisión de Liturgia y Logística
         </div>
     </div>
 
 </body>
-                          </html>
-                          
+</html>
