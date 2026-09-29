@@ -108,32 +108,54 @@
         #dashboard-main {
             display: none;
             background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-            padding: 2rem;
+            padding: 1rem;
             min-height: 100vh;
+        }
+        @media (min-width: 768px) {
+            #dashboard-main { padding: 2rem; }
         }
         .dash-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 1.25rem;
             max-width: 1400px;
             margin: 0 auto;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .dash-container { padding: 2.5rem; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
         }
         .kpi-card {
-            border-right: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem;
             transition: transform 0.3s ease;
+            text-align: center;
+        }
+        @media (min-width: 768px) {
+            .kpi-card {
+                border-bottom: none;
+                border-right: 1px solid rgba(0, 0, 0, 0.05);
+                padding: 1.5rem 2rem;
+                text-align: left;
+            }
+            .kpi-card:last-child { border-right: none; }
         }
         .kpi-card:hover { transform: translateY(-3px); }
-        .kpi-card:last-child { border-right: none; }
+        
         .chart-box {
             border: 1px solid rgba(0, 0, 0, 0.05);
-            border-radius: 16px;
-            padding: 1.5rem;
+            border-radius: 1rem;
+            padding: 1rem;
             background: #ffffff;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            overflow: hidden;
+        }
+        @media (min-width: 768px) {
+            .chart-box { padding: 1.5rem; border-radius: 16px; }
         }
     </style>
 </head>
@@ -492,19 +514,19 @@
         <div class="dash-container" id="dash-content-area">
             
             <!-- Encabezado del Dash -->
-            <div class="flex justify-between items-center mb-8 border-b pb-4">
-                <div>
-                    <h2 class="text-2xl font-black text-slate-800">Panel de Control General</h2>
-                    <p class="text-sm text-slate-500">Métricas y logística del Retiro 2026</p>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8 border-b pb-4 gap-4">
+                <div class="text-center md:text-left">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-800">Panel de Control General</h2>
+                    <p class="text-xs md:text-sm text-slate-500">Métricas y logística del Retiro 2026</p>
                 </div>
-                <div class="flex gap-3">
-                    <button onclick="cargarDatosDashboard()" class="text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-4 py-2 rounded-lg font-bold text-sm transition-colors">
+                <div class="flex flex-wrap justify-center gap-2 md:gap-3 w-full md:w-auto">
+                    <button onclick="cargarDatosDashboard()" class="flex-1 md:flex-none text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-3 py-2 md:px-4 md:py-2 rounded-lg font-bold text-xs md:text-sm transition-colors text-center">
                         <i class="fas fa-sync-alt" id="dash-sync-icon"></i> Actualizar
                     </button>
-                    <button onclick="generarPDFDashboard()" class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-indigo-200">
-                        <i class="fas fa-file-pdf"></i> Generar PDF
+                    <button onclick="generarPDFDashboard()" class="flex-1 md:flex-none text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-2 md:px-4 md:py-2 rounded-lg font-bold text-xs md:text-sm transition-colors shadow-lg shadow-indigo-200 text-center">
+                        <i class="fas fa-file-pdf"></i> PDF
                     </button>
-                    <button onclick="cerrarDashboard()" class="text-slate-500 hover:text-red-500 bg-slate-100 hover:bg-red-50 px-4 py-2 rounded-lg font-bold text-sm transition-colors">
+                    <button onclick="cerrarDashboard()" class="flex-1 md:flex-none text-slate-500 hover:text-red-500 bg-slate-100 hover:bg-red-50 px-3 py-2 md:px-4 md:py-2 rounded-lg font-bold text-xs md:text-sm transition-colors text-center">
                         <i class="fas fa-times"></i> Cerrar
                     </button>
                 </div>
