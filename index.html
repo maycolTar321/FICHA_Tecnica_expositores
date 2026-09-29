@@ -35,24 +35,6 @@
             border-color: #1e3a8a !important; box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.12);
         }
 
-        .editor-word {
-            min-height: 120px;
-            max-height: 250px;
-            overflow-y: auto;
-            outline: none;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #1e293b;
-            font-weight: 500;
-        }
-        .editor-word ol {
-            padding-left: 1.5rem;
-            list-style-type: decimal;
-        }
-        .editor-word li {
-            margin-bottom: 0.3rem;
-        }
-
         .expositor-card {
             border: 2px solid #e2e8f0;
             background: #ffffff;
@@ -113,7 +95,7 @@
                     <p class="text-[10px] text-blue-700 font-bold uppercase tracking-widest">Portal de Expositores y Guías</p>
                 </div>
             </div>
-            <button onclick="abrirAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors transform hover:rotate-90 duration-300">
+            <button onclick="abrirAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors transform hover:rotate-90 duration-300" title="Configuración">
                 <i class="fas fa-cog text-xl"></i>
             </button>
         </div>
@@ -121,6 +103,7 @@
 
     <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-6 relative">
         
+        <!-- Indicador de Pasos -->
         <div class="flex items-center justify-between mb-8 relative px-4" id="progress-container">
             <div class="absolute left-4 right-4 top-1/2 -translate-y-1/2 h-1.5 bg-slate-200 -z-10 rounded-full"></div>
             <div id="progress-bar" class="absolute left-4 top-1/2 -translate-y-1/2 w-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-900 -z-10 rounded-full transition-all duration-700"></div>
@@ -161,7 +144,7 @@
                                 <i class="fas fa-fire mr-2"></i> Fundamentación Pastoral
                             </h3>
                             <p class="text-white text-[13px] leading-relaxed font-medium text-justify mb-3">
-                                <strong>Perfil (15-17 años):</strong> Los jóvenes transitan una intensa búsqueda de identidad, marcados por la presión digital y la constante necesidad de aprobación. En este camino, experimentan vacíos y la exigencia de usar máscaras para encajar en su entorno.
+                                <strong>Perfil (15-17 años)[cite: 1]:</strong> Los jóvenes transitan una intensa búsqueda de identidad, marcados por la presión digital y la constante necesidad de aprobación. En este camino, experimentan vacíos y la exigencia de usar máscaras para encajar en su entorno.
                             </p>
                             <p class="text-white text-[13px] leading-relaxed font-medium text-justify">
                                 <strong>¿Por qué este Lema?</strong> Porque necesitan redescubrir la verdad que Jesús revela: <em>"No temas, porque yo te he redimido; te he llamado por tu nombre; tú eres mío"</em> (Isaías 43,1). Su dignidad no depende de la aprobación externa, sino de saberse profundamente <strong>Amados</strong> por Dios, <strong>Llamados</strong> a seguirle y <strong>Enviados</strong> como apóstoles valientes al mundo de hoy.
@@ -173,9 +156,14 @@
                 <div class="space-y-6">
                     
                     <div>
-                        <div class="bg-amber-50 border-l-4 border-amber-500 p-3 rounded-xl mb-3 text-xs text-amber-900 font-semibold">
-                            <i class="fas fa-info-circle mr-1 text-amber-600"></i> <strong>Instrucción:</strong> Selecciona tu nombre o el espacio de Adoración al Santísimo según corresponda.
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-xl mb-4 text-xs text-blue-900">
+                            <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 1:</p>
+                            <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
+                                <li>Busca y haz clic sobre la tarjeta que corresponda exactamente a tu nombre o tema asignado.</li>
+                                <li>Ingresa tu número de WhatsApp personal sin espacios para mantener comunicación con la organización.</li>
+                            </ul>
                         </div>
+
                         <label class="block text-xs font-black text-slate-700 mb-3 uppercase tracking-widest flex items-center gap-2">
                             <i class="fas fa-user-circle text-blue-700 text-base"></i> Selecciona tu Nombre o Rol Asignado
                         </label>
@@ -280,9 +268,14 @@
                     </div>
                 </div>
 
-                <div class="bg-amber-50 border-l-4 border-amber-500 p-3 rounded-xl mb-4 text-xs text-amber-900 font-semibold">
-                    <i class="fas fa-info-circle mr-1 text-amber-600"></i> <strong>Instrucción:</strong> Indica si ya tienes listo el guion o esquema de tu participación. Si lo tienes, súbelo abajo.
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-xl mb-4 text-xs text-blue-900">
+                    <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 2:</p>
+                    <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
+                        <li>Selecciona si ya tienes preparado tu documento o si te encuentras elaborándolo.</li>
+                        <li>Si ya lo tienes redactado, súbelo en formato PDF o Word (opcional pero recomendado).</li>
+                    </ul>
                 </div>
+
                 <h3 class="font-serif text-2xl font-bold text-slate-900 mb-4">Progreso de Preparación</h3>
                 
                 <div class="flex flex-col sm:flex-row gap-4 mb-6">
@@ -334,7 +327,15 @@
                 <button type="button" onclick="prevStep(2)" class="text-slate-400 mb-6 hover:text-blue-700 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
                 
                 <h2 class="text-3xl font-serif text-slate-900 mb-2 font-bold text-center">Logística del Salón</h2>
-                <p class="text-xs text-center text-slate-500 mb-8 font-medium">Configura el tiempo y escribe abajo tus requerimientos de forma totalmente libre.</p>
+                <p class="text-xs text-center text-slate-500 mb-6 font-medium">Configura el tiempo y anota tus requerimientos materiales.</p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-xl mb-6 text-xs text-blue-900">
+                    <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 3:</p>
+                    <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
+                        <li>Selecciona el tiempo estimado que durará tu participación.</li>
+                        <li>En el campo de requerimientos técnicos, puedes escribir lo que necesites separando los elementos con comas (Ej. <i>proyector, mesas, hojas</i>)[cite: 14].</li>
+                    </ul>
+                </div>
 
                 <div class="space-y-6">
                     <div class="grid grid-cols-2 gap-4">
@@ -347,7 +348,7 @@
                                     <option value="30 minutos">30 min</option>
                                     <option value="45 minutos">45 min</option>
                                     <option value="1 hora" selected>1 hora</option>
-                                    <option value="Más de 1 hora" selected> Más de1 hora</option>
+                                    <option value="Más de 1 hora" selected> Más de 1 hora</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-blue-600">
                                     <i class="fas fa-chevron-down text-sm"></i>
@@ -363,23 +364,13 @@
                         </div>
                     </div>
 
+                    <!-- REQUERIMIENTOS TÉCNICOS CON EJEMPLO CLARO DE COMAS -->
                     <div class="input-premium group">
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                                <i class="fas fa-tools mr-1 text-blue-700"></i> Requerimientos Técnicos (Escribe aquí abajo)
-                            </label>
-                            <button type="button" onclick="agregarItemLista()" class="bg-blue-100 text-blue-700 hover:bg-blue-200 text-xs font-bold px-3 py-1 rounded-lg transition-colors flex items-center gap-1">
-                                <i class="fas fa-plus"></i> Añadir ítem
-                            </button>
-                        </div>
-                        
-                        <div id="editor-requerimientos" class="editor-word" contenteditable="true">
-                            <ol>
-                                <li style="margin-bottom: 5px;"></li>
-                            </ol>
-                        </div>
-                        <input type="hidden" name="Requerimientos_Tecnicos" id="Requerimientos_Tecnicos">
-                        <p class="text-[11px] text-slate-400 mt-2 italic">💡 Haz clic dentro del recuadro en blanco y comienza a escribir tus requerimientos (al dar Enter se numerará solo).</p>
+                        <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">
+                            <i class="fas fa-tools mr-1 text-blue-700"></i> Requerimientos Técnicos o Materiales
+                        </label>
+                        <textarea name="Requerimientos_Tecnicos" id="Requerimientos_Tecnicos" rows="3" placeholder="Ej. proyector, mesas, hojas" class="w-full bg-transparent text-slate-800 font-medium focus:outline-none resize-none mt-2" required></textarea>
+                        <p class="text-[11px] text-slate-400 mt-1 italic">💡 Puedes separar los materiales escribiendo con comas (Ej: proyector, mesas, hojas)[cite: 14].</p>
                     </div>
 
                     <div class="input-premium group">
@@ -435,14 +426,14 @@
 
     </main>
 
-    <!-- Modal Admin Completo (Permite editar nombres, títulos y descripciones) -->
+    <!-- Modal Admin Completo -->
     <div id="adminModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
             <h3 class="text-xl font-black mb-1 text-slate-900"><i class="fas fa-users-cog text-blue-700 mr-2"></i> Configuración General</h3>
             <p class="text-xs text-slate-500 mb-6 border-b pb-4 font-medium">Edita los nombres y datos de los expositores o invitados del retiro.</p>
             
             <div class="space-y-6 mb-8" id="admin-inputs-container">
-                <!-- Se llena dinámicamente mediante script -->
+                <!-- Se llena dinámicamente -->
             </div>
 
             <div class="flex gap-3 sticky bottom-0 bg-white pt-2 pb-1">
@@ -491,27 +482,6 @@
             }
         ];
 
-        function agregarItemLista() {
-            const editor = document.getElementById('editor-requerimientos');
-            let ol = editor.querySelector('ol');
-            if(!ol) {
-                editor.innerHTML = '<ol></ol>';
-                ol = editor.querySelector('ol');
-            }
-            let li = document.createElement('li');
-            li.style.marginBottom = '5px';
-            li.innerHTML = '<br>';
-            ol.appendChild(li);
-            
-            let range = document.createRange();
-            let sel = window.getSelection();
-            range.setStart(li, 0);
-            range.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(range);
-            editor.focus();
-        }
-
         function seleccionarExpositorPorTarjeta(id) {
             let tema = temasData.find(t => t.id === id);
             if(!tema) return;
@@ -525,7 +495,7 @@
                 let savedName = localStorage.getItem('admin_name_' + tema.id) || tema.defaultName;
                 let savedTitle = localStorage.getItem('admin_title_' + tema.id) || tema.t;
                 tema.currentName = savedName;
-                tema.currentTargetTitle = savedTitle;
+                tema.t = savedTitle;
                 
                 let nameEl = document.getElementById('card-name-' + tema.id);
                 if(nameEl) nameEl.innerText = savedName;
@@ -548,7 +518,7 @@
                             <input type="text" id="admin-name-${tema.id}" value="${currentName}" class="w-full bg-white border-2 border-slate-200 rounded-xl p-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-blue-700">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título del tema / momento:</label>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título / Descripción:</label>
                             <input type="text" id="admin-title-${tema.id}" value="${currentTitle}" class="w-full bg-white border-2 border-slate-200 rounded-xl p-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-blue-700">
                         </div>
                     </div>
@@ -557,7 +527,7 @@
         }
 
         function abrirAdmin() {
-            let pass = prompt("Ingresa la contraseña de administrador:");
+            let pass = prompt("Ingresa la contraseña de administrador (admin2026):");
             if (pass === "admin2026") { 
                 construirInputsAdmin();
                 document.getElementById('adminModal').classList.remove('hidden'); 
@@ -583,7 +553,7 @@
             document.querySelectorAll('input[name="ExpositorSelection"]').forEach(el => el.checked = false);
             document.getElementById('tema-card').classList.add('hidden');
             
-            showToast("¡Datos y nombres actualizados con éxito!");
+            showToast("¡Datos actualizados con éxito!");
         }
 
         function mostrarTemaUI(tema) {
@@ -651,9 +621,6 @@
             if(!document.getElementById('expositor').value || !document.getElementById('telefono').value || !document.querySelector('input[name="Estado_Tema"]:checked')) { 
                 showToast("Revisa los datos obligatorios 🚨"); return; 
             }
-
-            let editorContent = document.getElementById('editor-requerimientos').innerHTML;
-            document.getElementById('Requerimientos_Tecnicos').value = editorContent;
 
             let btn = document.getElementById('submitBtn');
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
