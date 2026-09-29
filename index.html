@@ -6,6 +6,8 @@
     <title>Retiro 2026 | Portal de Expositores e Invitados</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap');
         
@@ -21,50 +23,72 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            border-radius: 1.5rem;
         }
 
         .input-premium {
-            background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1.25rem;
-            padding: 1.1rem 1.25rem; transition: all 0.25s ease;
+            background: #ffffff; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 1rem;
+            padding: 1rem 1.25rem; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
         .input-premium:focus-within {
-            border-color: #1e3a8a !important; box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.12);
+            border-color: #3b82f6 !important; 
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
         }
 
         .expositor-card {
             border: 2px solid #e2e8f0;
             background: #ffffff;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
         .expositor-card:hover {
-            border-color: #93c5fd;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(30, 58, 138, 0.08);
+            border-color: #60a5fa;
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 25px -5px rgba(59, 130, 246, 0.15);
         }
         input[type="radio"]:checked ~ .expositor-card {
-            border-color: #1e3a8a !important;
-            background-color: #eff6ff !important;
-            box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.15);
+            border-color: #2563eb !important;
+            background-color: #f8fafc !important;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+            transform: translateY(-2px);
         }
         input[type="radio"]:checked ~ .expositor-card .check-icon {
-            background-color: #1e3a8a !important;
-            border-color: #1e3a8a !important;
+            background-color: #2563eb !important;
+            border-color: #2563eb !important;
             color: #ffffff !important;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
         }
         input[type="radio"]:checked ~ .expositor-card .check-icon i {
             opacity: 1 !important;
+            transform: scale(1.1);
         }
 
         .file-zone {
-            border: 2px dashed #cbd5e1; border-radius: 1.5rem; padding: 2.5rem; text-align: center;
-            background: #ffffff; transition: all 0.3s; cursor: pointer;
+            border: 2px dashed #cbd5e1; 
+            border-radius: 1.5rem; 
+            padding: 2.5rem; 
+            text-align: center;
+            background: #f8fafc; 
+            transition: all 0.3s ease; 
+            cursor: pointer;
         }
-        .file-zone:hover { border-color: #2563eb; background: #f0fdf4; transform: translateY(-4px); box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.2); }
+        .file-zone:hover { 
+            border-color: #3b82f6; 
+            background: #eff6ff; 
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.15); 
+        }
         
         #toast {
             position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
@@ -78,6 +102,38 @@
             body { background: white; }
             header, .step-indicator, button, #toast, #adminModal { display: none !important; }
             #successScreen { display: block !important; padding: 0; margin: 0; }
+        }
+
+        /* Dashboard Styles based on user image */
+        #dashboard-main {
+            display: none;
+            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        .dash-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .kpi-card {
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1.5rem 2rem;
+            transition: transform 0.3s ease;
+        }
+        .kpi-card:hover { transform: translateY(-3px); }
+        .kpi-card:last-child { border-right: none; }
+        .chart-box {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
     </style>
 </head>
@@ -95,9 +151,14 @@
                     <p class="text-[10px] text-blue-700 font-bold uppercase tracking-widest">Portal de Expositores y Guías</p>
                 </div>
             </div>
-            <button onclick="abrirAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors transform hover:rotate-90 duration-300" title="Configuración">
-                <i class="fas fa-cog text-xl"></i>
-            </button>
+            <div class="flex items-center gap-4">
+                <button onclick="abrirDashboardAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors duration-300" title="Ver Dashboard">
+                    <i class="fas fa-chart-line text-xl"></i>
+                </button>
+                <button onclick="abrirAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors transform hover:rotate-90 duration-300" title="Configuración">
+                    <i class="fas fa-cog text-xl"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -159,8 +220,8 @@
                         <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-xl mb-4 text-xs text-blue-900">
                             <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 1:</p>
                             <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
-                                <li>Haz clic sobre la tarjeta que corresponda exactamente a tu nombre y tema o momento asignado.</li>
-                                <li>Escribe tu número de WhatsApp personal y presiona "Siguiente paso".</li>
+                                <li>Busca y haz clic sobre la tarjeta que corresponda exactamente a tu nombre o tema asignado.</li>
+                                <li>Ingresa tu número de WhatsApp personal sin espacios para mantener comunicación con la organización.</li>
                             </ul>
                         </div>
 
@@ -271,8 +332,8 @@
                 <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-xl mb-4 text-xs text-blue-900">
                     <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 2:</p>
                     <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
-                        <li>Indica si ya tienes listo el documento de tu guion/esquema o si sigues elaborándolo.</li>
-                        <li>Si ya lo tienes redactado, súbelo en formato PDF o Word para respaldarlo en la plataforma.</li>
+                        <li>Selecciona si ya tienes preparado tu documento o si te encuentras elaborándolo.</li>
+                        <li>Si ya lo tienes redactado, súbelo en formato PDF o Word (opcional pero recomendado).</li>
                     </ul>
                 </div>
 
@@ -333,7 +394,7 @@
                     <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 3:</p>
                     <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
                         <li>Selecciona el tiempo estimado que durará tu participación.</li>
-                        <li>En el campo de requerimientos técnicos, escribe lo que necesites separando los elementos con comas (Ej. <i>proyector, mesas, hojas</i>)[cite: 14].</li>
+                        <li>En el campo de requerimientos técnicos, puedes escribir lo que necesites separando los elementos con comas (Ej. <i>proyector, mesas, hojas</i>)[cite: 14].</li>
                     </ul>
                 </div>
 
@@ -347,8 +408,8 @@
                                 <select name="Tiempo_Estimado" class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none appearance-none cursor-pointer pr-8" required>
                                     <option value="30 minutos">30 min</option>
                                     <option value="45 minutos">45 min</option>
-                                    <option value="1 hora">1 hora</option>
-                                    <option value="Más de 1 hora" selected>Más de 1 hora</option>
+                                    <option value="1 hora" selected>1 hora</option>
+                                    <option value="Más de 1 hora"> Más de 1 hora</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-blue-600">
                                     <i class="fas fa-chevron-down text-sm"></i>
@@ -426,6 +487,90 @@
 
     </main>
 
+    <!-- PANTALLA DASHBOARD INTEGRADO -->
+    <main id="dashboard-main">
+        <div class="dash-container" id="dash-content-area">
+            
+            <!-- Encabezado del Dash -->
+            <div class="flex justify-between items-center mb-8 border-b pb-4">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-800">Panel de Control General</h2>
+                    <p class="text-sm text-slate-500">Métricas y logística del Retiro 2026</p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="cargarDatosDashboard()" class="text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-4 py-2 rounded-lg font-bold text-sm transition-colors">
+                        <i class="fas fa-sync-alt" id="dash-sync-icon"></i> Actualizar
+                    </button>
+                    <button onclick="generarPDFDashboard()" class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-indigo-200">
+                        <i class="fas fa-file-pdf"></i> Generar PDF
+                    </button>
+                    <button onclick="cerrarDashboard()" class="text-slate-500 hover:text-red-500 bg-slate-100 hover:bg-red-50 px-4 py-2 rounded-lg font-bold text-sm transition-colors">
+                        <i class="fas fa-times"></i> Cerrar
+                    </button>
+                </div>
+            </div>
+
+            <div id="dash-loading" class="text-center py-20 hidden">
+                <i class="fas fa-spinner fa-spin text-4xl text-blue-500 mb-4"></i>
+                <p class="text-slate-500 font-bold">Cargando datos en vivo...</p>
+            </div>
+
+            <div id="dash-view">
+                <!-- Tarjetas KPI -->
+                <div class="grid grid-cols-1 md:grid-cols-4 border-b border-t border-slate-100 mb-8" id="kpi-row">
+                    <div class="kpi-card">
+                        <p class="text-xs text-slate-500 font-bold mb-2">Total Fichas</p>
+                        <p class="text-4xl font-black text-slate-800" id="kpi-total">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-xs text-slate-500 font-bold mb-2">Fichas Listas</p>
+                        <p class="text-4xl font-black text-emerald-600" id="kpi-listas">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-xs text-slate-500 font-bold mb-2">En Preparación</p>
+                        <p class="text-4xl font-black text-amber-500" id="kpi-pendientes">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-xs text-slate-500 font-bold mb-2">% Avance Total</p>
+                        <p class="text-4xl font-black text-blue-600" id="kpi-porcentaje">0%</p>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="chart-box">
+                        <h3 class="text-sm font-bold text-slate-600 mb-4">Estado de Preparación</h3>
+                        <div class="h-64 flex justify-center"><canvas id="donutChart"></canvas></div>
+                    </div>
+                    <div class="chart-box">
+                        <h3 class="text-sm font-bold text-slate-600 mb-4">Tiempos Estimados</h3>
+                        <div class="h-64"><canvas id="barChart"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- Tabla Detallada -->
+                <div class="chart-box p-0 overflow-hidden">
+                    <h3 class="text-sm font-bold text-slate-600 p-4 border-b">Detalle Logístico</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                                <tr>
+                                    <th class="px-4 py-3">Expositor</th>
+                                    <th class="px-4 py-3">Estado</th>
+                                    <th class="px-4 py-3">Tiempo</th>
+                                    <th class="px-4 py-3">Requerimientos Técnicos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dash-table-body" class="divide-y divide-slate-100">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
     <!-- Modal Admin Completo -->
     <div id="adminModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
@@ -449,7 +594,7 @@
     </div>
 
     <script>
-        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwcyAxqR6dnUyRgdqXlPVUCg65ahhJbvAMuXF4qNl47uxFwNQF7bjCKh0Zld39Z-q7zng/exec";
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbynnDWUebcD-xpbZKrccWmGRHQqsxnzWPqp_xuHSsTJ1pMM7nQAHyiPWjH56zmQlv73ng/exec";
 
         const temasData = [
             { 
@@ -659,9 +804,9 @@
         }
 
         function ejecutarFetch(formData, btn) {
-            fetch(URL_APPS_SCRIPT, { method: "POST", body: formData })
-            .then(response => response.json())
-            .then(data => {
+            let urlEncoded = new URLSearchParams(formData);
+            fetch(URL_APPS_SCRIPT, { method: "POST", body: urlEncoded, mode: "no-cors" })
+            .then(response => {
                 document.getElementById('appForm').classList.add('hidden');
                 document.getElementById('progress-container').classList.add('hidden');
                 document.getElementById('successScreen').classList.remove('hidden');
@@ -672,6 +817,157 @@
                 btn.innerHTML = '<span>Enviar Ficha Pastoral</span> <i class="fas fa-paper-plane"></i>';
                 btn.disabled = false;
             });
+        }
+        // ==========================================
+        // LÓGICA DEL DASHBOARD INTEGRADO
+        // ==========================================
+        let donutChartInstance = null;
+        let barChartInstance = null;
+
+        function abrirDashboardAdmin() {
+            let pass = prompt("Ingresa la contraseña de administrador:");
+            if (pass === "admin2026") { 
+                document.querySelector('header').style.display = 'none';
+                document.querySelector('main.max-w-2xl').style.display = 'none';
+                document.getElementById('dashboard-main').style.display = 'block';
+                cargarDatosDashboard();
+            } 
+            else if (pass !== null) { alert("Contraseña Incorrecta."); }
+        }
+
+        function cerrarDashboard() {
+            document.querySelector('header').style.display = 'block';
+            document.querySelector('main.max-w-2xl').style.display = 'block';
+            document.getElementById('dashboard-main').style.display = 'none';
+        }
+
+        function cargarDatosDashboard() {
+            const syncIcon = document.getElementById('dash-sync-icon');
+            syncIcon.classList.add('fa-spin');
+            document.getElementById('dash-view').classList.add('hidden');
+            document.getElementById('dash-loading').classList.remove('hidden');
+
+            fetch(URL_APPS_SCRIPT)
+                .then(response => response.json())
+                .then(data => {
+                    procesarDatosDashboard(data);
+                    document.getElementById('dash-loading').classList.add('hidden');
+                    document.getElementById('dash-view').classList.remove('hidden');
+                    syncIcon.classList.remove('fa-spin');
+                })
+                .catch(error => {
+                    alert("Error cargando el dashboard. Revisa la consola o tu Apps Script.");
+                    syncIcon.classList.remove('fa-spin');
+                    document.getElementById('dash-loading').classList.add('hidden');
+                });
+        }
+
+        function procesarDatosDashboard(data) {
+            let total = 0, listos = 0, pendientes = 0;
+            let tiempoCounts = { "30 minutos": 0, "45 minutos": 0, "1 hora": 0, "Más de 1 hora": 0 };
+            
+            const tbody = document.getElementById('dash-table-body');
+            tbody.innerHTML = '';
+
+            if (data && data.length > 0) {
+                total = data.length;
+                data.forEach(row => {
+                    let expositor = row[1] || "N/A";
+                    let estado = row[3] || "No";
+                    let tiempo = row[5] || "N/A";
+                    let reqs = row[7] || "Ninguno";
+
+                    if (estado.toLowerCase() === 'si') listos++;
+                    else pendientes++;
+
+                    if (tiempoCounts[tiempo] !== undefined) tiempoCounts[tiempo]++;
+                    else tiempoCounts["Más de 1 hora"]++; // Fallback
+
+                    let estadoBadge = estado.toLowerCase() === 'si' 
+                        ? `<span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-[10px] font-bold">Listo</span>`
+                        : `<span class="bg-amber-100 text-amber-700 px-2 py-1 rounded-full text-[10px] font-bold">Pendiente</span>`;
+
+                    // Formatear requerimientos como lista
+                    let reqListItems = reqs.split(',').map(r => r.trim()).filter(r => r.length > 0)
+                                        .map(r => `<li class="flex items-start gap-1"><i class="fas fa-check-circle text-blue-400 mt-0.5 text-[10px]"></i> <span>${r}</span></li>`)
+                                        .join('');
+                    let reqsFormatted = reqListItems.length > 0 ? `<ul class="space-y-1 mt-1">${reqListItems}</ul>` : `<span class="text-slate-400 italic">Ninguno</span>`;
+
+                    // Botón de WhatsApp para la encargada (Yaneila)
+                    let itemsArray = reqs.split(',').map(r => r.trim()).filter(r => r.length > 0);
+                    let waMessage = encodeURIComponent(`Hola Yaneila, espero que estés muy bien.\n\nTe comparto los requerimientos logísticos y materiales que ha solicitado *${expositor}* para su intervención:\n\n${itemsArray.map(r => '🔸 ' + r.charAt(0).toUpperCase() + r.slice(1)).join('\n')}\n\n¡Mil gracias por tu valioso apoyo en la coordinación! 🙏`);
+                    let waLink = `https://wa.me/?text=${waMessage}`; // Si tienen un número fijo: https://wa.me/59170000000?text=...
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-4 py-4 font-bold text-slate-700 align-top">${expositor}</td>
+                            <td class="px-4 py-4 align-top">${estadoBadge}</td>
+                            <td class="px-4 py-4 text-xs text-slate-500 align-top">${tiempo}</td>
+                            <td class="px-4 py-4 text-xs text-slate-600 align-top">
+                                ${reqsFormatted}
+                                <a href="${waLink}" target="_blank" class="mt-3 inline-flex items-center gap-1 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 px-3 py-1.5 rounded-lg font-bold transition-colors">
+                                    <i class="fab fa-whatsapp"></i> Enviar a Encargada
+                                </a>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            document.getElementById('kpi-total').innerText = total;
+            document.getElementById('kpi-listas').innerText = listos;
+            document.getElementById('kpi-pendientes').innerText = pendientes;
+            document.getElementById('kpi-porcentaje').innerText = total > 0 ? Math.round((listos/total)*100) + '%' : '0%';
+
+            dibujarGraficos(listos, pendientes, tiempoCounts);
+        }
+
+        function dibujarGraficos(listos, pendientes, tiempoCounts) {
+            if (donutChartInstance) donutChartInstance.destroy();
+            if (barChartInstance) barChartInstance.destroy();
+
+            const ctxDonut = document.getElementById('donutChart').getContext('2d');
+            donutChartInstance = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Listos', 'En Preparación'],
+                    datasets: [{
+                        data: [listos, pendientes],
+                        backgroundColor: ['#10B981', '#F59E0B'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(tiempoCounts),
+                    datasets: [{
+                        label: 'Cant. de Sesiones',
+                        data: Object.values(tiempoCounts),
+                        backgroundColor: '#3B82F6',
+                        borderRadius: 4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            });
+        }
+
+        function generarPDFDashboard() {
+            const element = document.getElementById('dash-content-area');
+            const opt = {
+                margin: 0.5,
+                filename: 'Dashboard_Retiro_2026.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
         }
     </script>
 </body>
