@@ -4,300 +4,520 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retiro 2026 | Portal de Expositores</title>
-    <!-- Tailwind CSS (CDN para GitHub) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
         
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
-        h1, h2, .serif-font { font-family: 'Playfair Display', serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; overflow-x: hidden; }
+        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
         
-        /* Tema Litúrgico Modernizado */
-        .bg-liturgic { background-color: #701a31; }
-        .text-liturgic { color: #701a31; }
-        .border-liturgic { border-color: #701a31; }
-        .focus-liturgic:focus { border-color: #701a31; box-shadow: 0 0 0 4px rgba(112, 26, 49, 0.1); }
+        .step-content { display: none; }
+        .step-content.active { display: block; animation: fadeUp 0.5s ease-out forwards; }
         
-        /* Animaciones del Asistente (Stepper) */
-        .step-content { display: none; animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-        .step-content.active { display: block; }
-        
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateX(20px); }
-            100% { opacity: 1; transform: translateX(0); }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Glass Input Cards */
-        .input-card {
-            background: white; border: 1px solid #e2e8f0; border-radius: 1rem;
-            padding: 1.5rem; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
-        .input-card:focus-within { border-color: #701a31; box-shadow: 0 10px 15px -3px rgba(112, 26, 49, 0.1); transform: translateY(-2px); }
 
-        /* File Upload Zone */
+        .input-premium {
+            background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1.2rem;
+            padding: 1rem 1.2rem; transition: all 0.2s ease;
+        }
+        .input-premium:focus-within, .dropdown-active {
+            border-color: #e11d48 !important; box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.15);
+        }
+
         .file-zone {
-            border: 2px dashed #cbd5e1; border-radius: 1rem; padding: 2rem; text-align: center;
-            background: #f8fafc; transition: all 0.2s; cursor: pointer;
+            border: 2px dashed #cbd5e1; border-radius: 1.5rem; padding: 2.5rem; text-align: center;
+            background: #ffffff; transition: all 0.3s; cursor: pointer;
         }
-        .file-zone:hover { border-color: #701a31; background: #fff1f2; }
+        .file-zone:hover { border-color: #10b981; background: #f0fdf4; transform: translateY(-4px); box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.2); }
         
-        /* Notificaciones Elegantes (Toast) */
         #toast {
             position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-            background: #1e293b; color: white; padding: 1rem 2rem; border-radius: 2rem;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 50; display: flex; align-items: center; gap: 0.75rem;
+            background: #0f172a; color: white; padding: 1rem 2rem; border-radius: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); transition: bottom 0.4s ease-out;
+            z-index: 9999; display: flex; align-items: center; gap: 0.75rem;
         }
         #toast.show { bottom: 2rem; }
+
+        @media print {
+            body { background: white; }
+            header, .step-indicator, button, #toast, #adminModal { display: none !important; }
+            #successScreen { display: block !important; padding: 0; margin: 0; }
+        }
     </style>
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="text-slate-800 antialiased min-h-screen flex flex-col" onload="cargarNombres()">
 
-    <!-- Top App Bar -->
-    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-40">
+    <header class="bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200 sticky top-0 z-40">
         <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-liturgic rounded-xl flex items-center justify-center text-white">
-                    <i class="fas fa-dove"></i>
+                <img src="logo.jpg" alt="Logo" id="main-logo" class="h-10 w-10 object-contain rounded-full border border-slate-200 shadow-sm" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex';">
+                <div id="fallback-logo" class="w-10 h-10 bg-gradient-to-br from-rose-600 to-rose-900 rounded-full flex items-center justify-center text-white shadow-sm" style="display:none;">
+                    <i class="fas fa-church"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold text-slate-900 leading-tight">Retiro 2026</h1>
-                    <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Portal de Expositores</p>
+                    <h1 class="text-sm font-black text-slate-900 uppercase tracking-widest">Retiro 2026</h1>
+                    <p class="text-[10px] text-rose-600 font-bold uppercase tracking-widest">Portal de Expositores</p>
                 </div>
             </div>
+            <button onclick="abrirAdmin()" class="text-slate-400 hover:text-rose-600 transition-colors transform hover:rotate-90 duration-300">
+                <i class="fas fa-cog text-xl"></i>
+            </button>
         </div>
     </header>
 
-    <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 relative">
+    <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-6 relative">
         
-        <!-- Barra de Progreso del Stepper -->
-        <div class="flex items-center justify-between mb-8 relative">
-            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-200 -z-10 rounded-full"></div>
-            <div id="progress-bar" class="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-1 bg-liturgic -z-10 rounded-full transition-all duration-500"></div>
+        <div class="flex items-center justify-between mb-8 relative px-4" id="progress-container">
+            <div class="absolute left-4 right-4 top-1/2 -translate-y-1/2 h-1.5 bg-slate-200 -z-10 rounded-full"></div>
+            <div id="progress-bar" class="absolute left-4 top-1/2 -translate-y-1/2 w-0 h-1.5 bg-gradient-to-r from-orange-400 to-rose-600 -z-10 rounded-full transition-all duration-700"></div>
             
-            <div class="step-indicator flex flex-col items-center" id="ind-1">
-                <div class="w-10 h-10 rounded-full bg-liturgic text-white flex items-center justify-center font-bold shadow-lg shadow-rose-900/20 transition-colors">1</div>
-                <span class="text-xs font-semibold mt-2 text-liturgic">Identidad</span>
+            <div class="step-indicator flex flex-col items-center transition-all duration-300" id="ind-1">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-rose-800 text-white flex items-center justify-center font-bold shadow-lg ring-4 ring-white">1</div>
             </div>
-            <div class="step-indicator flex flex-col items-center opacity-50" id="ind-2">
-                <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-colors">2</div>
-                <span class="text-xs font-semibold mt-2 text-slate-500">Ponencia</span>
+            <div class="step-indicator flex flex-col items-center opacity-50 transition-all duration-300" id="ind-2">
+                <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold ring-4 ring-white">2</div>
             </div>
-            <div class="step-indicator flex flex-col items-center opacity-50" id="ind-3">
-                <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-colors">3</div>
-                <span class="text-xs font-semibold mt-2 text-slate-500">Logística</span>
+            <div class="step-indicator flex flex-col items-center opacity-50 transition-all duration-300" id="ind-3">
+                <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold ring-4 ring-white">3</div>
             </div>
         </div>
 
         <form id="appForm" onsubmit="event.preventDefault();">
             
-            <!-- PASO 1: Datos Personales -->
+            <!-- PASO 1 -->
             <div id="step-1" class="step-content active">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl font-serif text-slate-900 mb-2">Bienvenido, Expositor</h2>
-                    <p class="text-slate-500">Por favor, indícanos quién eres para cargar tu información.</p>
-                </div>
                 
-                <div class="space-y-5">
-                    <div class="input-card">
-                        <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Selecciona tu Nombre</label>
-                        <select id="expositor" name="Expositor" onchange="mostrarTema()" class="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-lg p-3.5 focus:outline-none focus-liturgic appearance-none cursor-pointer" required>
-                            <option value="" disabled selected>-- Toca para seleccionar --</option>
-                            <option value="Pbro. Gustavo Ibarra Valencia">Pbro. Gustavo Ibarra Valencia</option>
-                            <option value="Cristian Cadena Moreno">Cristian Cadena Moreno</option>
-                            <option value="Miguel Sanches">Miguel Sanches</option>
-                        </select>
-                    </div>
-
-                    <div class="input-card">
-                        <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">WhatsApp / Teléfono</label>
-                        <div class="relative">
-                            <i class="fab fa-whatsapp absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
-                            <input type="tel" name="Telefono_WhatsApp" id="telefono" placeholder="Ej. 70000000" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3.5 pl-12 focus:outline-none focus-liturgic" required>
+                <div class="relative rounded-[2rem] shadow-2xl shadow-rose-900/20 mb-10 overflow-hidden flex flex-col justify-end bg-gradient-to-br from-rose-900 via-rose-700 to-orange-500">
+                    <div class="absolute -top-20 -right-20 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 p-6 sm:p-8">
+                        <div class="mb-4">
+                            <span class="inline-flex items-center gap-2 glass-card text-white px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase shadow-sm">
+                                <i class="fas fa-dove text-orange-200 text-sm"></i> Lema 2026
+                            </span>
+                        </div>
+                        
+                        <h2 class="text-4xl sm:text-5xl font-serif font-black text-white mb-6 drop-shadow-lg leading-tight">
+                            Soy Amado.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-200 to-rose-200">Llamado.</span> Enviado.
+                        </h2>
+                        
+                        <!-- Justificación Pastoral Profunda -->
+                        <div class="glass-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-orange-400">
+                            <h3 class="text-orange-200 font-black text-[11px] uppercase tracking-widest mb-3 flex items-center">
+                                <i class="fas fa-fire mr-2"></i> Fundamentación Pastoral
+                            </h3>
+                            <p class="text-white text-[13px] leading-relaxed font-medium text-justify mb-3">
+                                <strong>Perfil (15-17 años):</strong> Atraviesan una crisis de identidad agravada por la ansiedad y la tiranía de los "likes" en redes sociales. Se sienten juzgados, vacíos y obligados a usar máscaras sociales para encajar.
+                            </p>
+                            <p class="text-white text-[13px] leading-relaxed font-medium text-justify">
+                                <strong>¿Por qué este Lema?</strong> El joven necesita experimentar el <strong>Kerygma</strong> puro. Deben descubrir que su dignidad brota únicamente de ser <em>Amados</em> por Dios. Solo desde ese amor sanador podrán escuchar a Cristo dándoles un sentido de vida (<em>Llamados</em>), para finalmente asumir la Confirmación no como una despedida, sino como apóstoles valientes en el mundo de hoy (<em>Enviados</em>).
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <button type="button" onclick="nextStep(2)" class="mt-8 w-full bg-slate-900 text-white rounded-xl p-4 font-bold text-lg shadow-xl shadow-slate-900/20 hover:bg-liturgic transition-all flex justify-center items-center gap-2">
-                    Continuar <i class="fas fa-arrow-right"></i>
+                <div class="space-y-6">
+                    
+                    <!-- MENU DESPLEGABLE REPARADO (Capa aislada z-50 para evitar recortes) -->
+                    <div class="relative z-50 w-full">
+                        <div class="input-premium cursor-pointer group flex flex-col" id="dropdown-trigger" onclick="toggleDropdown(event)">
+                            <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-hover:text-rose-600">
+                                <i class="fas fa-user-tie mr-1 text-slate-300 group-hover:text-rose-500 transition-colors"></i> Tu Nombre
+                            </label>
+                            <div class="flex justify-between items-center w-full">
+                                <span id="dropdown-text" class="text-slate-400 font-bold text-lg select-none">Toca para seleccionar...</span>
+                                <i id="dropdown-arrow" class="fas fa-chevron-down text-rose-400 transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Opciones Flotantes Absolutas -->
+                        <div id="dropdown-options" class="hidden absolute left-0 right-0 top-[105%] bg-white border-2 border-slate-200 rounded-2xl shadow-2xl z-[100] overflow-hidden divide-y divide-slate-100">
+                            <div class="p-4 hover:bg-rose-50 cursor-pointer font-bold text-slate-700 text-lg transition-colors" id="dd-opt-exp1" onclick="seleccionarExpositor('exp1')">Cargando...</div>
+                            <div class="p-4 hover:bg-rose-50 cursor-pointer font-bold text-slate-700 text-lg transition-colors" id="dd-opt-exp2" onclick="seleccionarExpositor('exp2')">Cargando...</div>
+                            <div class="p-4 hover:bg-rose-50 cursor-pointer font-bold text-slate-700 text-lg transition-colors" id="dd-opt-exp3" onclick="seleccionarExpositor('exp3')">Cargando...</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="expositor" name="Expositor" required>
+
+                    <div class="relative z-0">
+                        <div class="input-premium group relative">
+                            <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
+                                <i class="fab fa-whatsapp mr-1 text-slate-300 group-focus-within:text-green-500 transition-colors"></i> Número de Contacto
+                            </label>
+                            <input type="tel" name="Telefono_WhatsApp" id="telefono" placeholder="Ej. 70000000" class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="nextStep(2)" class="group mt-10 w-full bg-slate-900 text-white rounded-2xl p-5 font-black text-lg shadow-xl shadow-slate-900/20 hover:bg-rose-700 transition-colors flex justify-center items-center gap-3">
+                    Continuar a mi Misión <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                 </button>
             </div>
 
-            <!-- PASO 2: El Tema -->
+            <!-- PASO 2: Tema Profundo -->
             <div id="step-2" class="step-content">
-                <button type="button" onclick="prevStep(1)" class="text-slate-400 mb-4 hover:text-slate-800 transition-colors font-semibold"><i class="fas fa-arrow-left mr-2"></i>Volver</button>
+                <button type="button" onclick="prevStep(1)" class="text-slate-400 mb-6 hover:text-rose-600 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
                 
-                <!-- Tarjeta Dinámica del Tema Asignado -->
-                <div id="tema-card" class="bg-gradient-to-br from-slate-900 to-liturgic p-6 rounded-2xl shadow-xl text-white mb-6 hidden">
-                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-3 inline-block">Tu Misión</span>
-                    <h3 id="tema-titulo" class="text-2xl font-serif mb-3">...</h3>
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/20 mb-3 text-sm italic font-light">
-                        <i class="fas fa-quote-left opacity-50 mr-2"></i><span id="tema-cita">...</span>
+                <div id="tema-card" class="relative bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 mb-8 hidden overflow-hidden border border-slate-100">
+                    <div class="h-16 w-full bg-gradient-to-r from-rose-900 to-rose-700 relative flex items-center px-6">
+                        <span class="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase shadow-sm"><i class="fas fa-book-open mr-1"></i> Tu Tema Asignado</span>
                     </div>
-                    <p id="tema-obj" class="text-sm text-slate-200 leading-relaxed"></p>
-                </div>
-
-                <div class="input-card mb-6">
-                    <label class="block text-sm font-bold text-slate-700 mb-4 uppercase tracking-wide">¿Ya tienes listo el contenido?</label>
-                    <div class="flex gap-4">
-                        <label class="flex-1 relative">
-                            <input type="radio" name="Estado_Tema" value="Si" class="peer sr-only" onchange="toggleFile(true)" required>
-                            <div class="p-4 border-2 border-slate-200 rounded-xl cursor-pointer text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
-                                <i class="fas fa-check-circle text-2xl text-emerald-500 mb-2 block scale-0 peer-checked:scale-100 transition-transform"></i>
-                                <span class="font-bold text-slate-700">Sí, lo tengo</span>
-                            </div>
-                        </label>
-                        <label class="flex-1 relative">
-                            <input type="radio" name="Estado_Tema" value="No" class="peer sr-only" onchange="toggleFile(false)">
-                            <div class="p-4 border-2 border-slate-200 rounded-xl cursor-pointer text-center peer-checked:border-rose-500 peer-checked:bg-rose-50 transition-all">
-                                <i class="fas fa-clock text-2xl text-rose-500 mb-2 block scale-0 peer-checked:scale-100 transition-transform"></i>
-                                <span class="font-bold text-slate-700">Aún en proceso</span>
-                            </div>
-                        </label>
+                    
+                    <div class="p-6">
+                        <h3 id="tema-titulo" class="text-3xl font-serif text-slate-900 mb-6 font-bold leading-tight">...</h3>
+                        
+                        <div class="bg-rose-50/50 p-6 rounded-2xl border border-rose-100 mb-6 relative shadow-inner">
+                            <i class="fas fa-bible absolute -top-4 -right-2 text-4xl text-rose-200 drop-shadow-sm rotate-12"></i>
+                            <h4 class="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-3 border-b border-rose-100 pb-2">La Palabra de Dios</h4>
+                            <p id="tema-cita" class="italic text-[15px] font-medium text-slate-700 leading-relaxed text-justify">...</p>
+                        </div>
+                        
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner">
+                            <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 border-b border-slate-200 pb-2"><i class="fas fa-bullseye mr-1 text-rose-400"></i> Objetivo Pastoral del Tema</h4>
+                            <p id="tema-obj" class="text-[14px] text-slate-600 leading-relaxed font-medium text-justify"></p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Subida de Archivos -->
+                <h3 class="font-serif text-2xl font-bold text-slate-900 mb-4">Progreso de Preparación</h3>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <label class="flex-1 relative group cursor-pointer">
+                        <input type="radio" name="Estado_Tema" value="Si" class="peer sr-only" onchange="toggleFile(true)" required>
+                        <div class="h-full p-5 bg-white border-2 border-slate-200 rounded-2xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:shadow-lg transition-colors duration-200">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3 peer-checked:animate-bounce">
+                                <i class="fas fa-check-double text-xl"></i>
+                            </div>
+                            <span class="font-black text-slate-800 block mb-1">¡Sí, lo tengo!</span>
+                            <span class="text-[11px] text-emerald-600 font-bold block">Subir archivo PDF/Word</span>
+                        </div>
+                    </label>
+                    
+                    <label class="flex-1 relative group cursor-pointer">
+                        <input type="radio" name="Estado_Tema" value="No" class="peer sr-only" onchange="toggleFile(false)">
+                        <div class="h-full p-5 bg-white border-2 border-slate-200 rounded-2xl text-center peer-checked:border-amber-500 peer-checked:bg-amber-50 peer-checked:shadow-lg transition-colors duration-200">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-pen-fancy text-xl"></i>
+                            </div>
+                            <span class="font-black text-slate-800 block mb-1">En elaboración</span>
+                            <span class="text-[11px] text-amber-600 font-bold block">Seguiré orándolo y preparándolo</span>
+                        </div>
+                    </label>
+                </div>
+
                 <div id="file-section" class="hidden mb-6">
-                    <div class="file-zone" onclick="document.getElementById('archivo').click()">
-                        <i class="fas fa-cloud-upload-alt text-4xl text-liturgic mb-3"></i>
-                        <h4 class="font-bold text-slate-800 text-lg">Sube tu documento</h4>
-                        <p class="text-sm text-slate-500 mt-1">Toca aquí o arrastra tu archivo PDF/Word</p>
+                    <div class="file-zone group" onclick="document.getElementById('archivo').click()">
+                        <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-emerald-100">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-emerald-500 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h4 class="font-black text-slate-800 text-lg">Subir Documento Final</h4>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Toca para explorar tus archivos</p>
                         <input type="file" id="archivo" class="hidden" accept=".pdf,.doc,.docx" onchange="updateFileName(this)">
-                        <div id="file-name" class="mt-4 inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-bold hidden">
+                        
+                        <div id="file-name" class="mt-4 inline-flex items-center gap-2 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold hidden shadow-md">
                             <i class="fas fa-file-alt"></i> <span></span>
                         </div>
                     </div>
                 </div>
 
-                <button type="button" onclick="nextStep(3)" class="w-full bg-slate-900 text-white rounded-xl p-4 font-bold text-lg shadow-xl hover:bg-liturgic transition-all flex justify-center items-center gap-2">
-                    Siguiente <i class="fas fa-arrow-right"></i>
+                <button type="button" onclick="nextStep(3)" class="group mt-4 w-full bg-slate-900 text-white rounded-2xl p-5 font-black text-lg shadow-xl shadow-slate-900/20 hover:bg-rose-700 transition-colors flex justify-center items-center gap-3">
+                    Configurar Salón <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                 </button>
             </div>
 
-            <!-- PASO 3: Logística -->
+            <!-- PASO 3 -->
             <div id="step-3" class="step-content">
-                <button type="button" onclick="prevStep(2)" class="text-slate-400 mb-4 hover:text-slate-800 transition-colors font-semibold"><i class="fas fa-arrow-left mr-2"></i>Volver</button>
+                <button type="button" onclick="prevStep(2)" class="text-slate-400 mb-6 hover:text-rose-600 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
                 
-                <h2 class="text-3xl font-serif text-slate-900 mb-6 text-center">Requerimientos</h2>
+                <h2 class="text-3xl font-serif text-slate-900 mb-8 font-bold text-center">Logística del Salón</h2>
 
-                <div class="space-y-5">
+                <div class="space-y-6">
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="input-card">
-                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Tiempo Estimado</label>
-                            <select name="Tiempo_Estimado" class="w-full bg-transparent border-b-2 border-slate-200 pb-2 focus:outline-none focus:border-liturgic text-slate-900 font-semibold" required>
-                                <option value="30 minutos">30 min</option>
-                                <option value="45 minutos" selected>45 min</option>
-                                <option value="1 hora">1 hora</option>
-                            </select>
+                        <div class="input-premium group relative">
+                            <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
+                                <i class="fas fa-stopwatch mr-1 text-slate-300 group-focus-within:text-rose-500 transition-colors"></i> Tiempo
+                            </label>
+                            <div class="relative">
+                                <select name="Tiempo_Estimado" class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none appearance-none cursor-pointer pr-8" required>
+                                    <option value="30 minutos">30 min</option>
+                                    <option value="45 minutos" selected>45 min</option>
+                                    <option value="1 hora">1 hora</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-rose-400 group-focus-within:text-rose-600">
+                                    <i class="fas fa-chevron-down text-sm"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-card">
-                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Metodología</label>
-                            <input type="text" name="Tipo_Dinamica" placeholder="Ej. Reflexión, plenario..." class="w-full bg-transparent border-b-2 border-slate-200 pb-2 focus:outline-none focus:border-liturgic text-slate-900 font-semibold" required>
+
+                        <div class="input-premium group relative">
+                            <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
+                                <i class="fas fa-users mr-1 text-slate-300 group-focus-within:text-orange-400 transition-colors"></i> Dinámica
+                            </label>
+                            <input type="text" name="Tipo_Dinamica" placeholder="Ej. Plenario..." class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none" required>
                         </div>
                     </div>
 
-                    <div class="input-card">
-                        <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">¿Qué necesitas en el salón?</label>
-                        <textarea name="Requerimientos_Tecnicos" rows="3" placeholder="- Proyector&#10;- 2 Micrófonos inalámbricos" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3.5 focus:outline-none focus-liturgic resize-none" required></textarea>
+                    <div class="input-premium group">
+                        <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
+                            <i class="fas fa-box-open mr-1 text-slate-300 group-focus-within:text-blue-400 transition-colors"></i> Requerimientos Técnicos
+                        </label>
+                        <textarea name="Requerimientos_Tecnicos" rows="2" placeholder="Escribe aquí lo que necesitas físicamente (Ej: Proyector multimedia, 2 micrófonos, pizarrón, etc.)" class="w-full bg-transparent text-slate-800 font-medium focus:outline-none resize-none mt-2" required></textarea>
                     </div>
 
-                    <div class="input-card">
-                        <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Dudas / Observaciones</label>
-                        <textarea name="Observaciones_Dudas" rows="2" placeholder="Opcional..." class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3.5 focus:outline-none focus-liturgic resize-none"></textarea>
+                    <div class="input-premium group">
+                        <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
+                            <i class="fas fa-comment-dots mr-1 text-slate-300 group-focus-within:text-rose-400 transition-colors"></i> Dudas (Opcional)
+                        </label>
+                        <textarea name="Observaciones_Dudas" rows="2" placeholder="Cualquier nota o comentario adicional para la comisión organizadora..." class="w-full bg-transparent text-slate-800 font-medium focus:outline-none resize-none mt-2"></textarea>
                     </div>
                 </div>
 
-                <button type="button" id="submitBtn" onclick="enviarDatos()" class="mt-8 w-full bg-liturgic text-white rounded-xl p-4 font-bold text-lg shadow-xl shadow-rose-900/30 hover:bg-rose-800 transition-all flex justify-center items-center gap-3">
-                    <span>Confirmar y Enviar</span> <i class="fas fa-paper-plane"></i>
+                <button type="button" id="submitBtn" onclick="enviarDatos()" class="group mt-10 w-full bg-gradient-to-r from-rose-600 to-rose-800 text-white rounded-2xl p-5 font-black text-xl shadow-2xl hover:shadow-rose-600/40 transition-colors flex justify-center items-center gap-3">
+                    <span>Enviar Ficha Pastoral</span> <i class="fas fa-paper-plane group-hover:animate-bounce"></i>
                 </button>
             </div>
         </form>
         
-        <!-- Pantalla de Éxito Oculta -->
-        <div id="successScreen" class="hidden text-center py-12 animation-slideIn">
-            <div class="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-500 text-5xl">
+        <!-- PANTALLA DE ÉXITO -->
+        <div id="successScreen" class="hidden text-center py-10 px-4">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-3xl shadow-xl shadow-emerald-500/40 animate-bounce ring-4 ring-emerald-50">
                 <i class="fas fa-check"></i>
             </div>
-            <h2 class="text-3xl font-serif text-slate-900 mb-4">¡Todo Listo!</h2>
-            <p class="text-slate-500">Tu ficha técnica ha sido registrada en el sistema de la Parroquia.</p>
+            <h2 class="text-3xl font-serif text-slate-900 mb-2 font-bold">¡Ficha Registrada!</h2>
+            <p class="text-slate-500 font-semibold text-sm px-4 mb-6">Guarda este resumen de tu participación pastoral:</p>
+            
+            <div class="bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-slate-100 p-6 text-left max-w-sm mx-auto relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-400 to-rose-600"></div>
+                
+                <h3 class="text-sm font-black text-slate-800 mb-4 border-b border-slate-100 pb-3 flex items-center"><i class="fas fa-ticket-alt text-rose-500 mr-2 text-lg"></i> Credencial Expositiva</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Nombre del Expositor</p>
+                        <p id="rep-expositor" class="font-black text-slate-800 text-lg leading-tight">-</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Tema a Compartir</p>
+                        <p id="rep-tema" class="font-bold text-rose-700 text-sm leading-snug">-</p>
+                    </div>
+                    <div class="bg-rose-50 p-4 rounded-2xl flex items-center gap-4 mt-2 border border-rose-100">
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-rose-500"><i class="fas fa-calendar-alt text-2xl"></i></div>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest text-rose-400 font-black">Tu Día y Hora</p>
+                            <p id="rep-fecha" class="font-black text-slate-900 text-sm mt-0.5">-</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="window.print()" class="w-full mt-6 bg-slate-50 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-100 transition-colors border border-slate-200 flex items-center justify-center gap-2">
+                    <i class="fas fa-print"></i> Guardar o Imprimir
+                </button>
+            </div>
         </div>
 
     </main>
 
-    <!-- Notificación Toast -->
+    <!-- Modal Admin -->
+    <div id="adminModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 w-full max-w-sm shadow-2xl">
+            <h3 class="text-xl font-black mb-1 text-slate-900"><i class="fas fa-users-cog text-rose-500 mr-2"></i> Configuración</h3>
+            <p class="text-xs text-slate-500 mb-6 border-b pb-4 font-medium">Edita los nombres de los expositores.</p>
+            
+            <div class="space-y-5 mb-8">
+                <div>
+                    <label class="block text-[10px] font-black text-rose-600 mb-1 uppercase tracking-widest">Tema 1</label>
+                    <input type="text" id="admin-exp1" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-rose-500 font-bold text-slate-800">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-rose-600 mb-1 uppercase tracking-widest">Tema 2</label>
+                    <input type="text" id="admin-exp2" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-rose-500 font-bold text-slate-800">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-rose-600 mb-1 uppercase tracking-widest">Tema 3</label>
+                    <input type="text" id="admin-exp3" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-rose-500 font-bold text-slate-800">
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="guardarAdmin()" class="flex-1 bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors">Guardar</button>
+                <button onclick="document.getElementById('adminModal').classList.add('hidden')" class="flex-1 bg-slate-100 text-slate-600 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <div id="toast">
-        <i class="fas fa-info-circle text-blue-400 text-xl"></i>
-        <span id="toastMsg" class="font-medium text-sm"></span>
+        <i class="fas fa-bell text-rose-400 text-xl animate-bounce"></i>
+        <span id="toastMsg" class="font-bold text-sm"></span>
     </div>
 
     <script>
-        // LA URL DE TU SCRIPT DE GOOGLE (Intacta)
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwcyAxqR6dnUyRgdqXlPVUCg65ahhJbvAMuXF4qNl47uxFwNQF7bjCKh0Zld39Z-q7zng/exec";
 
-        // Base de datos local de Temas
-        const temas = {
-            "Pbro. Gustavo Ibarra Valencia": { 
+        // ==========================================
+        // BASE DE DATOS TEOLÓGICA Y PASTORAL
+        // ==========================================
+        const temasData = [
+            { 
+                id: "exp1", defaultName: "Pbro. Gustavo Ibarra Valencia", 
                 t: "¿Quién soy yo? (Cuando nadie me está mirando)", 
-                c: "Antes de formarte en el vientre materno, ya te conocía...", 
-                o: "Despojar al joven de las máscaras, complejos y de la tiranía de la aprobación digital. Ayudarle a reconocer que su verdadero valor brota de la mirada de amor eterno de Dios." 
+                c: '"Antes de formarte en el vientre materno, yo te conocía; antes de que salieras del seno, yo te había consagrado, te había constituido profeta para las naciones." — Libro del Profeta Jeremías 1, 5', 
+                o: "Llevar al joven a un profundo encuentro personal consigo mismo a la luz del amor creador de Dios. En un mundo dominado por la tiranía de la aprobación digital, los 'likes' y las máscaras sociales, el objetivo pastoral es despojar al adolescente de sus complejos e inseguridades. Debemos ayudarle a sanar sus heridas de identidad, reconociendo que su verdadero valor, dignidad y propósito brotan única y exclusivamente de la mirada de amor eterno e incondicional de su Padre Celestial.",
+                fh: "Sábado a las 16:00 hrs." 
             },
-            "Cristian Cadena Moreno": { 
+            { 
+                id: "exp2", defaultName: "Cristian Cadena Moreno", 
                 t: "Señor, ¿Qué quieres de mí?", 
-                c: "Habla, Señor, que tu siervo escucha.", 
-                o: "Fomentar el discernimiento vocacional y existencial. Guiar al confirmando a hacer silencio interior para escuchar la llamada personal de Dios." 
+                c: '"El Señor llamó a Samuel, y él respondió: «Aquí estoy». [...] Y el Señor vino y se paró, y llamó como las otras veces: «¡Samuel, Samuel!». Entonces Samuel dijo: «Habla, Señor, que tu siervo escucha»." — Primer Libro de Samuel 3, 4-10', 
+                o: "Fomentar un clima de profundo discernimiento vocacional y existencial en el corazón del confirmando. El joven de hoy vive aturdido por el ruido del mundo; esta charla debe enseñarle a hacer 'silencio interior' para escuchar la voz de Dios. El objetivo es guiarlo para que deje de preguntarse '¿Qué quiero hacer con mi vida?' y comience a preguntarse 'Señor, ¿Para qué me has creado?'. Es el despertar de la vocación cristiana al servicio, a la santidad y a la entrega generosa.",
+                fh: "Sábado a las 17:30 hrs." 
             },
-            "Miguel Sanches": { 
+            { 
+                id: "exp3", defaultName: "Miguel Sanches", 
                 t: "Dios tiene un propósito para mí", 
-                c: "Ustedes son la luz del mundo... Brille así su luz delante de los hombres.", 
-                o: "Impulsar el envío misionero y la corresponsabilidad eclesial. Sentirse animado a ser testigo valiente del Evangelio." 
+                c: '"Ustedes son la luz del mundo. Una ciudad en lo alto de una colina no puede esconderse. [...] Brille así su luz delante de los hombres, para que vean sus buenas obras y glorifiquen a su Padre que está en los cielos." — Evangelio según San Mateo 5, 14-16', 
+                o: "Impulsar el envío misionero y la corresponsabilidad eclesial (Dimensión profética de la Confirmación). Tras descubrir el amor de Dios y escuchar su llamado, el joven debe entender que la fe no es para guardarla, sino para compartirla. El objetivo es encender en ellos el ardor apostólico para que salgan del retiro no como meros espectadores, sino como verdaderos 'Discípulos Misioneros', siendo testigos valientes del Evangelio en su familia, en su colegio y en su entorno juvenil.",
+                fh: "Domingo a las 10:00 hrs." 
             }
-        };
+        ];
 
-        // Lógica del Stepper (Asistente)
+        // LOGICA DEL DROPDOWN PERSONALIZADO AISLADO
+        function toggleDropdown(e) {
+            e.stopPropagation();
+            const options = document.getElementById('dropdown-options');
+            const arrow = document.getElementById('dropdown-arrow');
+            const trigger = document.getElementById('dropdown-trigger');
+            
+            if(options.classList.contains('hidden')) {
+                options.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+                trigger.classList.add('dropdown-active');
+            } else {
+                cerrarDropdown();
+            }
+        }
+
+        function cerrarDropdown() {
+            const options = document.getElementById('dropdown-options');
+            const arrow = document.getElementById('dropdown-arrow');
+            const trigger = document.getElementById('dropdown-trigger');
+            
+            options.classList.add('hidden');
+            arrow.classList.remove('rotate-180');
+            trigger.classList.remove('dropdown-active');
+        }
+
+        document.addEventListener('click', function(event) {
+            const trigger = document.getElementById('dropdown-trigger');
+            if(trigger && !trigger.contains(event.target)) {
+                cerrarDropdown();
+            }
+        });
+
+        function seleccionarExpositor(id) {
+            let tema = temasData.find(t => t.id === id);
+            if(!tema) return;
+            
+            document.getElementById('expositor').value = tema.currentName;
+            
+            let textSpan = document.getElementById('dropdown-text');
+            textSpan.innerText = tema.currentName;
+            textSpan.classList.remove('text-slate-400');
+            textSpan.classList.add('text-slate-900', 'font-black');
+            
+            cerrarDropdown();
+            mostrarTemaUI(tema);
+        }
+
+        // INICIALIZACION
+        function cargarNombres() {
+            temasData.forEach(tema => {
+                let savedName = localStorage.getItem('admin_' + tema.id) || tema.defaultName;
+                tema.currentName = savedName;
+                
+                // Setear en Dropdown
+                document.getElementById('dd-opt-' + tema.id).innerText = savedName;
+                // Setear en panel Admin
+                document.getElementById('admin-' + tema.id).value = savedName;
+            });
+        }
+
+        function abrirAdmin() {
+            let pass = prompt("Ingresa la contraseña (admin2026):");
+            if (pass === "admin2026") { document.getElementById('adminModal').classList.remove('hidden'); } 
+            else if (pass !== null) { alert("Contraseña Incorrecta."); }
+        }
+
+        function guardarAdmin() {
+            temasData.forEach(tema => {
+                localStorage.setItem('admin_' + tema.id, document.getElementById('admin-' + tema.id).value);
+            });
+            cargarNombres(); 
+            document.getElementById('adminModal').classList.add('hidden');
+            
+            // Reset state
+            document.getElementById('dropdown-text').innerText = "Toca para seleccionar...";
+            document.getElementById('dropdown-text').className = "text-slate-400 font-bold text-lg select-none";
+            document.getElementById('expositor').value = "";
+            document.getElementById('tema-card').classList.add('hidden');
+            
+            showToast("¡Nombres actualizados!");
+        }
+
+        function mostrarTemaUI(tema) {
+            let card = document.getElementById('tema-card');
+            document.getElementById('tema-titulo').innerText = tema.t;
+            document.getElementById('tema-cita').innerText = tema.c;
+            document.getElementById('tema-obj').innerText = tema.o;
+            card.classList.remove('hidden');
+        }
+
         function nextStep(step) {
             if(step === 2 && (!document.getElementById('expositor').value || !document.getElementById('telefono').value)) {
-                showToast("Por favor, completa tus datos primero."); return;
+                showToast("Por favor, llena tus datos primero 😅"); return;
             }
             if(step === 3 && !document.querySelector('input[name="Estado_Tema"]:checked')) {
-                showToast("Debes seleccionar si tu tema está listo."); return;
+                showToast("Dinos cómo va tu tema para continuar 📚"); return;
             }
 
             document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
             document.getElementById('step-'+step).classList.add('active');
             
-            // Animación de la barra de progreso superior
             document.getElementById('progress-bar').style.width = step === 1 ? '0%' : step === 2 ? '50%' : '100%';
             
             for(let i=1; i<=3; i++) {
                 let ind = document.getElementById('ind-'+i);
                 if(i <= step) {
                     ind.classList.remove('opacity-50');
-                    ind.children[0].className = "w-10 h-10 rounded-full bg-liturgic text-white flex items-center justify-center font-bold shadow-lg shadow-rose-900/20 transition-colors";
-                    ind.children[1].className = "text-xs font-semibold mt-2 text-liturgic";
+                    ind.children[0].className = "w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-rose-800 text-white flex items-center justify-center font-bold shadow-lg ring-4 ring-white";
                 } else {
                     ind.classList.add('opacity-50');
-                    ind.children[0].className = "w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-colors";
-                    ind.children[1].className = "text-xs font-semibold mt-2 text-slate-500";
+                    ind.children[0].className = "w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold ring-4 ring-white";
                 }
             }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         function prevStep(step) { nextStep(step); }
 
-        function mostrarTema() {
-            let val = document.getElementById('expositor').value;
-            let card = document.getElementById('tema-card');
-            if(temas[val]) {
-                document.getElementById('tema-titulo').innerText = temas[val].t;
-                document.getElementById('tema-cita').innerText = temas[val].c;
-                document.getElementById('tema-obj').innerText = temas[val].o;
-                card.classList.remove('hidden');
-            }
-        }
-
         function toggleFile(show) {
-            document.getElementById('file-section').style.display = show ? 'block' : 'none';
+            let fileSec = document.getElementById('file-section');
+            if(show) { fileSec.style.display = 'block'; } 
+            else { 
+                fileSec.style.display = 'none'; 
+                document.getElementById('archivo').value = ""; 
+                document.getElementById('file-name').classList.add('hidden'); 
+            }
         }
 
         function updateFileName(input) {
@@ -315,22 +535,36 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // Envío de Datos al Servidor de Google Apps Script
         function enviarDatos() {
             let form = document.getElementById('appForm');
-            if(!form.checkValidity()) { 
-                showToast("Faltan campos por rellenar."); return; 
+            if(!document.getElementById('expositor').value || !document.getElementById('telefono').value || !document.querySelector('input[name="Estado_Tema"]:checked')) { 
+                showToast("Revisa los datos obligatorios 🚨"); return; 
             }
 
             let btn = document.getElementById('submitBtn');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subiendo y procesando...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
             btn.disabled = true;
 
             let formData = new FormData(form);
             let fileInput = document.getElementById('archivo');
+            let isFileReady = document.querySelector('input[name="Estado_Tema"]:checked').value === "Si";
 
-            // Convertir archivo a Base64 si lo adjuntaron
-            if (fileInput.files.length > 0 && document.querySelector('input[name="Estado_Tema"]:checked').value === "Si") {
+            if (isFileReady && fileInput.files.length === 0) {
+                showToast("¡Oye! Te olvidaste subir el archivo 📄");
+                btn.innerHTML = '<span>Enviar Ficha Pastoral</span> <i class="fas fa-paper-plane"></i>';
+                btn.disabled = false;
+                return;
+            }
+
+            let expVal = document.getElementById('expositor').value;
+            let foundTema = temasData.find(t => t.currentName === expVal);
+            document.getElementById('rep-expositor').innerText = expVal;
+            document.getElementById('rep-tema').innerText = foundTema.t;
+            document.getElementById('rep-fecha').innerText = foundTema.fh;
+            
+            formData.append("Expositor", expVal);
+
+            if (isFileReady && fileInput.files.length > 0) {
                 let file = fileInput.files[0];
                 let reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -340,9 +574,7 @@
                     formData.append("archivoNombre", file.name);
                     ejecutarFetch(formData, btn);
                 };
-            } else {
-                ejecutarFetch(formData, btn);
-            }
+            } else { ejecutarFetch(formData, btn); }
         }
 
         function ejecutarFetch(formData, btn) {
@@ -350,12 +582,13 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('appForm').classList.add('hidden');
-                document.querySelector('.step-indicator').parentElement.classList.add('hidden');
+                document.getElementById('progress-container').classList.add('hidden');
                 document.getElementById('successScreen').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             })
             .catch(error => {
-                showToast("Error de conexión. Intenta nuevamente.");
-                btn.innerHTML = '<span>Confirmar y Enviar</span> <i class="fas fa-paper-plane"></i>';
+                showToast("Error de conexión. Intenta de nuevo 📡");
+                btn.innerHTML = '<span>Enviar Ficha Pastoral</span> <i class="fas fa-paper-plane"></i>';
                 btn.disabled = false;
             });
         }
