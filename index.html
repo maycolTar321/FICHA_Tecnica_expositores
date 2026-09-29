@@ -7,10 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap');
         
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; overflow-x: hidden; }
-        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
+        h1, h2, h3, .serif-font { font-family: 'Cinzel', serif; }
         
         .step-content { display: none; }
         .step-content.active { display: block; animation: fadeUp 0.5s ease-out forwards; }
@@ -23,23 +23,68 @@
         .glass-card {
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
         .input-premium {
-            background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1.2rem;
-            padding: 1rem 1.2rem; transition: all 0.2s ease;
+            background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1.25rem;
+            padding: 1.1rem 1.25rem; transition: all 0.25s ease;
         }
-        .input-premium:focus-within, .dropdown-active {
-            border-color: #e11d48 !important; box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.15);
+        .input-premium:focus-within {
+            border-color: #1e3a8a !important; box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.12);
+        }
+
+        /* Editor tipo Word para Requerimientos */
+        .editor-word {
+            min-height: 120px;
+            max-height: 250px;
+            overflow-y: auto;
+            outline: none;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #1e293b;
+            font-weight: 500;
+        }
+        .editor-word ol {
+            padding-left: 1.5rem;
+            list-style-type: decimal;
+        }
+        .editor-word li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* Tarjetas de Selección Interactiva */
+        .expositor-card {
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .expositor-card:hover {
+            border-color: #93c5fd;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(30, 58, 138, 0.08);
+        }
+        input[type="radio"]:checked ~ .expositor-card {
+            border-color: #1e3a8a !important;
+            background-color: #eff6ff !important;
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.15);
+        }
+        input[type="radio"]:checked ~ .expositor-card .check-icon {
+            background-color: #1e3a8a !important;
+            border-color: #1e3a8a !important;
+            color: #ffffff !important;
+        }
+        input[type="radio"]:checked ~ .expositor-card .check-icon i {
+            opacity: 1 !important;
         }
 
         .file-zone {
             border: 2px dashed #cbd5e1; border-radius: 1.5rem; padding: 2.5rem; text-align: center;
             background: #ffffff; transition: all 0.3s; cursor: pointer;
         }
-        .file-zone:hover { border-color: #10b981; background: #f0fdf4; transform: translateY(-4px); box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.2); }
+        .file-zone:hover { border-color: #2563eb; background: #f0fdf4; transform: translateY(-4px); box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.2); }
         
         #toast {
             position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
@@ -58,19 +103,19 @@
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col" onload="cargarNombres()">
 
-    <header class="bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200 sticky top-0 z-40">
+    <header class="bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200 sticky top-0 z-40">
         <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <img src="logo.jpg" alt="Logo" id="main-logo" class="h-10 w-10 object-contain rounded-full border border-slate-200 shadow-sm" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex';">
-                <div id="fallback-logo" class="w-10 h-10 bg-gradient-to-br from-rose-600 to-rose-900 rounded-full flex items-center justify-center text-white shadow-sm" style="display:none;">
+                <div id="fallback-logo" class="w-10 h-10 bg-gradient-to-br from-blue-900 to-indigo-950 rounded-full flex items-center justify-center text-white shadow-sm" style="display:none;">
                     <i class="fas fa-church"></i>
                 </div>
                 <div>
                     <h1 class="text-sm font-black text-slate-900 uppercase tracking-widest">Retiro 2026</h1>
-                    <p class="text-[10px] text-rose-600 font-bold uppercase tracking-widest">Portal de Expositores</p>
+                    <p class="text-[10px] text-blue-700 font-bold uppercase tracking-widest">Portal de Expositores</p>
                 </div>
             </div>
-            <button onclick="abrirAdmin()" class="text-slate-400 hover:text-rose-600 transition-colors transform hover:rotate-90 duration-300">
+            <button onclick="abrirAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors transform hover:rotate-90 duration-300">
                 <i class="fas fa-cog text-xl"></i>
             </button>
         </div>
@@ -78,12 +123,13 @@
 
     <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-6 relative">
         
+        <!-- Indicador de Pasos Numerados -->
         <div class="flex items-center justify-between mb-8 relative px-4" id="progress-container">
             <div class="absolute left-4 right-4 top-1/2 -translate-y-1/2 h-1.5 bg-slate-200 -z-10 rounded-full"></div>
-            <div id="progress-bar" class="absolute left-4 top-1/2 -translate-y-1/2 w-0 h-1.5 bg-gradient-to-r from-orange-400 to-rose-600 -z-10 rounded-full transition-all duration-700"></div>
+            <div id="progress-bar" class="absolute left-4 top-1/2 -translate-y-1/2 w-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-900 -z-10 rounded-full transition-all duration-700"></div>
             
             <div class="step-indicator flex flex-col items-center transition-all duration-300" id="ind-1">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-rose-800 text-white flex items-center justify-center font-bold shadow-lg ring-4 ring-white">1</div>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-900 to-indigo-950 text-white flex items-center justify-center font-bold shadow-lg ring-4 ring-white">1</div>
             </div>
             <div class="step-indicator flex flex-col items-center opacity-50 transition-all duration-300" id="ind-2">
                 <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold ring-4 ring-white">2</div>
@@ -98,94 +144,136 @@
             <!-- PASO 1 -->
             <div id="step-1" class="step-content active">
                 
-                <div class="relative rounded-[2rem] shadow-2xl shadow-rose-900/20 mb-10 overflow-hidden flex flex-col justify-end bg-gradient-to-br from-rose-900 via-rose-700 to-orange-500">
+                <div class="relative rounded-[2.5rem] shadow-2xl shadow-blue-950/20 mb-8 overflow-hidden flex flex-col justify-end bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-900">
                     <div class="absolute -top-20 -right-20 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl pointer-events-none"></div>
                     
                     <div class="relative z-10 p-6 sm:p-8">
                         <div class="mb-4">
                             <span class="inline-flex items-center gap-2 glass-card text-white px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase shadow-sm">
-                                <i class="fas fa-dove text-orange-200 text-sm"></i> Lema 2026
+                                <i class="fas fa-dove text-amber-300 text-sm"></i> Lema 2026
                             </span>
                         </div>
                         
                         <h2 class="text-4xl sm:text-5xl font-serif font-black text-white mb-6 drop-shadow-lg leading-tight">
                             Soy Amado.<br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-200 to-rose-200">Llamado.</span> Enviado.
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-blue-200">Llamado.</span> Enviado.
                         </h2>
                         
-                        <!-- Justificación Pastoral Profunda -->
-                        <div class="glass-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-orange-400">
-                            <h3 class="text-orange-200 font-black text-[11px] uppercase tracking-widest mb-3 flex items-center">
+                        <div class="glass-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-amber-400">
+                            <h3 class="text-amber-200 font-black text-[11px] uppercase tracking-widest mb-3 flex items-center">
                                 <i class="fas fa-fire mr-2"></i> Fundamentación Pastoral
                             </h3>
                             <p class="text-white text-[13px] leading-relaxed font-medium text-justify mb-3">
-                                <strong>Perfil (15-17 años):</strong> Atraviesan una crisis de identidad agravada por la ansiedad y la tiranía de los "likes" en redes sociales. Se sienten juzgados, vacíos y obligados a usar máscaras sociales para encajar.
+                                <strong>Perfil (15-17 años):</strong> Los jóvenes transitan una intensa búsqueda de identidad, marcados por la presión digital y la constante necesidad de aprobación. En este camino, experimentan vacíos y la exigencia de usar máscaras para encajar en su entorno.
                             </p>
                             <p class="text-white text-[13px] leading-relaxed font-medium text-justify">
-                                <strong>¿Por qué este Lema?</strong> El joven necesita experimentar el <strong>Kerygma</strong> puro. Deben descubrir que su dignidad brota únicamente de ser <em>Amados</em> por Dios. Solo desde ese amor sanador podrán escuchar a Cristo dándoles un sentido de vida (<em>Llamados</em>), para finalmente asumir la Confirmación no como una despedida, sino como apóstoles valientes en el mundo de hoy (<em>Enviados</em>).
+                                <strong>¿Por qué este Lema?</strong> Porque necesitan redescubrir la verdad que Jesús revela: <em>"No temas, porque yo te he redimido; te he llamado por tu nombre; tú eres mío"</em> (Isaías 43,1). Su dignidad no depende de la aprobación externa, sino de saberse profundamente <strong>Amados</strong> por Dios, <strong>Llamados</strong> a seguirle y <strong>Enviados</strong> como apóstoles valientes al mundo de hoy.
                             </p>
                         </div>
                     </div>
                 </div>
 
+                <!-- ACORDEÓN / REFERENCIA MAGISTERIAL -->
+                <div class="mb-8 bg-blue-50/70 border border-blue-200 rounded-2xl p-4 text-xs text-blue-900">
+                    <div class="flex items-center justify-between cursor-pointer font-bold uppercase tracking-wider text-[11px] mb-1" onclick="document.getElementById('magisterio-box').classList.toggle('hidden')">
+                        <span><i class="fas fa-church mr-1 text-blue-700"></i> Ver Marco Magisterial y Referencias (Papa Francisco)</span>
+                        <i class="fas fa-chevron-down text-blue-600"></i>
+                    </div>
+                    <div id="magisterio-box" class="hidden mt-3 pt-3 border-t border-blue-200/60 text-slate-700 leading-relaxed font-normal space-y-2">
+                        <p><strong>Enseñanza del Papa Francisco (Christus Vivit):</strong> Los jóvenes transitan bajo la presión de las redes sociales y una cultura de la apariencia que exige usar máscaras. El Santo Padre recuerda que <em>"Dios nos ama antes de que hagamos algo para merecerlo"</em>.</p>
+                        <p><strong>Cita Bíblica Directa (Jn 1, 39):</strong> <em>«Vengan y verán»</em>. La Confirmación es el llamado personal del Maestro a entregar la vida con propósito y convertirse en <em>«la luz del mundo»</em> (Mt 5, 14).</p>
+                    </div>
+                </div>
+
                 <div class="space-y-6">
                     
-                    <!-- MENU DESPLEGABLE REPARADO (Capa aislada z-50 para evitar recortes) -->
-                    <div class="relative z-50 w-full">
-                        <div class="input-premium cursor-pointer group flex flex-col" id="dropdown-trigger" onclick="toggleDropdown(event)">
-                            <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-hover:text-rose-600">
-                                <i class="fas fa-user-tie mr-1 text-slate-300 group-hover:text-rose-500 transition-colors"></i> Tu Nombre
-                            </label>
-                            <div class="flex justify-between items-center w-full">
-                                <span id="dropdown-text" class="text-slate-400 font-bold text-lg select-none">Toca para seleccionar...</span>
-                                <i id="dropdown-arrow" class="fas fa-chevron-down text-rose-400 transition-transform duration-300"></i>
-                            </div>
-                        </div>
+                    <!-- SELECCIÓN DE EXPOSITOR -->
+                    <div>
+                        <label class="block text-xs font-black text-slate-700 mb-3 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fas fa-user-circle text-blue-700 text-base"></i> Selecciona tu Nombre (Ponencia Asignada)
+                        </label>
                         
-                        <!-- Opciones Flotantes Absolutas -->
-                        <div id="dropdown-options" class="hidden absolute left-0 right-0 top-[105%] bg-white border-2 border-slate-200 rounded-2xl shadow-2xl z-[100] overflow-hidden divide-y divide-slate-100">
-                            <div class="p-4 hover:bg-rose-50 cursor-pointer font-bold text-slate-700 text-lg transition-colors" id="dd-opt-exp1" onclick="seleccionarExpositor('exp1')">Cargando...</div>
-                            <div class="p-4 hover:bg-rose-50 cursor-pointer font-bold text-slate-700 text-lg transition-colors" id="dd-opt-exp2" onclick="seleccionarExpositor('exp2')">Cargando...</div>
-                            <div class="p-4 hover:bg-rose-50 cursor-pointer font-bold text-slate-700 text-lg transition-colors" id="dd-opt-exp3" onclick="seleccionarExpositor('exp3')">Cargando...</div>
+                        <div class="grid grid-cols-1 gap-3">
+                            <label class="relative block cursor-pointer">
+                                <input type="radio" name="ExpositorSelection" value="exp1" class="sr-only peer" onclick="seleccionarExpositorPorTarjeta('exp1')">
+                                <div class="expositor-card flex items-center p-4 rounded-2xl">
+                                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">1</div>
+                                    <div class="flex-grow">
+                                        <p class="font-black text-slate-900 text-base" id="card-name-exp1">Pbro. Gustavo Ibarra Valencia</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Tema 1: ¿Quién soy yo? (Cuando nadie me está mirando)</p>
+                                    </div>
+                                    <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
+                                        <i class="fas fa-check opacity-0"></i>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="relative block cursor-pointer">
+                                <input type="radio" name="ExpositorSelection" value="exp2" class="sr-only peer" onclick="seleccionarExpositorPorTarjeta('exp2')">
+                                <div class="expositor-card flex items-center p-4 rounded-2xl">
+                                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">2</div>
+                                    <div class="flex-grow">
+                                        <p class="font-black text-slate-900 text-base" id="card-name-exp2">Cristian Cadena Moreno</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Tema 2: Señor, ¿Qué quieres de mí?</p>
+                                    </div>
+                                    <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
+                                        <i class="fas fa-check opacity-0"></i>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="relative block cursor-pointer">
+                                <input type="radio" name="ExpositorSelection" value="exp3" class="sr-only peer" onclick="seleccionarExpositorPorTarjeta('exp3')">
+                                <div class="expositor-card flex items-center p-4 rounded-2xl">
+                                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">3</div>
+                                    <div class="flex-grow">
+                                        <p class="font-black text-slate-900 text-base" id="card-name-exp3">Miguel Sanches</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Tema 3: Dios tiene un propósito para mí</p>
+                                    </div>
+                                    <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
+                                        <i class="fas fa-check opacity-0"></i>
+                                    </div>
+                                </div>
+                            </label>
                         </div>
                     </div>
                     <input type="hidden" id="expositor" name="Expositor" required>
 
-                    <div class="relative z-0">
+                    <div>
                         <div class="input-premium group relative">
-                            <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
-                                <i class="fab fa-whatsapp mr-1 text-slate-300 group-focus-within:text-green-500 transition-colors"></i> Número de Contacto
+                            <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
+                                <i class="fab fa-whatsapp mr-1 text-slate-400 group-focus-within:text-emerald-600 transition-colors"></i> Número de WhatsApp Personal
                             </label>
                             <input type="tel" name="Telefono_WhatsApp" id="telefono" placeholder="Ej. 70000000" class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none" required>
                         </div>
                     </div>
                 </div>
 
-                <button type="button" onclick="nextStep(2)" class="group mt-10 w-full bg-slate-900 text-white rounded-2xl p-5 font-black text-lg shadow-xl shadow-slate-900/20 hover:bg-rose-700 transition-colors flex justify-center items-center gap-3">
-                    Continuar a mi Misión <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                <button type="button" onclick="nextStep(2)" class="group mt-10 w-full bg-slate-900 text-white rounded-2xl p-5 font-black text-lg shadow-xl shadow-slate-900/20 hover:bg-blue-900 transition-colors flex justify-center items-center gap-3">
+                    <span>Siguiente paso</span> <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                 </button>
             </div>
 
-            <!-- PASO 2: Tema Profundo -->
+            <!-- PASO 2 -->
             <div id="step-2" class="step-content">
-                <button type="button" onclick="prevStep(1)" class="text-slate-400 mb-6 hover:text-rose-600 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
+                <button type="button" onclick="prevStep(1)" class="text-slate-400 mb-6 hover:text-blue-700 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
                 
-                <div id="tema-card" class="relative bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 mb-8 hidden overflow-hidden border border-slate-100">
-                    <div class="h-16 w-full bg-gradient-to-r from-rose-900 to-rose-700 relative flex items-center px-6">
+                <div id="tema-card" class="relative bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 mb-8 hidden overflow-hidden border border-slate-100">
+                    <div class="h-16 w-full bg-gradient-to-r from-blue-950 to-indigo-900 relative flex items-center px-6">
                         <span class="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase shadow-sm"><i class="fas fa-book-open mr-1"></i> Tu Tema Asignado</span>
                     </div>
                     
                     <div class="p-6">
                         <h3 id="tema-titulo" class="text-3xl font-serif text-slate-900 mb-6 font-bold leading-tight">...</h3>
                         
-                        <div class="bg-rose-50/50 p-6 rounded-2xl border border-rose-100 mb-6 relative shadow-inner">
-                            <i class="fas fa-bible absolute -top-4 -right-2 text-4xl text-rose-200 drop-shadow-sm rotate-12"></i>
-                            <h4 class="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-3 border-b border-rose-100 pb-2">La Palabra de Dios</h4>
+                        <div class="bg-blue-50/60 p-6 rounded-2xl border border-blue-100 mb-6 relative shadow-inner">
+                            <i class="fas fa-bible absolute -top-4 -right-2 text-4xl text-blue-200 drop-shadow-sm rotate-12"></i>
+                            <h4 class="text-[10px] font-black text-blue-800 uppercase tracking-widest mb-3 border-b border-blue-100 pb-2">La Palabra de Dios</h4>
                             <p id="tema-cita" class="italic text-[15px] font-medium text-slate-700 leading-relaxed text-justify">...</p>
                         </div>
                         
                         <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner">
-                            <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 border-b border-slate-200 pb-2"><i class="fas fa-bullseye mr-1 text-rose-400"></i> Objetivo Pastoral del Tema</h4>
+                            <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 border-b border-slate-200 pb-2"><i class="fas fa-bullseye mr-1 text-blue-700"></i> Objetivo Pastoral del Tema</h4>
                             <p id="tema-obj" class="text-[14px] text-slate-600 leading-relaxed font-medium text-justify"></p>
                         </div>
                     </div>
@@ -196,8 +284,8 @@
                 <div class="flex flex-col sm:flex-row gap-4 mb-6">
                     <label class="flex-1 relative group cursor-pointer">
                         <input type="radio" name="Estado_Tema" value="Si" class="peer sr-only" onchange="toggleFile(true)" required>
-                        <div class="h-full p-5 bg-white border-2 border-slate-200 rounded-2xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:shadow-lg transition-colors duration-200">
-                            <div class="w-12 h-12 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3 peer-checked:animate-bounce">
+                        <div class="h-full p-5 bg-white border-2 border-slate-200 rounded-2xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50/80 peer-checked:shadow-lg transition-colors duration-200">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 peer-checked:animate-bounce">
                                 <i class="fas fa-check-double text-xl"></i>
                             </div>
                             <span class="font-black text-slate-800 block mb-1">¡Sí, lo tengo!</span>
@@ -207,8 +295,8 @@
                     
                     <label class="flex-1 relative group cursor-pointer">
                         <input type="radio" name="Estado_Tema" value="No" class="peer sr-only" onchange="toggleFile(false)">
-                        <div class="h-full p-5 bg-white border-2 border-slate-200 rounded-2xl text-center peer-checked:border-amber-500 peer-checked:bg-amber-50 peer-checked:shadow-lg transition-colors duration-200">
-                            <div class="w-12 h-12 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <div class="h-full p-5 bg-white border-2 border-slate-200 rounded-2xl text-center peer-checked:border-amber-500 peer-checked:bg-amber-50/80 peer-checked:shadow-lg transition-colors duration-200">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3">
                                 <i class="fas fa-pen-fancy text-xl"></i>
                             </div>
                             <span class="font-black text-slate-800 block mb-1">En elaboración</span>
@@ -219,35 +307,35 @@
 
                 <div id="file-section" class="hidden mb-6">
                     <div class="file-zone group" onclick="document.getElementById('archivo').click()">
-                        <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-emerald-100">
-                            <i class="fas fa-cloud-upload-alt text-4xl text-emerald-500 group-hover:scale-110 transition-transform"></i>
+                        <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-blue-100">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-blue-600 group-hover:scale-110 transition-transform"></i>
                         </div>
                         <h4 class="font-black text-slate-800 text-lg">Subir Documento Final</h4>
                         <p class="text-xs text-slate-500 mt-1 font-medium">Toca para explorar tus archivos</p>
                         <input type="file" id="archivo" class="hidden" accept=".pdf,.doc,.docx" onchange="updateFileName(this)">
                         
-                        <div id="file-name" class="mt-4 inline-flex items-center gap-2 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold hidden shadow-md">
+                        <div id="file-name" class="mt-4 inline-flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold hidden shadow-md">
                             <i class="fas fa-file-alt"></i> <span></span>
                         </div>
                     </div>
                 </div>
 
-                <button type="button" onclick="nextStep(3)" class="group mt-4 w-full bg-slate-900 text-white rounded-2xl p-5 font-black text-lg shadow-xl shadow-slate-900/20 hover:bg-rose-700 transition-colors flex justify-center items-center gap-3">
-                    Configurar Salón <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                <button type="button" onclick="nextStep(3)" class="group mt-4 w-full bg-slate-900 text-white rounded-2xl p-5 font-black text-lg shadow-xl shadow-slate-900/20 hover:bg-blue-900 transition-colors flex justify-center items-center gap-3">
+                    <span>Siguiente paso</span> <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                 </button>
             </div>
 
             <!-- PASO 3 -->
             <div id="step-3" class="step-content">
-                <button type="button" onclick="prevStep(2)" class="text-slate-400 mb-6 hover:text-rose-600 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
+                <button type="button" onclick="prevStep(2)" class="text-slate-400 mb-6 hover:text-blue-700 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
                 
                 <h2 class="text-3xl font-serif text-slate-900 mb-8 font-bold text-center">Logística del Salón</h2>
 
                 <div class="space-y-6">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="input-premium group relative">
-                            <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
-                                <i class="fas fa-stopwatch mr-1 text-slate-300 group-focus-within:text-rose-500 transition-colors"></i> Tiempo
+                            <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
+                                <i class="fas fa-stopwatch mr-1 text-slate-400 group-focus-within:text-blue-700 transition-colors"></i> Tiempo
                             </label>
                             <div class="relative">
                                 <select name="Tiempo_Estimado" class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none appearance-none cursor-pointer pr-8" required>
@@ -255,36 +343,52 @@
                                     <option value="45 minutos" selected>45 min</option>
                                     <option value="1 hora">1 hora</option>
                                 </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-rose-400 group-focus-within:text-rose-600">
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-blue-600">
                                     <i class="fas fa-chevron-down text-sm"></i>
                                 </div>
                             </div>
                         </div>
 
                         <div class="input-premium group relative">
-                            <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
-                                <i class="fas fa-users mr-1 text-slate-300 group-focus-within:text-orange-400 transition-colors"></i> Dinámica
+                            <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
+                                <i class="fas fa-users mr-1 text-slate-400 group-focus-within:text-blue-700 transition-colors"></i> Dinámica
                             </label>
                             <input type="text" name="Tipo_Dinamica" placeholder="Ej. Plenario..." class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none" required>
                         </div>
                     </div>
 
+                    <!-- CAJA DE REQUERIMIENTOS CON NUMERACIÓN AUTOMÁTICA TIPO WORD -->
                     <div class="input-premium group">
-                        <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
-                            <i class="fas fa-box-open mr-1 text-slate-300 group-focus-within:text-blue-400 transition-colors"></i> Requerimientos Técnicos
-                        </label>
-                        <textarea name="Requerimientos_Tecnicos" rows="2" placeholder="Escribe aquí lo que necesitas físicamente (Ej: Proyector multimedia, 2 micrófonos, pizarrón, etc.)" class="w-full bg-transparent text-slate-800 font-medium focus:outline-none resize-none mt-2" required></textarea>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                                <i class="fas fa-tools mr-1 text-blue-700"></i> Requerimientos Técnicos (Lista numerada automática)
+                            </label>
+                            <button type="button" onclick="agregarItemLista()" class="bg-blue-100 text-blue-700 hover:bg-blue-200 text-xs font-bold px-3 py-1 rounded-lg transition-colors flex items-center gap-1">
+                                <i class="fas fa-plus"></i> Añadir ítem
+                            </button>
+                        </div>
+                        
+                        <!-- Contenedor editable tipo Word -->
+                        <div id="editor-requerimientos" class="editor-word" contenteditable="true" placeholder="Escribe tus requerimientos aquí...">
+                            <ol>
+                                <li style="margin-bottom: 5px;">Proyector multimedia</li>
+                                <li style="margin-bottom: 5px;">Sistema de sonido y 2 micrófonos inalámbricos</li>
+                            </ol>
+                        </div>
+                        <!-- Input oculto que envía el contenido limpio al servidor de Google -->
+                        <input type="hidden" name="Requerimientos_Tecnicos" id="Requerimientos_Tecnicos">
+                        <p class="text-[11px] text-slate-400 mt-2 italic">💡 Al presionar Enter, Word creará el siguiente número de forma automática.</p>
                     </div>
 
                     <div class="input-premium group">
-                        <label class="block text-[10px] font-black text-rose-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-rose-600">
-                            <i class="fas fa-comment-dots mr-1 text-slate-300 group-focus-within:text-rose-400 transition-colors"></i> Dudas (Opcional)
+                        <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
+                            <i class="fas fa-comment-dots mr-1 text-slate-400 group-focus-within:text-blue-700 transition-colors"></i> Dudas (Opcional)
                         </label>
                         <textarea name="Observaciones_Dudas" rows="2" placeholder="Cualquier nota o comentario adicional para la comisión organizadora..." class="w-full bg-transparent text-slate-800 font-medium focus:outline-none resize-none mt-2"></textarea>
                     </div>
                 </div>
 
-                <button type="button" id="submitBtn" onclick="enviarDatos()" class="group mt-10 w-full bg-gradient-to-r from-rose-600 to-rose-800 text-white rounded-2xl p-5 font-black text-xl shadow-2xl hover:shadow-rose-600/40 transition-colors flex justify-center items-center gap-3">
+                <button type="button" id="submitBtn" onclick="enviarDatos()" class="group mt-10 w-full bg-gradient-to-r from-blue-700 to-indigo-900 text-white rounded-2xl p-5 font-black text-xl shadow-2xl hover:shadow-blue-700/40 transition-colors flex justify-center items-center gap-3">
                     <span>Enviar Ficha Pastoral</span> <i class="fas fa-paper-plane group-hover:animate-bounce"></i>
                 </button>
             </div>
@@ -298,10 +402,10 @@
             <h2 class="text-3xl font-serif text-slate-900 mb-2 font-bold">¡Ficha Registrada!</h2>
             <p class="text-slate-500 font-semibold text-sm px-4 mb-6">Guarda este resumen de tu participación pastoral:</p>
             
-            <div class="bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-slate-100 p-6 text-left max-w-sm mx-auto relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-400 to-rose-600"></div>
+            <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-slate-100 p-6 text-left max-w-sm mx-auto relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-indigo-900"></div>
                 
-                <h3 class="text-sm font-black text-slate-800 mb-4 border-b border-slate-100 pb-3 flex items-center"><i class="fas fa-ticket-alt text-rose-500 mr-2 text-lg"></i> Credencial Expositiva</h3>
+                <h3 class="text-sm font-black text-slate-800 mb-4 border-b border-slate-100 pb-3 flex items-center"><i class="fas fa-ticket-alt text-blue-700 mr-2 text-lg"></i> Credencial Expositiva</h3>
                 
                 <div class="space-y-4">
                     <div>
@@ -310,12 +414,12 @@
                     </div>
                     <div>
                         <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Tema a Compartir</p>
-                        <p id="rep-tema" class="font-bold text-rose-700 text-sm leading-snug">-</p>
+                        <p id="rep-tema" class="font-bold text-blue-800 text-sm leading-snug">-</p>
                     </div>
-                    <div class="bg-rose-50 p-4 rounded-2xl flex items-center gap-4 mt-2 border border-rose-100">
-                        <div class="bg-white p-3 rounded-xl shadow-sm text-rose-500"><i class="fas fa-calendar-alt text-2xl"></i></div>
+                    <div class="bg-blue-50/80 p-4 rounded-2xl flex items-center gap-4 mt-2 border border-blue-100">
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-blue-700"><i class="fas fa-calendar-alt text-2xl"></i></div>
                         <div>
-                            <p class="text-[10px] uppercase tracking-widest text-rose-400 font-black">Tu Día y Hora</p>
+                            <p class="text-[10px] uppercase tracking-widest text-blue-600 font-black">Tu Día y Hora</p>
                             <p id="rep-fecha" class="font-black text-slate-900 text-sm mt-0.5">-</p>
                         </div>
                     </div>
@@ -332,42 +436,39 @@
     <!-- Modal Admin -->
     <div id="adminModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-8 w-full max-w-sm shadow-2xl">
-            <h3 class="text-xl font-black mb-1 text-slate-900"><i class="fas fa-users-cog text-rose-500 mr-2"></i> Configuración</h3>
+            <h3 class="text-xl font-black mb-1 text-slate-900"><i class="fas fa-users-cog text-blue-700 mr-2"></i> Configuración</h3>
             <p class="text-xs text-slate-500 mb-6 border-b pb-4 font-medium">Edita los nombres de los expositores.</p>
             
             <div class="space-y-5 mb-8">
                 <div>
-                    <label class="block text-[10px] font-black text-rose-600 mb-1 uppercase tracking-widest">Tema 1</label>
-                    <input type="text" id="admin-exp1" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-rose-500 font-bold text-slate-800">
+                    <label class="block text-[10px] font-black text-blue-800 mb-1 uppercase tracking-widest">Tema 1</label>
+                    <input type="text" id="admin-exp1" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-blue-700 font-bold text-slate-800">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-rose-600 mb-1 uppercase tracking-widest">Tema 2</label>
-                    <input type="text" id="admin-exp2" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-rose-500 font-bold text-slate-800">
+                    <label class="block text-[10px] font-black text-blue-800 mb-1 uppercase tracking-widest">Tema 2</label>
+                    <input type="text" id="admin-exp2" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-blue-700 font-bold text-slate-800">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-rose-600 mb-1 uppercase tracking-widest">Tema 3</label>
-                    <input type="text" id="admin-exp3" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-rose-500 font-bold text-slate-800">
+                    <label class="block text-[10px] font-black text-blue-800 mb-1 uppercase tracking-widest">Tema 3</label>
+                    <input type="text" id="admin-exp3" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-blue-700 font-bold text-slate-800">
                 </div>
             </div>
 
             <div class="flex gap-3">
-                <button onclick="guardarAdmin()" class="flex-1 bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-rose-700 transition-colors">Guardar</button>
+                <button onclick="guardarAdmin()" class="flex-1 bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors">Guardar</button>
                 <button onclick="document.getElementById('adminModal').classList.add('hidden')" class="flex-1 bg-slate-100 text-slate-600 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">Cerrar</button>
             </div>
         </div>
     </div>
 
     <div id="toast">
-        <i class="fas fa-bell text-rose-400 text-xl animate-bounce"></i>
+        <i class="fas fa-bell text-blue-300 text-xl animate-bounce"></i>
         <span id="toastMsg" class="font-bold text-sm"></span>
     </div>
 
     <script>
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwcyAxqR6dnUyRgdqXlPVUCg65ahhJbvAMuXF4qNl47uxFwNQF7bjCKh0Zld39Z-q7zng/exec";
 
-        // ==========================================
-        // BASE DE DATOS TEOLÓGICA Y PASTORAL
-        // ==========================================
         const temasData = [
             { 
                 id: "exp1", defaultName: "Pbro. Gustavo Ibarra Valencia", 
@@ -392,64 +493,47 @@
             }
         ];
 
-        // LOGICA DEL DROPDOWN PERSONALIZADO AISLADO
-        function toggleDropdown(e) {
-            e.stopPropagation();
-            const options = document.getElementById('dropdown-options');
-            const arrow = document.getElementById('dropdown-arrow');
-            const trigger = document.getElementById('dropdown-trigger');
-            
-            if(options.classList.contains('hidden')) {
-                options.classList.remove('hidden');
-                arrow.classList.add('rotate-180');
-                trigger.classList.add('dropdown-active');
-            } else {
-                cerrarDropdown();
+        // Función para añadir elementos a la lista numerada estilo Word
+        function agregarItemLista() {
+            const editor = document.getElementById('editor-requerimientos');
+            let ol = editor.querySelector('ol');
+            if(!ol) {
+                editor.innerHTML = '<ol></ol>';
+                ol = editor.querySelector('ol');
             }
+            let li = document.createElement('li');
+            li.style.marginBottom = '5px';
+            li.innerHTML = '<br>';
+            ol.appendChild(li);
+            
+            // Poner el cursor automáticamente en el nuevo ítem
+            let range = document.createRange();
+            let sel = window.getSelection();
+            range.setStart(li, 0);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            editor.focus();
         }
 
-        function cerrarDropdown() {
-            const options = document.getElementById('dropdown-options');
-            const arrow = document.getElementById('dropdown-arrow');
-            const trigger = document.getElementById('dropdown-trigger');
-            
-            options.classList.add('hidden');
-            arrow.classList.remove('rotate-180');
-            trigger.classList.remove('dropdown-active');
-        }
-
-        document.addEventListener('click', function(event) {
-            const trigger = document.getElementById('dropdown-trigger');
-            if(trigger && !trigger.contains(event.target)) {
-                cerrarDropdown();
-            }
-        });
-
-        function seleccionarExpositor(id) {
+        function seleccionarExpositorPorTarjeta(id) {
             let tema = temasData.find(t => t.id === id);
             if(!tema) return;
             
             document.getElementById('expositor').value = tema.currentName;
-            
-            let textSpan = document.getElementById('dropdown-text');
-            textSpan.innerText = tema.currentName;
-            textSpan.classList.remove('text-slate-400');
-            textSpan.classList.add('text-slate-900', 'font-black');
-            
-            cerrarDropdown();
             mostrarTemaUI(tema);
         }
 
-        // INICIALIZACION
         function cargarNombres() {
             temasData.forEach(tema => {
                 let savedName = localStorage.getItem('admin_' + tema.id) || tema.defaultName;
                 tema.currentName = savedName;
                 
-                // Setear en Dropdown
-                document.getElementById('dd-opt-' + tema.id).innerText = savedName;
-                // Setear en panel Admin
-                document.getElementById('admin-' + tema.id).value = savedName;
+                let nameEl = document.getElementById('card-name-' + tema.id);
+                if(nameEl) nameEl.innerText = savedName;
+
+                let adminEl = document.getElementById('admin-' + tema.id);
+                if(adminEl) adminEl.value = savedName;
             });
         }
 
@@ -461,15 +545,14 @@
 
         function guardarAdmin() {
             temasData.forEach(tema => {
-                localStorage.setItem('admin_' + tema.id, document.getElementById('admin-' + tema.id).value);
+                let val = document.getElementById('admin-' + tema.id).value;
+                localStorage.setItem('admin_' + tema.id, val);
             });
             cargarNombres(); 
             document.getElementById('adminModal').classList.add('hidden');
             
-            // Reset state
-            document.getElementById('dropdown-text').innerText = "Toca para seleccionar...";
-            document.getElementById('dropdown-text').className = "text-slate-400 font-bold text-lg select-none";
             document.getElementById('expositor').value = "";
+            document.querySelectorAll('input[name="ExpositorSelection"]').forEach(el => el.checked = false);
             document.getElementById('tema-card').classList.add('hidden');
             
             showToast("¡Nombres actualizados!");
@@ -485,7 +568,7 @@
 
         function nextStep(step) {
             if(step === 2 && (!document.getElementById('expositor').value || !document.getElementById('telefono').value)) {
-                showToast("Por favor, llena tus datos primero 😅"); return;
+                showToast("Por favor, selecciona tu nombre y anota tu WhatsApp 😅"); return;
             }
             if(step === 3 && !document.querySelector('input[name="Estado_Tema"]:checked')) {
                 showToast("Dinos cómo va tu tema para continuar 📚"); return;
@@ -500,7 +583,7 @@
                 let ind = document.getElementById('ind-'+i);
                 if(i <= step) {
                     ind.classList.remove('opacity-50');
-                    ind.children[0].className = "w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-rose-800 text-white flex items-center justify-center font-bold shadow-lg ring-4 ring-white";
+                    ind.children[0].className = "w-10 h-10 rounded-full bg-gradient-to-br from-blue-900 to-indigo-950 text-white flex items-center justify-center font-bold shadow-lg ring-4 ring-white";
                 } else {
                     ind.classList.add('opacity-50');
                     ind.children[0].className = "w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold ring-4 ring-white";
@@ -540,6 +623,10 @@
             if(!document.getElementById('expositor').value || !document.getElementById('telefono').value || !document.querySelector('input[name="Estado_Tema"]:checked')) { 
                 showToast("Revisa los datos obligatorios 🚨"); return; 
             }
+
+            // Capturar el contenido numerado del editor tipo Word y pasarlo al input oculto
+            let editorContent = document.getElementById('editor-requerimientos').innerHTML;
+            document.getElementById('Requerimientos_Tecnicos').value = editorContent;
 
             let btn = document.getElementById('submitBtn');
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
