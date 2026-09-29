@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retiro 2026 | Portal de Expositores</title>
+    <title>Retiro 2026 | Portal de Expositores e Invitados</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -35,7 +35,6 @@
             border-color: #1e3a8a !important; box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.12);
         }
 
-        /* Editor tipo Word para Requerimientos */
         .editor-word {
             min-height: 120px;
             max-height: 250px;
@@ -54,7 +53,6 @@
             margin-bottom: 0.3rem;
         }
 
-        /* Tarjetas de Selección Interactiva */
         .expositor-card {
             border: 2px solid #e2e8f0;
             background: #ffffff;
@@ -112,7 +110,7 @@
                 </div>
                 <div>
                     <h1 class="text-sm font-black text-slate-900 uppercase tracking-widest">Retiro 2026</h1>
-                    <p class="text-[10px] text-blue-700 font-bold uppercase tracking-widest">Portal de Expositores</p>
+                    <p class="text-[10px] text-blue-700 font-bold uppercase tracking-widest">Portal de Expositores y Guías</p>
                 </div>
             </div>
             <button onclick="abrirAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors transform hover:rotate-90 duration-300">
@@ -123,7 +121,6 @@
 
     <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-6 relative">
         
-        <!-- Indicador de Pasos Numerados -->
         <div class="flex items-center justify-between mb-8 relative px-4" id="progress-container">
             <div class="absolute left-4 right-4 top-1/2 -translate-y-1/2 h-1.5 bg-slate-200 -z-10 rounded-full"></div>
             <div id="progress-bar" class="absolute left-4 top-1/2 -translate-y-1/2 w-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-900 -z-10 rounded-full transition-all duration-700"></div>
@@ -173,27 +170,14 @@
                     </div>
                 </div>
 
-                <!-- ACORDEÓN / REFERENCIA MAGISTERIAL -->
-                <div class="mb-8 bg-blue-50/70 border border-blue-200 rounded-2xl p-4 text-xs text-blue-900">
-                    <div class="flex items-center justify-between cursor-pointer font-bold uppercase tracking-wider text-[11px] mb-1" onclick="document.getElementById('magisterio-box').classList.toggle('hidden')">
-                        <span><i class="fas fa-church mr-1 text-blue-700"></i> Ver Marco Magisterial y Referencias (Papa Francisco)</span>
-                        <i class="fas fa-chevron-down text-blue-600"></i>
-                    </div>
-                    <div id="magisterio-box" class="hidden mt-3 pt-3 border-t border-blue-200/60 text-slate-700 leading-relaxed font-normal space-y-2">
-                        <p><strong>Enseñanza del Papa Francisco (Christus Vivit):</strong> Los jóvenes transitan bajo la presión de las redes sociales y una cultura de la apariencia que exige usar máscaras. El Santo Padre recuerda que <em>"Dios nos ama antes de que hagamos algo para merecerlo"</em>.</p>
-                        <p><strong>Cita Bíblica Directa (Jn 1, 39):</strong> <em>«Vengan y verán»</em>. La Confirmación es el llamado personal del Maestro a entregar la vida con propósito y convertirse en <em>«la luz del mundo»</em> (Mt 5, 14).</p>
-                    </div>
-                </div>
-
                 <div class="space-y-6">
                     
-                    <!-- SELECCIÓN DE EXPOSITOR CON INSTRUCCIÓN -->
                     <div>
                         <div class="bg-amber-50 border-l-4 border-amber-500 p-3 rounded-xl mb-3 text-xs text-amber-900 font-semibold">
-                            <i class="fas fa-info-circle mr-1 text-amber-600"></i> <strong>Instrucción:</strong> Lee las opciones y haz clic sobre la tarjeta que corresponede al tema que te fue asignado.
+                            <i class="fas fa-info-circle mr-1 text-amber-600"></i> <strong>Instrucción:</strong> Selecciona tu nombre o el espacio de Adoración al Santísimo según corresponda.
                         </div>
                         <label class="block text-xs font-black text-slate-700 mb-3 uppercase tracking-widest flex items-center gap-2">
-                            <i class="fas fa-user-circle text-blue-700 text-base"></i> Selecciona tu Nombre (Ponencia Asignada)
+                            <i class="fas fa-user-circle text-blue-700 text-base"></i> Selecciona tu Nombre o Rol Asignado
                         </label>
                         
                         <div class="grid grid-cols-1 gap-3">
@@ -203,7 +187,7 @@
                                     <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">1</div>
                                     <div class="flex-grow">
                                         <p class="font-black text-slate-900 text-base" id="card-name-exp1">Pbro. Gustavo Ibarra Valencia</p>
-                                        <p class="text-xs text-blue-700 font-semibold mt-0.5"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Tema 1: ¿Quién soy yo? (Cuando nadie me está mirando)</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5" id="card-desc-exp1"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Ponencia: ¿Quién soy yo? (Cuando nadie me está mirando)</p>
                                     </div>
                                     <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
                                         <i class="fas fa-check opacity-0"></i>
@@ -217,7 +201,7 @@
                                     <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">2</div>
                                     <div class="flex-grow">
                                         <p class="font-black text-slate-900 text-base" id="card-name-exp2">Cristian Cadena Moreno</p>
-                                        <p class="text-xs text-blue-700 font-semibold mt-0.5"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Tema 2: Señor, ¿Qué quieres de mí?</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5" id="card-desc-exp2"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Ponencia: Señor, ¿Qué quieres de mí?</p>
                                     </div>
                                     <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
                                         <i class="fas fa-check opacity-0"></i>
@@ -231,7 +215,21 @@
                                     <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">3</div>
                                     <div class="flex-grow">
                                         <p class="font-black text-slate-900 text-base" id="card-name-exp3">Miguel Sanches</p>
-                                        <p class="text-xs text-blue-700 font-semibold mt-0.5"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Tema 3: Dios tiene un propósito para mí</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5" id="card-desc-exp3"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Ponencia: Dios tiene un propósito para mí</p>
+                                    </div>
+                                    <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
+                                        <i class="fas fa-check opacity-0"></i>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="relative block cursor-pointer">
+                                <input type="radio" name="ExpositorSelection" value="exp4" class="sr-only peer" onclick="seleccionarExpositorPorTarjeta('exp4')">
+                                <div class="expositor-card flex items-center p-4 rounded-2xl">
+                                    <div class="w-8 h-8 rounded-full bg-amber-50 text-amber-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0"><i class="fas fa-pray"></i></div>
+                                    <div class="flex-grow">
+                                        <p class="font-black text-slate-900 text-base" id="card-name-exp4">Melisa Ortiz Ojeda</p>
+                                        <p class="text-xs text-amber-700 font-semibold mt-0.5" id="card-desc-exp4"><i class="fas fa-church mr-1 text-[10px]"></i> Momento Sagrado: Adoración al Santísimo (Encuentro con Jesús)</p>
                                     </div>
                                     <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
                                         <i class="fas fa-check opacity-0"></i>
@@ -263,7 +261,7 @@
                 
                 <div id="tema-card" class="relative bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 mb-8 hidden overflow-hidden border border-slate-100">
                     <div class="h-16 w-full bg-gradient-to-r from-blue-950 to-indigo-900 relative flex items-center px-6">
-                        <span class="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase shadow-sm"><i class="fas fa-book-open mr-1"></i> Tu Tema Asignado</span>
+                        <span class="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase shadow-sm"><i class="fas fa-book-open mr-1"></i> Asignación Seleccionada</span>
                     </div>
                     
                     <div class="p-6">
@@ -271,19 +269,19 @@
                         
                         <div class="bg-blue-50/60 p-6 rounded-2xl border border-blue-100 mb-6 relative shadow-inner">
                             <i class="fas fa-bible absolute -top-4 -right-2 text-4xl text-blue-200 drop-shadow-sm rotate-12"></i>
-                            <h4 class="text-[10px] font-black text-blue-800 uppercase tracking-widest mb-3 border-b border-blue-100 pb-2">La Palabra de Dios</h4>
+                            <h4 class="text-[10px] font-black text-blue-800 uppercase tracking-widest mb-3 border-b border-blue-100 pb-2">Referencia Bíblica / Espiritual</h4>
                             <p id="tema-cita" class="italic text-[15px] font-medium text-slate-700 leading-relaxed text-justify">...</p>
                         </div>
                         
                         <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner">
-                            <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 border-b border-slate-200 pb-2"><i class="fas fa-bullseye mr-1 text-blue-700"></i> Objetivo Pastoral del Tema</h4>
+                            <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 border-b border-slate-200 pb-2"><i class="fas fa-bullseye mr-1 text-blue-700"></i> Propósito Pastoral</h4>
                             <p id="tema-obj" class="text-[14px] text-slate-600 leading-relaxed font-medium text-justify"></p>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-amber-50 border-l-4 border-amber-500 p-3 rounded-xl mb-4 text-xs text-amber-900 font-semibold">
-                    <i class="fas fa-info-circle mr-1 text-amber-600"></i> <strong>Instrucción:</strong> Selecciona si ya tienes listo el documento de tu ponencia o si aún lo estás elaborando. Si ya lo tienes, adjúntalo abajo.
+                    <i class="fas fa-info-circle mr-1 text-amber-600"></i> <strong>Instrucción:</strong> Indica si ya tienes listo el guion o esquema de tu participación. Si lo tienes, súbelo abajo.
                 </div>
                 <h3 class="font-serif text-2xl font-bold text-slate-900 mb-4">Progreso de Preparación</h3>
                 
@@ -316,7 +314,7 @@
                         <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-blue-100">
                             <i class="fas fa-cloud-upload-alt text-4xl text-blue-600 group-hover:scale-110 transition-transform"></i>
                         </div>
-                        <h4 class="font-black text-slate-800 text-lg">Subir Documento Final</h4>
+                        <h4 class="font-black text-slate-800 text-lg">Subir Documento o Guion</h4>
                         <p class="text-xs text-slate-500 mt-1 font-medium">Toca para explorar tus archivos</p>
                         <input type="file" id="archivo" class="hidden" accept=".pdf,.doc,.docx" onchange="updateFileName(this)">
                         
@@ -347,9 +345,8 @@
                             <div class="relative">
                                 <select name="Tiempo_Estimado" class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none appearance-none cursor-pointer pr-8" required>
                                     <option value="30 minutos">30 min</option>
-                                    <option value="45 minutos" selected>45 min</option>
-                                    <option value="1 hora">1 hora</option>
-				    <option value="Más de 1 hora"> Más de 1 hora</option>
+                                    <option value="45 minutos">45 min</option>
+                                    <option value="1 hora" selected>1 hora</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-blue-600">
                                     <i class="fas fa-chevron-down text-sm"></i>
@@ -361,11 +358,10 @@
                             <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
                                 <i class="fas fa-users mr-1 text-slate-400 group-focus-within:text-blue-700 transition-colors"></i> Dinámica
                             </label>
-                            <input type="text" name="Tipo_Dinamica" placeholder="Ej. Plenario..." class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none" required>
+                            <input type="text" name="Tipo_Dinamica" placeholder="Ej. Oración y silencio..." class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none" required>
                         </div>
                     </div>
 
-                    <!-- CAJA DE REQUERIMIENTOS 100% VACÍA Y LISTA PARA EDITAR -->
                     <div class="input-premium group">
                         <div class="flex justify-between items-center mb-2">
                             <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest">
@@ -376,7 +372,6 @@
                             </button>
                         </div>
                         
-                        <!-- Espacio totalmente en blanco y editable -->
                         <div id="editor-requerimientos" class="editor-word" contenteditable="true">
                             <ol>
                                 <li style="margin-bottom: 5px;"></li>
@@ -415,17 +410,17 @@
                 
                 <div class="space-y-4">
                     <div>
-                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Nombre del Expositor</p>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Nombre y Asignación</p>
                         <p id="rep-expositor" class="font-black text-slate-800 text-lg leading-tight">-</p>
                     </div>
                     <div>
-                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Tema a Compartir</p>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Detalle / Tema</p>
                         <p id="rep-tema" class="font-bold text-blue-800 text-sm leading-snug">-</p>
                     </div>
                     <div class="bg-blue-50/80 p-4 rounded-2xl flex items-center gap-4 mt-2 border border-blue-100">
                         <div class="bg-white p-3 rounded-xl shadow-sm text-blue-700"><i class="fas fa-calendar-alt text-2xl"></i></div>
                         <div>
-                            <p class="text-[10px] uppercase tracking-widest text-blue-600 font-black">Tu Día y Hora</p>
+                            <p class="text-[10px] uppercase tracking-widest text-blue-600 font-black">Momento / Horario</p>
                             <p id="rep-fecha" class="font-black text-slate-900 text-sm mt-0.5">-</p>
                         </div>
                     </div>
@@ -439,29 +434,18 @@
 
     </main>
 
-    <!-- Modal Admin -->
+    <!-- Modal Admin Completo (Permite editar nombres, títulos y descripciones) -->
     <div id="adminModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-8 w-full max-w-sm shadow-2xl">
-            <h3 class="text-xl font-black mb-1 text-slate-900"><i class="fas fa-users-cog text-blue-700 mr-2"></i> Configuración</h3>
-            <p class="text-xs text-slate-500 mb-6 border-b pb-4 font-medium">Edita los nombres de los expositores.</p>
+        <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 class="text-xl font-black mb-1 text-slate-900"><i class="fas fa-users-cog text-blue-700 mr-2"></i> Configuración General</h3>
+            <p class="text-xs text-slate-500 mb-6 border-b pb-4 font-medium">Edita los nombres y datos de los expositores o invitados del retiro.</p>
             
-            <div class="space-y-5 mb-8">
-                <div>
-                    <label class="block text-[10px] font-black text-blue-800 mb-1 uppercase tracking-widest">Tema 1</label>
-                    <input type="text" id="admin-exp1" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-blue-700 font-bold text-slate-800">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black text-blue-800 mb-1 uppercase tracking-widest">Tema 2</label>
-                    <input type="text" id="admin-exp2" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-blue-700 font-bold text-slate-800">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black text-blue-800 mb-1 uppercase tracking-widest">Tema 3</label>
-                    <input type="text" id="admin-exp3" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-blue-700 font-bold text-slate-800">
-                </div>
+            <div class="space-y-6 mb-8" id="admin-inputs-container">
+                <!-- Se llena dinámicamente mediante script -->
             </div>
 
-            <div class="flex gap-3">
-                <button onclick="guardarAdmin()" class="flex-1 bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors">Guardar</button>
+            <div class="flex gap-3 sticky bottom-0 bg-white pt-2 pb-1">
+                <button onclick="guardarAdmin()" class="flex-1 bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors">Guardar Cambios</button>
                 <button onclick="document.getElementById('adminModal').classList.add('hidden')" class="flex-1 bg-slate-100 text-slate-600 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">Cerrar</button>
             </div>
         </div>
@@ -496,6 +480,13 @@
                 c: '"Ustedes son la luz del mundo. Una ciudad en lo alto de una colina no puede esconderse. [...] Brille así su luz delante de los hombres, para que vean sus buenas obras y glorifiquen a su Padre que está en los cielos." — Evangelio según San Mateo 5, 14-16', 
                 o: "Impulsar el envío misionero y la corresponsabilidad eclesial (Dimensión profética de la Confirmación). Tras descubrir el amor de Dios y escuchar su llamado, el joven debe entender que la fe no es para guardarla, sino para compartirla. El objetivo es encender en ellos el ardor apostólico para que salgan del retiro no como meros espectadores, sino como verdaderos 'Discípulos Misioneros', siendo testigos valientes del Evangelio en su familia, en su colegio y en su entorno juvenil.",
                 fh: "Domingo a las 10:00 hrs." 
+            },
+            { 
+                id: "exp4", defaultName: "Melisa Ortiz Ojeda", 
+                t: "Adoración al Santísimo (Encuentro vivo con Jesús Sacramentado)", 
+                c: '"Permanezcan en mí, y yo en ustedes. Como el sarmiento no puede dar fruto por sí mismo, si no permanece en la vid, así tampoco ustedes, si no permanecen en mí." — Evangelio según San Juan 15, 4', 
+                o: "Guiar a los jóvenes a un momento sagrado de íntimo recogimiento, silencio y adoración ante Jesús Sacramentado. El propósito espiritual es que experimenten la presencia real de Cristo vivo, entregándole sus cargas, sanando sus heridas en el silencio y comprendiendo que toda verdadera fortaleza pastoral brota de la intimidad eucarística.",
+                fh: "Sábado a las 18:30 hrs." 
             }
         ];
 
@@ -530,27 +521,59 @@
 
         function cargarNombres() {
             temasData.forEach(tema => {
-                let savedName = localStorage.getItem('admin_' + tema.id) || tema.defaultName;
+                let savedName = localStorage.getItem('admin_name_' + tema.id) || tema.defaultName;
+                let savedTitle = localStorage.getItem('admin_title_' + tema.id) || tema.t;
                 tema.currentName = savedName;
+                tema.currentTargetTitle = savedTitle;
                 
                 let nameEl = document.getElementById('card-name-' + tema.id);
                 if(nameEl) nameEl.innerText = savedName;
+            });
+            construirInputsAdmin();
+        }
 
-                let adminEl = document.getElementById('admin-' + tema.id);
-                if(adminEl) adminEl.value = savedName;
+        function construirInputsAdmin() {
+            let container = document.getElementById('admin-inputs-container');
+            container.innerHTML = "";
+            temasData.forEach(tema => {
+                let currentName = localStorage.getItem('admin_name_' + tema.id) || tema.defaultName;
+                let currentTitle = localStorage.getItem('admin_title_' + tema.id) || tema.t;
+
+                container.innerHTML += `
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-black text-blue-900 uppercase">Participante / Asignación (${tema.id})</p>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Nombre completo:</label>
+                            <input type="text" id="admin-name-${tema.id}" value="${currentName}" class="w-full bg-white border-2 border-slate-200 rounded-xl p-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-blue-700">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título del tema / momento:</label>
+                            <input type="text" id="admin-title-${tema.id}" value="${currentTitle}" class="w-full bg-white border-2 border-slate-200 rounded-xl p-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-blue-700">
+                        </div>
+                    </div>
+                `;
             });
         }
 
         function abrirAdmin() {
-            let pass = prompt("Ingresa la contraseña (admin2026):");
-            if (pass === "admin2026") { document.getElementById('adminModal').classList.remove('hidden'); } 
+            let pass = prompt("Ingresa la contraseña de administrador (admin2026):");
+            if (pass === "admin2026") { 
+                construirInputsAdmin();
+                document.getElementById('adminModal').classList.remove('hidden'); 
+            } 
             else if (pass !== null) { alert("Contraseña Incorrecta."); }
         }
 
         function guardarAdmin() {
             temasData.forEach(tema => {
-                let val = document.getElementById('admin-' + tema.id).value;
-                localStorage.setItem('admin_' + tema.id, val);
+                let nameVal = document.getElementById('admin-name-' + tema.id).value;
+                let titleVal = document.getElementById('admin-title-' + tema.id).value;
+                
+                localStorage.setItem('admin_name_' + tema.id, nameVal);
+                localStorage.setItem('admin_title_' + tema.id, titleVal);
+                
+                tema.currentName = nameVal;
+                tema.t = titleVal;
             });
             cargarNombres(); 
             document.getElementById('adminModal').classList.add('hidden');
@@ -559,7 +582,7 @@
             document.querySelectorAll('input[name="ExpositorSelection"]').forEach(el => el.checked = false);
             document.getElementById('tema-card').classList.add('hidden');
             
-            showToast("¡Nombres actualizados!");
+            showToast("¡Datos y nombres actualizados con éxito!");
         }
 
         function mostrarTemaUI(tema) {
@@ -575,7 +598,7 @@
                 showToast("Por favor, selecciona tu nombre y anota tu WhatsApp 😅"); return;
             }
             if(step === 3 && !document.querySelector('input[name="Estado_Tema"]:checked')) {
-                showToast("Dinos cómo va tu tema para continuar 📚"); return;
+                showToast("Dinos cómo vas con tu preparación para continuar 📚"); return;
             }
 
             document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
