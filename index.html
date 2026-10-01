@@ -47,6 +47,32 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .admin-trigger {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .admin-trigger:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
         .header {
             background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fdf2f4 100%);
             padding: 40px 20px 30px 20px;
@@ -267,6 +293,34 @@
             animation: fadeIn 0.4s ease;
         }
 
+        #admin-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 420px;
+            z-index: 1000;
+            border: 2.5px solid var(--accent);
+        }
+
+        .admin-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+        }
+
         .footer {
             background: #fafaf9;
             padding: 30px 20px;
@@ -324,6 +378,41 @@
             seccionExtra.style.display = (selectEstado === "Si") ? "block" : "none";
         }
 
+        function abrirAdmin() {
+            var pass = prompt("Contraseña de Administrador:");
+            if (pass === "admin2026") {
+                document.getElementById("admin-panel").style.display = "block";
+                document.getElementById("admin-overlay").style.display = "block";
+            } else if (pass !== null) { alert("Contraseña incorrecta."); }
+        }
+
+        function cerrarAdmin() {
+            document.getElementById("admin-panel").style.display = "none";
+            document.getElementById("admin-overlay").style.display = "none";
+        }
+
+        function guardarCambiosAdmin() {
+            var n1 = document.getElementById("admin-exp1").value;
+            var n2 = document.getElementById("admin-exp2").value;
+            var n3 = document.getElementById("admin-exp3").value;
+
+            document.getElementById("t1-nombre").innerText = n1;
+            document.getElementById("t2-nombre").innerText = n2;
+            document.getElementById("t3-nombre").innerText = n3;
+
+            document.getElementById("opt-exp1").text = n1 + " (Tema 1)";
+            document.getElementById("opt-exp1").value = n1;
+
+            document.getElementById("opt-exp2").text = n2 + " (Tema 2)";
+            document.getElementById("opt-exp2").value = n2;
+
+            document.getElementById("opt-exp3").text = n3 + " (Tema 3)";
+            document.getElementById("opt-exp3").value = n3;
+
+            alert("¡Expositores actualizados con éxito!");
+            cerrarAdmin();
+        }
+
         function enviarFormulario(event) {
             event.preventDefault();
             var btn = document.querySelector(".btn-submit");
@@ -377,6 +466,8 @@
 </head>
 <body>
 
+    <div class="admin-trigger" onclick="abrirAdmin()">⚙️ Admin</div>
+
     <div class="container">
         <!-- Encabezado -->
         <div class="header">
@@ -407,7 +498,6 @@
                         <label for="expositor">Selecciona tu Nombre:</label>
                         <select id="expositor" name="Expositor" onchange="mostrarTemaAsignado()" required>
                             <option value="" disabled selected>-- Elige tu nombre --</option>
-                            <!-- Nombres actualizados permanentemente en el código -->
                             <option id="opt-exp1" value="Lic. Miguel Sánchez">Lic. Miguel Sánchez (Tema 1)</option>
                             <option id="opt-exp2" value="Lic. Cristian Cadena Moreno">Lic. Cristian Cadena Moreno (Tema 2)</option>
                             <option id="opt-exp3" value="Diácono Cristhian Paul Cardozo Tapia">Diácono Cristhian Paul Cardozo Tapia (Tema 3)</option>
@@ -418,13 +508,12 @@
                         <input type="tel" id="telefono" name="Telefono_WhatsApp" placeholder="Ej. 70000000" required>
                     </div>
                 </div>
-
-                 <!-- SECCIÓN DINÁMICA -->
+                   <!-- SECCIÓN DINÁMICA -->
                 <div id="seccion-tema-asignado">
                     <div class="section-title">📖 Tu Tema Asignado y Objetivo Pastoral</div>
                     
                     <div id="tema-1" class="tema-detalle" style="display: none;">
-                        <strong style="color: var(--primary); font-size: 17px;">Lic. Miguel Sánchez</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 1)</span><br>
+                        <strong id="t1-nombre" style="color: var(--primary); font-size: 17px;">Lic. Miguel Sánchez</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 1)</span><br>
                         <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: ¿Quién soy yo? (Cuando nadie me está mirando)</em>
                         <div class="cita-biblica">
                             "Antes de formarte en el vientre materno, ya te conocía; antes de que salieras del seno, te había consagrado." — Jeremías 1, 5
@@ -433,7 +522,7 @@
                     </div>
 
                     <div id="tema-2" class="tema-detalle" style="display: none;">
-                        <strong style="color: var(--primary); font-size: 17px;">Lic. Cristian Cadena Moreno</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 2)</span><br>
+                        <strong id="t2-nombre" style="color: var(--primary); font-size: 17px;">Lic. Cristian Cadena Moreno</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 2)</span><br>
                         <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: Señor, ¿Qué quieres de mí?</em>
                         <div class="cita-biblica">
                             "Habla, Señor, que tu siervo escucha." — 1 Samuel 3, 9
@@ -442,7 +531,7 @@
                     </div>
 
                     <div id="tema-3" class="tema-detalle" style="display: none;">
-                        <strong style="color: var(--primary); font-size: 17px;">Diácono Cristhian Paul Cardozo Tapia</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 3)</span><br>
+                        <strong id="t3-nombre" style="color: var(--primary); font-size: 17px;">Diácono Cristhian Paul Cardozo Tapia</strong> <span style="font-size: 12px; color: var(--text-muted);">(Tema 3)</span><br>
                         <em style="color: #9a3412; font-weight: 700; font-size: 15px;">Título: Dios tiene un propósito para mí</em>
                         <div class="cita-biblica">
                             "Ustedes son la luz del mundo... Brille así su luz delante de los hombres, para que vean sus buenas obras y glorifiquen a su Padre que está en los cielos." — Mateo 5, 14.16
@@ -468,7 +557,7 @@
                     <input type="file" id="archivo_tema" accept=".pdf,.doc,.docx,.txt">
                 </div>
 
-                <div class="section-title">🛠️️ 3. Requerimientos Técnicos y Logística</div>
+                <div class="section-title">🛠️ 3. Requerimientos Técnicos y Logística</div>
                 
                 <div class="grid-2">
                     <div class="form-group">
@@ -512,5 +601,32 @@
         </div>
     </div>
 
+    <!-- Panel de Administrador Oculto -->
+    <div class="admin-overlay" id="admin-overlay" onclick="cerrarAdmin()"></div>
+    <div id="admin-panel">
+        <h3 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--accent); padding-bottom:8px;">⚙️ Panel de Organización</h3>
+        <p style="font-size:12px; color:var(--text-muted);">Reasigna los nombres de los expositores de manera dinámica:</p>
+        
+        <div style="margin-bottom: 12px;">
+            <label style="font-size:11px;">Expositor Tema 1:</label>
+            <input type="text" id="admin-exp1" value="Lic. Miguel Sánchez">
+        </div>
+        <div style="margin-bottom: 12px;">
+            <label style="font-size:11px;">Expositor Tema 2:</label>
+            <input type="text" id="admin-exp2" value="Lic. Cristian Cadena Moreno">
+        </div>
+        <div style="margin-bottom: 18px;">
+            <label style="font-size:11px;">Expositor Tema 3:</label>
+            <input type="text" id="admin-exp3" value="Diácono Cristhian Paul Cardozo Tapia">
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button type="button" onclick="guardarCambiosAdmin()" style="background:var(--primary); color:white; border:none; padding:10px; border-radius:10px; cursor:pointer; font-weight:700; flex:1;">Actualizar</button>
+            <button type="button" onclick="cerrarAdmin()" style="background:#e7e5e4; color:var(--text-main); border:none; padding:10px; border-radius:10px; cursor:pointer; font-weight:700;">Cancelar</button>
+        </div>
+    </div>
+
 </body>
 </html>
+
+                
+                             
