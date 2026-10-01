@@ -3,571 +3,994 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Expositores - Retiro Confirmación 2026</title>
+    <title>Retiro 2026 | Portal de Expositores e Invitados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        :root {
-            --primary: #4c0519;         /* Guinda litúrgico profundo */
-            --primary-light: #881337;
-            --accent: #b45309;          /* Dorado elegante */
-            --bg-page: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --border-color: #cbd5e1;
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap');
+        
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
+        h1, h2, h3, .serif-font { font-family: 'Cinzel', serif; }
+        
+        .step-content { display: none; }
+        .step-content.active { display: block; animation: fadeUp 0.5s ease-out forwards; }
+        
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        * { box-sizing: border-box; }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px 10px;
-            line-height: 1.6;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            border-radius: 1.5rem;
         }
 
-        .container {
-            max-width: 850px;
-            background: var(--card-bg);
-            margin: 0 auto;
-            border-radius: 28px;
-            box-shadow: 0 20px 45px rgba(76, 5, 25, 0.12);
-            overflow: hidden;
-            border-top: 10px solid var(--primary);
-            position: relative;
+        .input-premium {
+            background: #ffffff; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 1rem;
+            padding: 1rem 1.25rem; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-
-        .header {
-            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
-            padding: 35px 20px;
-            text-align: center;
-            border-bottom: 2px solid #fecdd3;
-        }
-
-        .logo-img {
-            max-width: 85px;
-            max-height: 85px;
-            object-fit: contain;
-            margin-bottom: 12px;
-            border-radius: 16px;
-            background: #fff;
-            padding: 6px;
-            box-shadow: 0 5px 15px rgba(76, 5, 25, 0.1);
-        }
-
-        .header h3 {
-            margin: 0 0 4px 0;
-            font-size: 11px;
-            color: var(--primary-light);
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            font-weight: 800;
-        }
-
-        .header h1 {
-            margin: 0 0 6px 0;
-            font-size: 21px;
-            color: var(--primary);
-            font-weight: 900;
-        }
-
-        .header p.iglesia {
-            margin: 0 0 15px 0;
-            font-size: 13.5px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .lema-badge {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: #fff;
-            padding: 10px 24px;
-            border-radius: 30px;
-            display: inline-block;
-            font-weight: 800;
-            font-size: 13px;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(76, 5, 25, 0.2);
-            text-transform: uppercase;
-        }
-
-        .body-content {
-            padding: 30px 25px;
-        }
-
-        .section-title {
-            font-size: 14px;
-            color: var(--primary);
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 10px;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 900;
-        }
-
-        /* Estilo de Tarjetas de Selección Tipo App */
-        .cards-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 25px;
-        }
-
-        .card-option {
-            background: #ffffff;
-            border: 2px solid var(--border-color);
-            border-radius: 20px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-        }
-
-        .card-option:hover {
-            border-color: var(--primary-light);
-            box-shadow: 0 8px 20px rgba(76, 5, 25, 0.08);
-        }
-
-        .card-option.selected {
-            border-color: var(--primary);
-            background: #fdf2f4;
-            box-shadow: 0 8px 25px rgba(76, 5, 25, 0.12);
-        }
-
-        .card-left {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .card-number {
-            width: 44px;
-            height: 44px;
-            background: #e0f2fe;
-            color: #0369a1;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .card-option.sacred .card-number {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .card-info h4 {
-            margin: 0 0 4px 0;
-            font-size: 17px;
-            color: var(--text-main);
-            font-weight: 800;
-        }
-
-        .card-info p {
-            margin: 0;
-            font-size: 13.5px;
-            color: var(--primary-light);
-            font-weight: 600;
-        }
-
-        .card-radio input[type="radio"] {
-            width: 22px;
-            height: 22px;
-            accent-color: var(--primary);
-            cursor: pointer;
-        }
-
-        /* Tarjeta de detalle de tema que aparece al seleccionar */
-        #seccion-tema-asignado {
-            display: none;
-            background: #fafaf9;
-            border: 1.5px solid #e7e5e4;
-            border-left: 6px solid var(--accent);
-            padding: 24px;
-            border-radius: 18px;
-            margin-bottom: 25px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .cita-biblica {
-            background: #fffbeb;
-            border-left: 4px solid var(--accent);
-            padding: 10px 14px;
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
-            color: #78350f;
-            margin: 10px 0 14px 0;
-            font-size: 13.5px;
-        }
-
-        .form-group {
-            margin-bottom: 22px;
-        }
-
-        label {
-            display: block;
-            font-weight: 800;
-            font-size: 12px;
-            margin-bottom: 8px;
-            color: var(--text-main);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input[type="tel"], input[type="file"], select, textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 15px;
-            background-color: #fafaf9;
-            color: var(--text-main);
-        }
-
-        input[type="file"] { background: #fff; cursor: pointer; }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 4px rgba(76, 5, 25, 0.1);
-            background: #fff;
-        }
-
-        textarea { resize: vertical; height: 110px; }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        #seccion-preparado {
-            display: none;
-            background: #f0fdf4;
-            border: 2px solid #86efac;
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 22px;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-            border: none;
-            padding: 16px 20px;
-            font-size: 15px;
-            font-weight: 900;
-            border-radius: 14px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 8px 25px rgba(76, 5, 25, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.2s;
-        }
-
-        .btn-submit:hover {
-            opacity: 0.95;
+        .input-premium:focus-within {
+            border-color: #3b82f6 !important; 
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
             transform: translateY(-2px);
         }
 
-        #mensaje-exito {
+        .expositor-card {
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .expositor-card:hover {
+            border-color: #60a5fa;
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 25px -5px rgba(59, 130, 246, 0.15);
+        }
+        input[type="radio"]:checked ~ .expositor-card {
+            border-color: #2563eb !important;
+            background-color: #f8fafc !important;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+            transform: translateY(-2px);
+        }
+        input[type="radio"]:checked ~ .expositor-card .check-icon {
+            background-color: #2563eb !important;
+            border-color: #2563eb !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+        input[type="radio"]:checked ~ .expositor-card .check-icon i {
+            opacity: 1 !important;
+            transform: scale(1.1);
+        }
+
+        .file-zone {
+            border: 2px dashed #cbd5e1; 
+            border-radius: 1.5rem; 
+            padding: 2.5rem; 
+            text-align: center;
+            background: #f8fafc; 
+            transition: all 0.3s ease; 
+            cursor: pointer;
+        }
+        .file-zone:hover { 
+            border-color: #3b82f6; 
+            background: #eff6ff; 
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.15); 
+        }
+        
+        #toast {
+            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+            background: #0f172a; color: white; padding: 1rem 2rem; border-radius: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); transition: bottom 0.4s ease-out;
+            z-index: 9999; display: flex; align-items: center; gap: 0.75rem;
+        }
+        #toast.show { bottom: 2rem; }
+
+        @media print {
+            body { background: white; }
+            header, .step-indicator, button, #toast, #adminModal { display: none !important; }
+            #successScreen { display: block !important; padding: 0; margin: 0; }
+        }
+
+        /* Dashboard Styles based on user image */
+        #dashboard-main {
             display: none;
+            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        @media (min-width: 768px) {
+            #dashboard-main { padding: 2rem; }
+        }
+        .dash-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 1.25rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .dash-container { padding: 2.5rem; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        }
+        .kpi-card {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+            transition: transform 0.3s ease;
             text-align: center;
-            padding: 35px 20px;
-            background: #f0fdf4;
-            border: 2px solid #86efac;
-            border-radius: 20px;
-            margin-top: 20px;
         }
-
-        .footer {
-            background: #fafaf9;
-            padding: 25px;
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
+        @media (min-width: 768px) {
+            .kpi-card {
+                border-bottom: none;
+                border-right: 1px solid rgba(0, 0, 0, 0.05);
+                padding: 1.5rem 2rem;
+                text-align: left;
+            }
+            .kpi-card:last-child { border-right: none; }
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-4px); }
-            to { opacity: 1; transform: translateY(0); }
+        .kpi-card:hover { transform: translateY(-3px); }
+        
+        .chart-box {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+            padding: 1rem;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            overflow: hidden;
         }
-
-        @media (max-width: 768px) {
-            body { padding: 5px; }
-            .container { border-radius: 16px; border-top-width: 8px; }
-            .body-content { padding: 20px 15px; }
-            .grid-2 { grid-template-columns: 1fr; gap: 15px; }
-            .card-option { padding: 15px; }
-            .card-number { width: 38px; height: 38px; font-size: 16px; }
-            .card-info h4 { font-size: 15px; }
-            input, select, textarea { font-size: 16px; }
+        @media (min-width: 768px) {
+            .chart-box { padding: 1.5rem; border-radius: 16px; }
         }
     </style>
-    <script>
-        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwcyAxqR6dnUyRgdqXlPVUCg65ahhJbvAMuXF4qNl47uxFwNQF7bjCKh0Zld39Z-q7zng/exec";
-
-        function seleccionarExpositor(idRadio, valorExpositor) {
-            var radio = document.getElementById(idRadio);
-            radio.checked = true;
-
-            // Remover clase selected de todas las tarjetas y ponérsela a la activa
-            var tarjetas = document.querySelectorAll('.card-option');
-            tarjetas.forEach(t => t.classList.remove('selected'));
-            radio.closest('.card-option').classList.add('selected');
-
-            // Ocultar detalles de temas
-            document.querySelectorAll('.detalle-tema').forEach(d => d.style.display = 'none');
-
-            // Mostrar sección de detalle dinámica
-            var seccion = document.getElementById("seccion-tema-asignado");
-            seccion.style.display = "block";
-
-            if (valorExpositor === "Lic. Miguel Sánchez") {
-                document.getElementById("detalle-1").style.display = "block";
-            } else if (valorExpositor === "Lic. Cristian Cadena Moreno") {
-                document.getElementById("detalle-2").style.display = "block";
-            } else if (valorExpositor === "Diácono Cristhian Paul Cardozo Tapia") {
-                document.getElementById("detalle-3").style.display = "block";
-            } else if (valorExpositor === "Melisa Ortiz Ojeda") {
-                document.getElementById("detalle-4").style.display = "block";
-            }
-        }
-
-        function controlarSeccionTema() {
-            var estado = document.getElementById("preparado_tema").value;
-            document.getElementById("seccion-preparado").style.display = (estado === "Si") ? "block" : "none";
-        }
-
-        function enviarFormulario(event) {
-            event.preventDefault();
-            var btn = document.querySelector(".btn-submit");
-            btn.innerText = "Registrando ficha...";
-            btn.disabled = true;
-
-            var fileInput = document.getElementById("archivo_tema");
-            if (fileInput.files.length > 0) {
-                var file = fileInput.files[0];
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function () {
-                    enviarDatosServidor({
-                        archivoData: reader.result.split(',')[1],
-                        archivoMimeType: file.type,
-                        archivoNombre: file.name
-                    });
-                };
-            } else {
-                enviarDatosServidor({});
-            }
-        }
-
-        function enviarDatosServidor(extraData) {
-            var form = document.getElementById("form-ficha");
-            var formData = new FormData(form);
-            for (var key in extraData) formData.append(key, extraData[key]);
-
-            fetch(URL_APPS_SCRIPT, { method: "POST", body: formData })
-            .then(res => res.json())
-            .then(data => {
-                form.style.display = "none";
-                document.getElementById("mensaje-exito").style.display = "block";
-            })
-            .catch(err => {
-                alert("Error al enviar. Intente de nuevo.");
-                var btn = document.querySelector(".btn-submit");
-                btn.innerText = "Enviar Ficha Completada";
-                btn.disabled = false;
-            });
-        }
-    </script>
 </head>
-<body>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col" onload="cargarNombres()">
 
-    <div class="container">
-        <!-- Encabezado -->
-        <div class="header">
-            <img src="logo.jpg" alt="Logo Parroquia" class="logo-img" onerror="this.onerror=null; this.src='logo.png';">
-            <h3>Comisión Organizadora • Parroquia San Martín de Porres</h3>
-            <h1>RETIRO ESPIRITUAL • CONFIRMACIÓN 2026</h1>
-            <p class="iglesia">Comunidad Parroquial San Martín de Porres</p>
-            <div class="lema-badge">Lema: Soy Amado — Llamado — Enviado</div>
+    <header class="bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200 sticky top-0 z-40">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="logo.jpg" alt="Logo" id="main-logo" class="h-10 w-10 object-contain rounded-full border border-slate-200 shadow-sm" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex';">
+                <div id="fallback-logo" class="w-10 h-10 bg-gradient-to-br from-blue-900 to-indigo-950 rounded-full flex items-center justify-center text-white shadow-sm" style="display:none;">
+                    <i class="fas fa-church"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm font-black text-slate-900 uppercase tracking-widest">Retiro 2026</h1>
+                    <p class="text-[10px] text-blue-700 font-bold uppercase tracking-widest">Portal de Expositores y Guías</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="abrirDashboardAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors duration-300" title="Ver Dashboard">
+                    <i class="fas fa-chart-line text-xl"></i>
+                </button>
+                <button onclick="abrirAdmin()" class="text-slate-400 hover:text-blue-900 transition-colors transform hover:rotate-90 duration-300" title="Configuración">
+                    <i class="fas fa-cog text-xl"></i>
+                </button>
+            </div>
         </div>
+    </header>
 
-        <div class="body-content">
-            <form id="form-ficha" onsubmit="enviarFormulario(event)">
-                
-                <div class="section-title">✝️ 1. Marco Teológico y Pastoral</div>
-                <div class="info-card" style="background:#fafaf9; border:1px solid var(--border-color); border-left:5px solid var(--primary); padding:20px; border-radius:14px; margin-bottom:25px;">
-                    <p style="margin:0; font-size:14px; color:var(--text-muted);">Acompañamos a los jóvenes de 15 a 17 años en la recta final hacia su Confirmación, ofreciéndoles un espacio cálido y sin juicios para encontrarse con la misericordia de Dios.</p>
-                </div>
-
-                <div class="section-title">👤 2. Selecciona tu Nombre o Rol Asignado</div>
-                
-                <!-- Tarjetas Interactivas Tipo App -->
-                <div class="cards-grid">
-                    <!-- Expositor 1 -->
-                    <div class="card-option" onclick="seleccionarExpositor('radio1', 'Lic. Miguel Sánchez')">
-                        <div class="card-left">
-                            <div class="card-number">1</div>
-                            <div class="card-info">
-                                <h4>Lic. Miguel Sánchez</h4>
-                                <p>📖 Ponencia: ¿Quién soy yo? (Cuando nadie me está mirando)</p>
-                            </div>
-                        </div>
-                        <div class="card-radio">
-                            <input type="radio" id="radio1" name="Expositor" value="Lic. Miguel Sánchez" required>
-                        </div>
-                    </div>
-
-                    <!-- Expositor 2 -->
-                    <div class="card-option" onclick="seleccionarExpositor('radio2', 'Lic. Cristian Cadena Moreno')">
-                        <div class="card-left">
-                            <div class="card-number">2</div>
-                            <div class="card-info">
-                                <h4>Lic. Cristian Cadena Moreno</h4>
-                                <p>📖 Ponencia: Señor, ¿Qué quieres de mí?</p>
-                            </div>
-                        </div>
-                        <div class="card-radio">
-                            <input type="radio" id="radio2" name="Expositor" value="Lic. Cristian Cadena Moreno">
-                        </div>
-                    </div>
-
-                    <!-- Expositor 3 -->
-                    <div class="card-option" onclick="seleccionarExpositor('radio3', 'Diácono Cristhian Paul Cardozo Tapia')">
-                        <div class="card-left">
-                            <div class="card-number">3</div>
-                            <div class="card-info">
-                                <h4>Diácono Cristhian Paul Cardozo Tapia</h4>
-                                <p>📖 Ponencia: Dios tiene un propósito para mí</p>
-                            </div>
-                        </div>
-                        <div class="card-radio">
-                            <input type="radio" id="radio3" name="Expositor" value="Diácono Cristhian Paul Cardozo Tapia">
-                        </div>
-                    </div>
-
-                    <!-- Momento Sagrado -->
-                    <div class="card-option sacred" onclick="seleccionarExpositor('radio4', 'Melisa Ortiz Ojeda')">
-                        <div class="card-left">
-                            <div class="card-number">✨</div>
-                            <div class="card-info">
-                                <h4>Melisa Ortiz Ojeda</h4>
-                                <p>⛪ Momento Sagrado: Adoración al Santísimo</p>
-                            </div>
-                        </div>
-                        <div class="card-radio">
-                            <input type="radio" id="radio4" name="Expositor" value="Melisa Ortiz Ojeda">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DETALLE DINÁMICO SEGÚN LA SELECCIÓN -->
-                <div id="seccion-tema-asignado">
-                    <div style="font-size:12px; font-weight:800; color:var(--primary); text-transform:uppercase; margin-bottom:6px;">Detalle de tu Asignación:</div>
-                    
-                    <!-- Detalle 1 -->
-                    <div id="detalle-1" class="detalle-tema" style="display:none;">
-                        <strong style="font-size:16px; color:var(--primary);">Lic. Miguel Sánchez (Tema 1)</strong>
-                        <div class="cita-biblica">"Antes de formarte en el vientre materno, ya te conocía..." — Jeremías 1, 5</div>
-                        <p style="font-size:13.5px; margin:0; color:var(--text-muted);"><strong>Objetivo:</strong> Ayudar al joven a despojarse de las máscaras sociales y de la aprobación digital, descubriendo su valor ante los ojos de Dios.</p>
-                    </div>
-
-                    <!-- Detalle 2 -->
-                    <div id="detalle-2" class="detalle-tema" style="display:none;">
-                        <strong style="font-size:16px; color:var(--primary);">Lic. Cristian Cadena Moreno (Tema 2)</strong>
-                        <div class="cita-biblica">"Habla, Señor, que tu siervo escucha." — 1 Samuel 3, 9</div>
-                        <p style="font-size:13.5px; margin:0; color:var(--text-muted);"><strong>Objetivo:</strong> Conectar con el discernimiento vocacional y enseñarles a hacer silencio interior para sintonizar con la voz de Dios.</p>
-                    </div>
-
-                    <!-- Detalle 3 -->
-                    <div id="detalle-3" class="detalle-tema" style="display:none;">
-                        <strong style="font-size:16px; color:var(--primary);">Diácono Cristhian Paul Cardozo Tapia (Tema 3)</strong>
-                        <div class="cita-biblica">"Ustedes son la luz del mundo..." — Mateo 5, 14.16</div>
-                        <p style="font-size:13.5px; margin:0; color:var(--text-muted);"><strong>Objetivo:</strong> Consolidar la pertenencia a la Iglesia y motivar el envío misionero como respuesta viva a su Confirmación.</p>
-                    </div>
-   <!-- Detalle 4 -->
-                    <div id="detalle-4" class="detalle-tema" style="display:none;">
-                        <strong style="font-size:16px; color:var(--primary);">Melisa Ortiz Ojeda (Momento Sagrado)</strong>
-                        <div class="cita-biblica">"Quedaos aquí y velad conmigo..." — Mateo 26, 38</div>
-                        <p style="font-size:13.5px; margin:0; color:var(--text-muted);"><strong>Objetivo:</strong> Guiar el encuentro íntimo de adoración eucarística con los jóvenes, propiciando un espacio de silencio y entrega personal.</p>
-                    </div>
-                </div>
-
-                <div class="section-title">📱 3. Datos y Requerimientos</div>
-
-                <div class="form-group">
-                    <label for="telefono">Número de WhatsApp Personal:</label>
-                    <input type="tel" id="telefono" name="Telefono_WhatsApp" placeholder="Ej. 70000000" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="preparado_tema">¿Ya tienes listo el contenido o documento?</label>
-                    <select id="preparado_tema" name="Estado_Tema" onchange="controlarSeccionTema()" required>
-                        <option value="" disabled selected>-- Selecciona una opción --</option>
-                        <option value="Si">Sí, lo tengo listo</option>
-                        <option value="No">No todavía / Lo estoy elaborando</option>
-                    </select>
-                </div>
-
-                <div id="seccion-preparado" class="form-group">
-                    <label for="archivo_tema" style="color:#166534; font-weight:800;">📂 Sube tu archivo (Word o PDF):</label>
-                    <input type="file" id="archivo_tema" accept=".pdf,.doc,.docx,.txt">
-                </div>
-
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label for="tiempo">Tiempo Estimado:</label>
-                        <select id="tiempo" name="Tiempo_Estimado" required>
-                            <option value="" disabled selected>-- Elige el tiempo --</option>
-                            <option value="30 minutos">30 minutos</option>
-                            <option value="40 minutos">40 minutos</option>
-                            <option value="45 minutos">45 minutos</option>
-                            <option value="50 minutos">50 minutos</option>
-                            <option value="1 hora">1 hora</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="dinamica">Tipo de Dinámica:</label>
-                        <input type="text" id="dinamica" name="Tipo_Dinamica" placeholder="Ej. Plenaria, vivencial" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="requerimientos">¿Qué requieres en el salón? (Ej. 1. Proyector...):</label>
-                    <textarea id="requerimientos" name="Requerimientos_Tecnicos" placeholder="1. Proyector multimedia&#10;2. Micrófono inalámbrico" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="observaciones">Observaciones o Dudas para la Comisión:</label>
-                    <textarea id="observaciones" name="Observaciones_Dudas" style="height: 80px;" placeholder="Comentarios adicionales..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">Enviar Ficha Completada</button>
-            </form>
-
-            <div id="mensaje-exito">
-                <h2 style="color: #166534; margin-top:0;">¡Ficha Registrada con Éxito! 🙏</h2>
-                <p>Tus datos y documento se han guardado correctamente en la plataforma de la Parroquia San Martín de Porres.</p>
+    <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-6 relative">
+        
+        <!-- Indicador de Pasos -->
+        <div class="flex items-center justify-between mb-8 relative px-4" id="progress-container">
+            <div class="absolute left-4 right-4 top-1/2 -translate-y-1/2 h-1.5 bg-slate-200 -z-10 rounded-full"></div>
+            <div id="progress-bar" class="absolute left-4 top-1/2 -translate-y-1/2 w-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-900 -z-10 rounded-full transition-all duration-700"></div>
+            
+            <div class="step-indicator flex flex-col items-center transition-all duration-300" id="ind-1">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-900 to-indigo-950 text-white flex items-center justify-center font-bold shadow-lg ring-4 ring-white">1</div>
+            </div>
+            <div class="step-indicator flex flex-col items-center opacity-50 transition-all duration-300" id="ind-2">
+                <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold ring-4 ring-white">2</div>
+            </div>
+            <div class="step-indicator flex flex-col items-center opacity-50 transition-all duration-300" id="ind-3">
+                <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold ring-4 ring-white">3</div>
             </div>
         </div>
 
-        <div class="footer">
-            Parroquia San Martín de Porres &bull; Comisión Organizadora del Retiro Juvenil 2026
+        <form id="appForm" onsubmit="event.preventDefault();">
+            
+            <!-- PASO 1 -->
+            <div id="step-1" class="step-content active">
+                
+                <div class="relative rounded-[2.5rem] shadow-2xl shadow-blue-950/20 mb-8 overflow-hidden flex flex-col justify-end bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-900">
+                    <div class="absolute -top-20 -right-20 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 p-6 sm:p-8">
+                        <div class="mb-4">
+                            <span class="inline-flex items-center gap-2 glass-card text-white px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase shadow-sm">
+                                <i class="fas fa-dove text-amber-300 text-sm"></i> Lema 2026
+                            </span>
+                        </div>
+                        
+                        <h2 class="text-4xl sm:text-5xl font-serif font-black text-white mb-6 drop-shadow-lg leading-tight">
+                            Soy Amado.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-blue-200">Llamado.</span> Enviado.
+                        </h2>
+                        
+                        <div class="glass-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-amber-400">
+                            <h3 class="text-amber-200 font-black text-[11px] uppercase tracking-widest mb-3 flex items-center">
+                                <i class="fas fa-fire mr-2"></i> Fundamentación Pastoral
+                            </h3>
+                            <p class="text-white text-[13px] leading-relaxed font-medium text-justify mb-3">
+                                <strong>Perfil (15-17 años)[cite: 1]:</strong> Los jóvenes transitan una intensa búsqueda de identidad, marcados por la presión digital y la constante necesidad de aprobación. En este camino, experimentan vacíos y la exigencia de usar máscaras para encajar en su entorno.
+                            </p>
+                            <p class="text-white text-[13px] leading-relaxed font-medium text-justify">
+                                <strong>¿Por qué este Lema?</strong> Porque necesitan redescubrir la verdad que Jesús revela: <em>"No temas, porque yo te he redimido; te he llamado por tu nombre; tú eres mío"</em> (Isaías 43,1). Su dignidad no depende de la aprobación externa, sino de saberse profundamente <strong>Amados</strong> por Dios, <strong>Llamados</strong> a seguirle y <strong>Enviados</strong> como apóstoles valientes al mundo de hoy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    
+                    <div>
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-xl mb-4 text-xs text-blue-900">
+                            <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 1:</p>
+                            <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
+                                <li>Busca y haz clic sobre la tarjeta que corresponda exactamente a tu nombre o tema asignado.</li>
+                                <li>Ingresa tu número de WhatsApp personal sin espacios para mantener comunicación con la organización.</li>
+                            </ul>
+                        </div>
+
+                        <label class="block text-xs font-black text-slate-700 mb-3 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fas fa-user-circle text-blue-700 text-base"></i> Selecciona tu Nombre o Rol Asignado
+                        </label>
+                        
+                        <div class="grid grid-cols-1 gap-3">
+                            <label class="relative block cursor-pointer">
+                                <input type="radio" name="ExpositorSelection" value="exp1" class="sr-only peer" onclick="seleccionarExpositorPorTarjeta('exp1')">
+                                <div class="expositor-card flex items-center p-4 rounded-2xl">
+                                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">1</div>
+                                    <div class="flex-grow">
+                                        <p class="font-black text-slate-900 text-base" id="card-name-exp1">Lic. Miguel Sánchez</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5" id="card-desc-exp1"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Ponencia: ¿Quién soy yo? (Cuando nadie me está mirando)</p>
+                                    </div>
+                                    <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
+                                        <i class="fas fa-check opacity-0"></i>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="relative block cursor-pointer">
+                                <input type="radio" name="ExpositorSelection" value="exp2" class="sr-only peer" onclick="seleccionarExpositorPorTarjeta('exp2')">
+                                <div class="expositor-card flex items-center p-4 rounded-2xl">
+                                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">2</div>
+                                    <div class="flex-grow">
+                                        <p class="font-black text-slate-900 text-base" id="card-name-exp2">Lic. Cristian Cadena Moreno</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5" id="card-desc-exp2"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Ponencia: Señor, ¿Qué quieres de mí?</p>
+                                    </div>
+                                    <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
+                                        <i class="fas fa-check opacity-0"></i>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="relative block cursor-pointer">
+                                <input type="radio" name="ExpositorSelection" value="exp3" class="sr-only peer" onclick="seleccionarExpositorPorTarjeta('exp3')">
+                                <div class="expositor-card flex items-center p-4 rounded-2xl">
+                                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0">3</div>
+                                    <div class="flex-grow">
+                                        <p class="font-black text-slate-900 text-base" id="card-name-exp3">Diácono Cristhian Paul Cardozo Tapia</p>
+                                        <p class="text-xs text-blue-700 font-semibold mt-0.5" id="card-desc-exp3"><i class="fas fa-bookmark mr-1 text-[10px]"></i> Ponencia: Dios tiene un propósito para mí</p>
+                                    </div>
+                                    <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
+                                        <i class="fas fa-check opacity-0"></i>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="relative block cursor-pointer">
+                                <input type="radio" name="ExpositorSelection" value="exp4" class="sr-only peer" onclick="seleccionarExpositorPorTarjeta('exp4')">
+                                <div class="expositor-card flex items-center p-4 rounded-2xl">
+                                    <div class="w-8 h-8 rounded-full bg-amber-50 text-amber-700 font-bold flex items-center justify-center mr-4 text-sm shadow-sm flex-shrink-0"><i class="fas fa-pray"></i></div>
+                                    <div class="flex-grow">
+                                        <p class="font-black text-slate-900 text-base" id="card-name-exp4">Melisa Ortiz Ojeda</p>
+                                        <p class="text-xs text-amber-700 font-semibold mt-0.5" id="card-desc-exp4"><i class="fas fa-church mr-1 text-[10px]"></i> Momento Sagrado: Adoración al Santísimo (Encuentro con Jesús)</p>
+                                    </div>
+                                    <div class="check-icon w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center ml-3 text-white text-xs flex-shrink-0 transition-all">
+                                        <i class="fas fa-check opacity-0"></i>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <input type="hidden" id="expositor" name="Expositor" required>
+
+                    <div>
+                        <div class="input-premium group relative">
+                            <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
+                                <i class="fab fa-whatsapp mr-1 text-slate-400 group-focus-within:text-emerald-600 transition-colors"></i> Número de WhatsApp Personal
+                            </label>
+                            <input type="tel" name="Telefono_WhatsApp" id="telefono" placeholder="Ej. 70000000" class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="nextStep(2)" class="group mt-10 w-full bg-slate-900 text-white rounded-2xl p-5 font-black text-lg shadow-xl shadow-slate-900/20 hover:bg-blue-900 transition-colors flex justify-center items-center gap-3">
+                    <span>Siguiente paso</span> <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                </button>
+            </div>
+
+            <!-- PASO 2 -->
+            <div id="step-2" class="step-content">
+                <button type="button" onclick="prevStep(1)" class="text-slate-400 mb-6 hover:text-blue-700 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
+                
+                <div id="tema-card" class="relative bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 mb-8 hidden overflow-hidden border border-slate-100">
+                    <div class="h-16 w-full bg-gradient-to-r from-blue-950 to-indigo-900 relative flex items-center px-6">
+                        <span class="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase shadow-sm"><i class="fas fa-book-open mr-1"></i> Asignación Seleccionada</span>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 id="tema-titulo" class="text-3xl font-serif text-slate-900 mb-6 font-bold leading-tight">...</h3>
+                        
+                        <div class="bg-blue-50/60 p-6 rounded-2xl border border-blue-100 mb-6 relative shadow-inner">
+                            <i class="fas fa-bible absolute -top-4 -right-2 text-4xl text-blue-200 drop-shadow-sm rotate-12"></i>
+                            <h4 class="text-[10px] font-black text-blue-800 uppercase tracking-widest mb-3 border-b border-blue-100 pb-2">Referencia Bíblica / Espiritual</h4>
+                            <p id="tema-cita" class="italic text-[15px] font-medium text-slate-700 leading-relaxed text-justify">...</p>
+                        </div>
+                        
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner">
+                            <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 border-b border-slate-200 pb-2"><i class="fas fa-bullseye mr-1 text-blue-700"></i> Propósito Pastoral</h4>
+                            <p id="tema-obj" class="text-[14px] text-slate-600 leading-relaxed font-medium text-justify"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-xl mb-4 text-xs text-blue-900">
+                    <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 2:</p>
+                    <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
+                        <li>Selecciona si ya tienes preparado tu documento o si te encuentras elaborándolo.</li>
+                        <li>Si ya lo tienes redactado, súbelo en formato PDF o Word (opcional pero recomendado).</li>
+                    </ul>
+                </div>
+
+                <h3 class="font-serif text-2xl font-bold text-slate-900 mb-4">Progreso de Preparación</h3>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <label class="flex-1 relative group cursor-pointer">
+                        <input type="radio" name="Estado_Tema" value="Si" class="peer sr-only" onchange="toggleFile(true)" required>
+                        <div class="h-full p-5 bg-white border-2 border-slate-200 rounded-2xl text-center peer-checked:border-emerald-500 peer-checked:bg-emerald-50/80 peer-checked:shadow-lg transition-colors duration-200">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 peer-checked:animate-bounce">
+                                <i class="fas fa-check-double text-xl"></i>
+                            </div>
+                            <span class="font-black text-slate-800 block mb-1">¡Sí, lo tengo!</span>
+                            <span class="text-[11px] text-emerald-600 font-bold block">Subir archivo PDF/Word</span>
+                        </div>
+                    </label>
+                    
+                    <label class="flex-1 relative group cursor-pointer">
+                        <input type="radio" name="Estado_Tema" value="No" class="peer sr-only" onchange="toggleFile(false)">
+                        <div class="h-full p-5 bg-white border-2 border-slate-200 rounded-2xl text-center peer-checked:border-amber-500 peer-checked:bg-amber-50/80 peer-checked:shadow-lg transition-colors duration-200">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-pen-fancy text-xl"></i>
+                            </div>
+                            <span class="font-black text-slate-800 block mb-1">En elaboración</span>
+                            <span class="text-[11px] text-amber-600 font-bold block">Seguiré orándolo y preparándolo</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div id="file-section" class="hidden mb-6">
+                    <div class="file-zone group" onclick="document.getElementById('archivo').click()">
+                        <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-blue-100">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-blue-600 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h4 class="font-black text-slate-800 text-lg">Subir Documento o Guion</h4>
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Toca para explorar tus archivos</p>
+                        <input type="file" id="archivo" class="hidden" accept=".pdf,.doc,.docx" onchange="updateFileName(this)">
+                        
+                        <div id="file-name" class="mt-4 inline-flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold hidden shadow-md">
+                            <i class="fas fa-file-alt"></i> <span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="nextStep(3)" class="group mt-4 w-full bg-slate-900 text-white rounded-2xl p-5 font-black text-lg shadow-xl shadow-slate-900/20 hover:bg-blue-900 transition-colors flex justify-center items-center gap-3">
+                    <span>Siguiente paso</span> <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                </button>
+            </div>
+
+            <!-- PASO 3 -->
+            <div id="step-3" class="step-content">
+                <button type="button" onclick="prevStep(2)" class="text-slate-400 mb-6 hover:text-blue-700 transition-colors font-bold flex items-center group"><i class="fas fa-arrow-left mr-2 bg-white p-2 rounded-full shadow-sm group-hover:-translate-x-1 transition-transform"></i> Regresar</button>
+                
+                <h2 class="text-3xl font-serif text-slate-900 mb-2 font-bold text-center">Logística del Salón</h2>
+                <p class="text-xs text-center text-slate-500 mb-6 font-medium">Configura el tiempo y anota tus requerimientos materiales.</p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-xl mb-6 text-xs text-blue-900">
+                    <p class="font-black uppercase tracking-wider mb-1"><i class="fas fa-info-circle mr-1"></i> Instrucciones - Paso 3:</p>
+                    <ul class="list-disc pl-4 space-y-1 font-medium text-slate-700">
+                        <li>Selecciona el tiempo estimado que durará tu participación.</li>
+                        <li>En el campo de requerimientos técnicos, puedes escribir lo que necesites separando los elementos con comas (Ej. <i>proyector, mesas, hojas</i>)[cite: 14].</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="input-premium group relative">
+                            <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
+                                <i class="fas fa-stopwatch mr-1 text-slate-400 group-focus-within:text-blue-700 transition-colors"></i> Tiempo
+                            </label>
+                            <div class="relative">
+                                <select name="Tiempo_Estimado" class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none appearance-none cursor-pointer pr-8" required>
+                                    <option value="30 minutos">30 min</option>
+                                    <option value="45 minutos">45 min</option>
+                                    <option value="1 hora" selected>1 hora</option>
+                                    <option value="Más de 1 hora"> Más de 1 hora</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-blue-600">
+                                    <i class="fas fa-chevron-down text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-premium group relative">
+                            <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
+                                <i class="fas fa-users mr-1 text-slate-400 group-focus-within:text-blue-700 transition-colors"></i> Dinámica
+                            </label>
+                            <input type="text" name="Tipo_Dinamica" placeholder="Ej. Oración y silencio..." class="w-full bg-transparent text-slate-800 font-bold text-lg focus:outline-none" required>
+                        </div>
+                    </div>
+
+                    <!-- REQUERIMIENTOS TÉCNICOS CON EJEMPLO CLARO DE COMAS -->
+                    <div class="input-premium group">
+                        <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">
+                            <i class="fas fa-tools mr-1 text-blue-700"></i> Requerimientos Técnicos o Materiales
+                        </label>
+                        <textarea name="Requerimientos_Tecnicos" id="Requerimientos_Tecnicos" rows="3" placeholder="Ej. proyector, mesas, hojas" class="w-full bg-transparent text-slate-800 font-medium focus:outline-none resize-none mt-2" required></textarea>
+                        <p class="text-[11px] text-slate-400 mt-1 italic">💡 Puedes separar los materiales escribiendo con comas (Ej: proyector, mesas, hojas)[cite: 14].</p>
+                    </div>
+
+                    <div class="input-premium group">
+                        <label class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest transition-colors group-focus-within:text-blue-700">
+                            <i class="fas fa-comment-dots mr-1 text-slate-400 group-focus-within:text-blue-700 transition-colors"></i> Dudas (Opcional)
+                        </label>
+                        <textarea name="Observaciones_Dudas" rows="2" placeholder="Cualquier nota o comentario adicional para la comisión organizadora..." class="w-full bg-transparent text-slate-800 font-medium focus:outline-none resize-none mt-2"></textarea>
+                    </div>
+                </div>
+
+                <button type="button" id="submitBtn" onclick="enviarDatos()" class="group mt-10 w-full bg-gradient-to-r from-blue-700 to-indigo-900 text-white rounded-2xl p-5 font-black text-xl shadow-2xl hover:shadow-blue-700/40 transition-colors flex justify-center items-center gap-3">
+                    <span>Enviar Ficha Pastoral</span> <i class="fas fa-paper-plane group-hover:animate-bounce"></i>
+                </button>
+            </div>
+        </form>
+        
+        <!-- PANTALLA DE ÉXITO -->
+        <div id="successScreen" class="hidden text-center py-10 px-4">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-3xl shadow-xl shadow-emerald-500/40 animate-bounce ring-4 ring-emerald-50">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2 class="text-3xl font-serif text-slate-900 mb-2 font-bold">¡Ficha Registrada!</h2>
+            <p class="text-slate-500 font-semibold text-sm px-4 mb-6">Guarda este resumen de tu participación pastoral:</p>
+            
+            <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-slate-100 p-6 text-left max-w-sm mx-auto relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-indigo-900"></div>
+                
+                <h3 class="text-sm font-black text-slate-800 mb-4 border-b border-slate-100 pb-3 flex items-center"><i class="fas fa-ticket-alt text-blue-700 mr-2 text-lg"></i> Credencial Expositiva</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Nombre y Asignación</p>
+                        <p id="rep-expositor" class="font-black text-slate-800 text-lg leading-tight">-</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Detalle / Tema</p>
+                        <p id="rep-tema" class="font-bold text-blue-800 text-sm leading-snug">-</p>
+                    </div>
+                    <div class="bg-blue-50/80 p-4 rounded-2xl flex items-center gap-4 mt-2 border border-blue-100">
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-blue-700"><i class="fas fa-calendar-alt text-2xl"></i></div>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest text-blue-600 font-black">Momento / Horario</p>
+                            <p id="rep-fecha" class="font-black text-slate-900 text-sm mt-0.5">-</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="window.print()" class="w-full mt-6 bg-slate-50 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-100 transition-colors border border-slate-200 flex items-center justify-center gap-2">
+                    <i class="fas fa-print"></i> Guardar o Imprimir
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PANTALLA DASHBOARD INTEGRADO -->
+    <main id="dashboard-main">
+        <div class="dash-container" id="dash-content-area">
+            
+            <!-- Encabezado del Dash -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8 border-b pb-4 gap-4">
+                <div class="text-center md:text-left">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-800">Panel de Control General</h2>
+                    <p class="text-xs md:text-sm text-slate-500">Métricas y logística del Retiro 2026</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-3 w-full md:w-auto">
+                    <button onclick="cargarDatosDashboard()" class="flex-1 md:flex-none text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-3 py-2 md:px-4 md:py-2 rounded-lg font-bold text-xs md:text-sm transition-colors text-center">
+                        <i class="fas fa-sync-alt" id="dash-sync-icon"></i> Actualizar
+                    </button>
+                    <button onclick="generarPDFDashboard()" class="flex-1 md:flex-none text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-2 md:px-4 md:py-2 rounded-lg font-bold text-xs md:text-sm transition-colors shadow-lg shadow-indigo-200 text-center">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                    <button onclick="cerrarDashboard()" class="flex-1 md:flex-none text-slate-500 hover:text-red-500 bg-slate-100 hover:bg-red-50 px-3 py-2 md:px-4 md:py-2 rounded-lg font-bold text-xs md:text-sm transition-colors text-center">
+                        <i class="fas fa-times"></i> Cerrar
+                    </button>
+                </div>
+            </div>
+
+            <div id="dash-loading" class="text-center py-20 hidden">
+                <i class="fas fa-spinner fa-spin text-4xl text-blue-500 mb-4"></i>
+                <p class="text-slate-500 font-bold">Cargando datos en vivo...</p>
+            </div>
+
+            <div id="dash-view">
+                <!-- Tarjetas KPI -->
+                <div class="grid grid-cols-1 md:grid-cols-4 border-b border-t border-slate-100 mb-8" id="kpi-row">
+                    <div class="kpi-card">
+                        <p class="text-xs text-slate-500 font-bold mb-2">Total Fichas</p>
+                        <p class="text-4xl font-black text-slate-800" id="kpi-total">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-xs text-slate-500 font-bold mb-2">Fichas Listas</p>
+                        <p class="text-4xl font-black text-emerald-600" id="kpi-listas">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-xs text-slate-500 font-bold mb-2">En Preparación</p>
+                        <p class="text-4xl font-black text-amber-500" id="kpi-pendientes">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-xs text-slate-500 font-bold mb-2">% Avance Total</p>
+                        <p class="text-4xl font-black text-blue-600" id="kpi-porcentaje">0%</p>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="chart-box">
+                        <h3 class="text-sm font-bold text-slate-600 mb-4">Estado de Preparación</h3>
+                        <div class="h-64 flex justify-center"><canvas id="donutChart"></canvas></div>
+                    </div>
+                    <div class="chart-box">
+                        <h3 class="text-sm font-bold text-slate-600 mb-4">Tiempos Estimados</h3>
+                        <div class="h-64"><canvas id="barChart"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- Tabla Detallada -->
+                <div class="chart-box p-0 overflow-hidden">
+                    <h3 class="text-sm font-bold text-slate-600 p-4 border-b">Detalle Logístico</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                                <tr>
+                                    <th class="px-4 py-3">Expositor</th>
+                                    <th class="px-4 py-3">Estado</th>
+                                    <th class="px-4 py-3">Tiempo</th>
+                                    <th class="px-4 py-3">Requerimientos Técnicos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dash-table-body" class="divide-y divide-slate-100">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Modal Admin Completo -->
+    <div id="adminModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 class="text-xl font-black mb-1 text-slate-900"><i class="fas fa-users-cog text-blue-700 mr-2"></i> Configuración General</h3>
+            <p class="text-xs text-slate-500 mb-6 border-b pb-4 font-medium">Edita los nombres y datos de los expositores o invitados del retiro.</p>
+            
+            <div class="space-y-6 mb-8" id="admin-inputs-container">
+                <!-- Se llena dinámicamente -->
+            </div>
+
+            <div class="flex gap-3 sticky bottom-0 bg-white pt-2 pb-1">
+                <button onclick="guardarAdmin()" class="flex-1 bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors">Guardar Cambios</button>
+                <button onclick="document.getElementById('adminModal').classList.add('hidden')" class="flex-1 bg-slate-100 text-slate-600 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors">Cerrar</button>
+            </div>
         </div>
     </div>
 
+    <div id="toast">
+        <i class="fas fa-bell text-blue-300 text-xl animate-bounce"></i>
+        <span id="toastMsg" class="font-bold text-sm"></span>
+    </div>
+
+    <script>
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbynnDWUebcD-xpbZKrccWmGRHQqsxnzWPqp_xuHSsTJ1pMM7nQAHyiPWjH56zmQlv73ng/exec";
+
+        const temasData = [
+            { 
+                id: "exp1", defaultName: "Lic. Miguel Sánchez", 
+                t: "¿Quién soy yo? (Cuando nadie me está mirando)", 
+                c: '"Antes de formarte en el vientre materno, yo te conocía; antes de que salieras del seno, yo te había consagrado, te había constituido profeta para las naciones." — Libro del Profeta Jeremías 1, 5', 
+                o: "Llevar al joven a un profundo encuentro personal consigo mismo a la luz del amor creador de Dios. En un mundo dominado por la tiranía de la aprobación digital, los 'likes' y las máscaras sociales, el objetivo pastoral es despojar al adolescente de sus complejos e inseguridades. Debemos ayudarle a sanar sus heridas de identidad, reconociendo que su verdadero valor, dignidad y propósito brotan única y exclusivamente de la mirada de amor eterno e incondicional de su Padre Celestial.",
+                fh: "Sábado a las 16:00 hrs." 
+            },
+            { 
+                id: "exp2", defaultName: "Lic. Cristian Cadena Moreno", 
+                t: "Señor, ¿Qué quieres de mí?", 
+                c: '"El Señor llamó a Samuel, y él respondió: «Aquí estoy». [...] Y el Señor vino y se paró, y llamó como las otras veces: «¡Samuel, Samuel!». Entonces Samuel dijo: «Habla, Señor, que tu siervo escucha»." — Primer Libro de Samuel 3, 4-10', 
+                o: "Fomentar un clima de profundo discernimiento vocacional y existencial en el corazón del confirmando. El joven de hoy vive aturdido por el ruido del mundo; esta charla debe enseñarle a hacer 'silencio interior' para escuchar la voz de Dios. El objetivo es guiarlo para que deje de preguntarse '¿Qué quiero hacer con mi vida?' y comience a preguntarse 'Señor, ¿Para qué me has creado?'. Es el despertar de la vocación cristiana al servicio, a la santidad y a la entrega generosa.",
+                fh: "Sábado a las 17:30 hrs." 
+            },
+            { 
+                id: "exp3", defaultName: "Diácono Cristhian Paul Cardozo Tapia", 
+                t: "Dios tiene un propósito para mí", 
+                c: '"Ustedes son la luz del mundo. Una ciudad en lo alto de una colina no puede esconderse. [...] Brille así su luz delante de los hombres, para que vean sus buenas obras y glorifiquen a su Padre que está en los cielos." — Evangelio según San Mateo 5, 14-16', 
+                o: "Impulsar el envío misionero y la corresponsabilidad eclesial (Dimensión profética de la Confirmación). Tras descubrir el amor de Dios y escuchar su llamado, el joven debe entender que la fe no es para guardarla, sino para compartirla. El objetivo es encender en ellos el ardor apostólico para que salgan del retiro no como meros espectadores, sino como verdaderos 'Discípulos Misioneros', siendo testigos valientes del Evangelio en su familia, en su colegio y en su entorno juvenil.",
+                fh: "Domingo a las 10:00 hrs." 
+            },
+            { 
+                id: "exp4", defaultName: "Melisa Ortiz Ojeda", 
+                t: "Adoración al Santísimo (Encuentro vivo con Jesús Sacramentado)", 
+                c: '"Permanezcan en mí, y yo en ustedes. Como el sarmiento no puede dar fruto por sí mismo, si no permanece en la vid, así tampoco ustedes, si no permanecen en mí." — Evangelio según San Juan 15, 4', 
+                o: "Guiar a los jóvenes a un momento sagrado de íntimo recogimiento, silencio y adoración ante Jesús Sacramentado. El propósito espiritual es que experimenten la presencia real de Cristo vivo, entregándole sus cargas, sanando sus heridas en el silencio y comprendiendo que toda verdadera fortaleza pastoral brota de la intimidad eucarística.",
+                fh: "Sábado a las 18:30 hrs." 
+            }
+        ];
+
+        function seleccionarExpositorPorTarjeta(id) {
+            let tema = temasData.find(t => t.id === id);
+            if(!tema) return;
+            
+            document.getElementById('expositor').value = tema.currentName;
+            mostrarTemaUI(tema);
+        }
+
+        function cargarNombres() {
+            temasData.forEach(tema => {
+                let savedName = localStorage.getItem('admin_name_' + tema.id) || tema.defaultName;
+                let savedTitle = localStorage.getItem('admin_title_' + tema.id) || tema.t;
+                tema.currentName = savedName;
+                tema.t = savedTitle;
+                
+                let nameEl = document.getElementById('card-name-' + tema.id);
+                if(nameEl) nameEl.innerText = savedName;
+            });
+            construirInputsAdmin();
+        }
+
+        function construirInputsAdmin() {
+            let container = document.getElementById('admin-inputs-container');
+            container.innerHTML = "";
+            temasData.forEach(tema => {
+                let currentName = localStorage.getItem('admin_name_' + tema.id) || tema.defaultName;
+                let currentTitle = localStorage.getItem('admin_title_' + tema.id) || tema.t;
+
+                container.innerHTML += `
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-black text-blue-900 uppercase">Participante / Asignación (${tema.id})</p>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Nombre completo:</label>
+                            <input type="text" id="admin-name-${tema.id}" value="${currentName}" class="w-full bg-white border-2 border-slate-200 rounded-xl p-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-blue-700">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título / Descripción:</label>
+                            <input type="text" id="admin-title-${tema.id}" value="${currentTitle}" class="w-full bg-white border-2 border-slate-200 rounded-xl p-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:border-blue-700">
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function abrirAdmin() {
+            let pass = prompt("Ingresa la contraseña de administrador:");
+            if (pass === "admin2026") { 
+                construirInputsAdmin();
+                document.getElementById('adminModal').classList.remove('hidden'); 
+            } 
+            else if (pass !== null) { alert("Contraseña Incorrecta."); }
+        }
+
+        function guardarAdmin() {
+            temasData.forEach(tema => {
+                let nameVal = document.getElementById('admin-name-' + tema.id).value;
+                let titleVal = document.getElementById('admin-title-' + tema.id).value;
+                
+                localStorage.setItem('admin_name_' + tema.id, nameVal);
+                localStorage.setItem('admin_title_' + tema.id, titleVal);
+                
+                tema.currentName = nameVal;
+                tema.t = titleVal;
+            });
+            cargarNombres(); 
+            document.getElementById('adminModal').classList.add('hidden');
+            
+            document.getElementById('expositor').value = "";
+            document.querySelectorAll('input[name="ExpositorSelection"]').forEach(el => el.checked = false);
+            document.getElementById('tema-card').classList.add('hidden');
+            
+            showToast("¡Datos actualizados con éxito!");
+        }
+
+        function mostrarTemaUI(tema) {
+            let card = document.getElementById('tema-card');
+            document.getElementById('tema-titulo').innerText = tema.t;
+            document.getElementById('tema-cita').innerText = tema.c;
+            document.getElementById('tema-obj').innerText = tema.o;
+            card.classList.remove('hidden');
+        }
+
+        function nextStep(step) {
+            if(step === 2 && (!document.getElementById('expositor').value || !document.getElementById('telefono').value)) {
+                showToast("Por favor, selecciona tu nombre y anota tu WhatsApp 😅"); return;
+            }
+            if(step === 3 && !document.querySelector('input[name="Estado_Tema"]:checked')) {
+                showToast("Dinos cómo vas con tu preparación para continuar 📚"); return;
+            }
+
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('step-'+step).classList.add('active');
+            
+            document.getElementById('progress-bar').style.width = step === 1 ? '0%' : step === 2 ? '50%' : '100%';
+            
+            for(let i=1; i<=3; i++) {
+                let ind = document.getElementById('ind-'+i);
+                if(i <= step) {
+                    ind.classList.remove('opacity-50');
+                    ind.children[0].className = "w-10 h-10 rounded-full bg-gradient-to-br from-blue-900 to-indigo-950 text-white flex items-center justify-center font-bold shadow-lg ring-4 ring-white";
+                } else {
+                    ind.classList.add('opacity-50');
+                    ind.children[0].className = "w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold ring-4 ring-white";
+                }
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function prevStep(step) { nextStep(step); }
+
+        function toggleFile(show) {
+            let fileSec = document.getElementById('file-section');
+            if(show) { fileSec.style.display = 'block'; } 
+            else { 
+                fileSec.style.display = 'none'; 
+                document.getElementById('archivo').value = ""; 
+                document.getElementById('file-name').classList.add('hidden'); 
+            }
+        }
+
+        function updateFileName(input) {
+            let nameDiv = document.getElementById('file-name');
+            if(input.files.length > 0) {
+                nameDiv.children[1].innerText = input.files[0].name;
+                nameDiv.classList.remove('hidden');
+            }
+        }
+
+        function showToast(msg) {
+            let toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function enviarDatos() {
+            let form = document.getElementById('appForm');
+            if(!document.getElementById('expositor').value || !document.getElementById('telefono').value || !document.querySelector('input[name="Estado_Tema"]:checked')) { 
+                showToast("Revisa los datos obligatorios 🚨"); return; 
+            }
+
+            let btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+            btn.disabled = true;
+
+            let formData = new FormData(form);
+            let fileInput = document.getElementById('archivo');
+            let isFileReady = document.querySelector('input[name="Estado_Tema"]:checked').value === "Si";
+
+            if (isFileReady && fileInput.files.length === 0) {
+                showToast("¡Oye! Te olvidaste subir el archivo 📄");
+                btn.innerHTML = '<span>Enviar Ficha Pastoral</span> <i class="fas fa-paper-plane"></i>';
+                btn.disabled = false;
+                return;
+            }
+
+            let expVal = document.getElementById('expositor').value;
+            let foundTema = temasData.find(t => t.currentName === expVal);
+            document.getElementById('rep-expositor').innerText = expVal;
+            document.getElementById('rep-tema').innerText = foundTema.t;
+            document.getElementById('rep-fecha').innerText = foundTema.fh;
+            
+            formData.append("Expositor", expVal);
+
+            if (isFileReady && fileInput.files.length > 0) {
+                let file = fileInput.files[0];
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    formData.append("archivoData", reader.result.split(',')[1]);
+                    formData.append("archivoMimeType", file.type);
+                    formData.append("archivoNombre", file.name);
+                    ejecutarFetch(formData, btn);
+                };
+            } else { ejecutarFetch(formData, btn); }
+        }
+
+        function ejecutarFetch(formData, btn) {
+            let urlEncoded = new URLSearchParams(formData);
+            fetch(URL_APPS_SCRIPT, { method: "POST", body: urlEncoded, mode: "no-cors" })
+            .then(response => {
+                document.getElementById('appForm').classList.add('hidden');
+                document.getElementById('progress-container').classList.add('hidden');
+                document.getElementById('successScreen').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            })
+            .catch(error => {
+                showToast("Error de conexión. Intenta de nuevo 📡");
+                btn.innerHTML = '<span>Enviar Ficha Pastoral</span> <i class="fas fa-paper-plane"></i>';
+                btn.disabled = false;
+            });
+        }
+        // ==========================================
+        // LÓGICA DEL DASHBOARD INTEGRADO
+        // ==========================================
+        let donutChartInstance = null;
+        let barChartInstance = null;
+
+        function abrirDashboardAdmin() {
+            let pass = prompt("Ingresa la contraseña de administrador:");
+            if (pass === "admin2026") { 
+                document.querySelector('header').style.display = 'none';
+                document.querySelector('main.max-w-2xl').style.display = 'none';
+                document.getElementById('dashboard-main').style.display = 'block';
+                cargarDatosDashboard();
+            } 
+            else if (pass !== null) { alert("Contraseña Incorrecta."); }
+        }
+
+        function cerrarDashboard() {
+            document.querySelector('header').style.display = 'block';
+            document.querySelector('main.max-w-2xl').style.display = 'block';
+            document.getElementById('dashboard-main').style.display = 'none';
+        }
+
+        function cargarDatosDashboard() {
+            const syncIcon = document.getElementById('dash-sync-icon');
+            syncIcon.classList.add('fa-spin');
+            document.getElementById('dash-view').classList.add('hidden');
+            document.getElementById('dash-loading').classList.remove('hidden');
+
+            fetch(URL_APPS_SCRIPT)
+                .then(response => response.json())
+                .then(data => {
+                    procesarDatosDashboard(data);
+                    document.getElementById('dash-loading').classList.add('hidden');
+                    document.getElementById('dash-view').classList.remove('hidden');
+                    syncIcon.classList.remove('fa-spin');
+                })
+                .catch(error => {
+                    alert("Error cargando el dashboard. Revisa la consola o tu Apps Script.");
+                    syncIcon.classList.remove('fa-spin');
+                    document.getElementById('dash-loading').classList.add('hidden');
+                });
+        }
+
+        function procesarDatosDashboard(data) {
+            let total = 0, listos = 0, pendientes = 0;
+            let tiempoCounts = { "30 minutos": 0, "45 minutos": 0, "1 hora": 0, "Más de 1 hora": 0 };
+            
+            const tbody = document.getElementById('dash-table-body');
+            tbody.innerHTML = '';
+
+            if (data && data.length > 0) {
+                total = data.length;
+                data.forEach(row => {
+                    let expositor = row[1] || "N/A";
+                    let estado = row[3] || "No";
+                    let tiempo = row[5] || "N/A";
+                    let reqs = row[7] || "Ninguno";
+
+                    if (estado.toLowerCase() === 'si') listos++;
+                    else pendientes++;
+
+                    if (tiempoCounts[tiempo] !== undefined) tiempoCounts[tiempo]++;
+                    else tiempoCounts["Más de 1 hora"]++; // Fallback
+
+                    let estadoBadge = estado.toLowerCase() === 'si' 
+                        ? `<span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-[10px] font-bold">Listo</span>`
+                        : `<span class="bg-amber-100 text-amber-700 px-2 py-1 rounded-full text-[10px] font-bold">Pendiente</span>`;
+
+                    // Formatear requerimientos como lista
+                    let reqListItems = reqs.split(',').map(r => r.trim()).filter(r => r.length > 0)
+                                        .map(r => `<li class="flex items-start gap-1"><i class="fas fa-check-circle text-blue-400 mt-0.5 text-[10px]"></i> <span>${r}</span></li>`)
+                                        .join('');
+                    let reqsFormatted = reqListItems.length > 0 ? `<ul class="space-y-1 mt-1">${reqListItems}</ul>` : `<span class="text-slate-400 italic">Ninguno</span>`;
+
+                    // Botón de WhatsApp para la encargada (Yaneila)
+                    let itemsArray = reqs.split(',').map(r => r.trim()).filter(r => r.length > 0);
+                    let waMessage = encodeURIComponent(`Hola Yaneila, espero que estés muy bien.\n\nTe comparto los requerimientos logísticos y materiales que ha solicitado *${expositor}* para su intervención:\n\n${itemsArray.map(r => '🔸 ' + r.charAt(0).toUpperCase() + r.slice(1)).join('\n')}\n\n¡Mil gracias por tu valioso apoyo en la coordinación! 🙏`);
+                    let waLink = `https://wa.me/?text=${waMessage}`; // Si tienen un número fijo: https://wa.me/59170000000?text=...
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-4 py-4 font-bold text-slate-700 align-top">${expositor}</td>
+                            <td class="px-4 py-4 align-top">${estadoBadge}</td>
+                            <td class="px-4 py-4 text-xs text-slate-500 align-top">${tiempo}</td>
+                            <td class="px-4 py-4 text-xs text-slate-600 align-top">
+                                ${reqsFormatted}
+                                <a href="${waLink}" target="_blank" class="mt-3 inline-flex items-center gap-1 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 px-3 py-1.5 rounded-lg font-bold transition-colors">
+                                    <i class="fab fa-whatsapp"></i> Enviar a Encargada
+                                </a>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            document.getElementById('kpi-total').innerText = total;
+            document.getElementById('kpi-listas').innerText = listos;
+            document.getElementById('kpi-pendientes').innerText = pendientes;
+            document.getElementById('kpi-porcentaje').innerText = total > 0 ? Math.round((listos/total)*100) + '%' : '0%';
+
+            dibujarGraficos(listos, pendientes, tiempoCounts);
+        }
+
+        function dibujarGraficos(listos, pendientes, tiempoCounts) {
+            if (donutChartInstance) donutChartInstance.destroy();
+            if (barChartInstance) barChartInstance.destroy();
+
+            const ctxDonut = document.getElementById('donutChart').getContext('2d');
+            donutChartInstance = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Listos', 'En Preparación'],
+                    datasets: [{
+                        data: [listos, pendientes],
+                        backgroundColor: ['#10B981', '#F59E0B'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(tiempoCounts),
+                    datasets: [{
+                        label: 'Cant. de Sesiones',
+                        data: Object.values(tiempoCounts),
+                        backgroundColor: '#3B82F6',
+                        borderRadius: 4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            });
+        }
+
+        function generarPDFDashboard() {
+            const element = document.getElementById('dash-content-area');
+            const opt = {
+                margin: 0.5,
+                filename: 'Dashboard_Retiro_2026.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
 </body>
 </html>
